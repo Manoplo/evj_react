@@ -75,13 +75,13 @@ export default function NavBar({}) {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>MAMINANI</Logo>
+          <Logo>EL VESTIDOR DE JULIETTA</Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          <MenuItem>REGISTRARSE</MenuItem>
+          <MenuItem>ACCEDER</MenuItem>
           <MenuItem>
-            <Badge badgeContent={0} color="primary">
+            <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlined />
             </Badge>
           </MenuItem>
