@@ -33,6 +33,7 @@ const Button = styled.button`
   padding: 13px;
   border: none;
   cursor: pointer;
+  color: gray;
   font-size: 1.5rem;
 `;
 

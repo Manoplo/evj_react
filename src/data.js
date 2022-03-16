@@ -39,3 +39,37 @@ export const categories = [
     desc: "A pair of nice shoes.",
   },
 ];
+
+export const products = [
+  {
+    id: 1,
+    img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+
+  },
+  {
+    id: 2,
+    img: "https://images.pexels.com/photos/336372/pexels-photo-336372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+ 
+  },
+  {
+    id: 3,
+    img: "https://images.pexels.com/photos/601316/pexels-photo-601316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+   
+  },
+  {
+    id: 4,
+    img: "https://images.pexels.com/photos/45981/pexels-photo-45981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  
+  },
+  {
+    id: 5,
+    img: "https://images.pexels.com/photos/3661622/pexels-photo-3661622.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  
+  },
+  {
+    id: 6,
+    img: "https://images.pexels.com/photos/5701644/pexels-photo-5701644.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+   
+  },
+
+]
