@@ -1,9 +1,19 @@
-import { Facebook, Instagram, Twitter } from "@material-ui/icons";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  MapOutlined,
+  PhoneIphone,
+  EmailOutlined,
+} from "@material-ui/icons";
+
 import styled from "styled-components";
 
 const Footer = () => {
   const Container = styled.div`
     display: flex;
+    width: 90%;
+    margin: 0 auto;
   `;
 
   const Left = styled.div`
@@ -58,6 +68,13 @@ const Footer = () => {
     padding: 20px;
   `;
 
+  const ContactItem = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  `;
+
   return (
     <Container>
       <Left>
@@ -93,7 +110,21 @@ const Footer = () => {
           <ListItem>Términos</ListItem>
         </List>
       </Center>
-      <Right></Right>
+      <Right>
+        <Title>Contact</Title>
+        <ContactItem>
+          <MapOutlined />
+          Plaza Lala 15, Jerez de la Frontera.
+        </ContactItem>
+        <ContactItem>
+          <PhoneIphone />
+          Teléfonos 654 654 654/956 787 878
+        </ContactItem>
+        <ContactItem>
+          <EmailOutlined />
+          elvestidordejulietta@gmail.com
+        </ContactItem>
+      </Right>
     </Container>
   );
 };

@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { MenuItem, Badge } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 /**
  * STYLED COMPONENTS
  */
 
 const Container = styled.nav`
-  heighth: 60px;
+  height: 80px;
 `;
 
 const Wrapper = styled.div`
@@ -59,7 +60,7 @@ const Right = styled.div`
 
 /**
  *
- * @param {*} param0
+ * @param {*} param
  * @returns JSX Element
  */
 
@@ -78,13 +79,19 @@ export default function NavBar({}) {
           <Logo>EL VESTIDOR DE JULIETTA</Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTRARSE</MenuItem>
-          <MenuItem>ACCEDER</MenuItem>
-          <MenuItem>
-            <Badge badgeContent={4} color="primary">
-              <ShoppingCartOutlined />
-            </Badge>
-          </MenuItem>
+          <Link to="/registro">
+            <MenuItem>REGISTRARSE</MenuItem>
+          </Link>
+          <Link to="/login">
+            <MenuItem>INICIAR SESIÓN</MenuItem>
+          </Link>
+          <Link to="/cart">
+            <MenuItem style={{ height: "45px" }}>
+              <Badge badgeContent={4} color="primary">
+                <ShoppingCartOutlined />
+              </Badge>
+            </MenuItem>
+          </Link>
         </Right>
       </Wrapper>
     </Container>
