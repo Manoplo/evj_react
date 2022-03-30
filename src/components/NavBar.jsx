@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { MenuItem, Badge } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { mobile } from "../responsive.js";
 
 /**
  * STYLED COMPONENTS
@@ -10,6 +11,9 @@ import { Link } from "react-router-dom";
 
 const Container = styled.nav`
   height: 80px;
+  ${mobile({
+    height: "50px",
+  })}
 `;
 
 const Wrapper = styled.div`
@@ -17,6 +21,9 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${mobile({
+    padding: "10px 0px",
+  })}
 `;
 
 const Left = styled.div`
@@ -35,16 +42,18 @@ const SearchContainer = styled.div`
 
 const Input = styled.input`
   border: none;
-`;
-
-const Lenguage = styled.span`
-  font-size: 14px;
-  cursor: pointer;
+  ${mobile({
+    width: "50px",
+  })}
 `;
 
 const Logo = styled.h1`
   font-weight: bold;
   font-size: 2rem;
+
+  ${mobile({
+    fontSize: "24px",
+  })}
 `;
 
 const Center = styled.div`
@@ -69,9 +78,8 @@ export default function NavBar({}) {
     <Container>
       <Wrapper>
         <Left>
-          <Lenguage>ES</Lenguage>
           <SearchContainer>
-            <Input />
+            <Input placeholder="Buscar en la tienda..." />
             <Search style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
         </Left>
