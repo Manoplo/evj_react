@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import NavBar from "../components/NavBar";
+import NavBarFixed from "../components/NavBarFixed";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
@@ -132,8 +132,7 @@ const Button = styled.button`
 const Cart = () => {
   return (
     <Container>
-      <NavBar />
-      <Announcement />
+      <NavBarFixed />
       <Wrapper>
         <Title>TU CARRO</Title>
         <Top>

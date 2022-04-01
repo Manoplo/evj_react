@@ -6,6 +6,37 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.fp-controlArrow.fp-prev {
+  border-color: transparent rgb(0, 0, 0) transparent transparent !important;
+}
+.fp-controlArrow.fp-next {
+  border-color: transparent transparent transparent rgb(0, 0, 0)!important;
+
+}
+
+#fp-nav ul {
+  right: 100%;
+  position: absolute;
+  z-index: -400;
+}
+
+@media screen and (max-width: 768px) {
+  .fp-controlArrow.fp-prev {
+    display: none;
+  }
+  .fp-controlArrow.fp-next {
+    display: none;
+  }
+}
+  
+
+
+
+h1 {
+  font-family: 'Bodoni Moda', serif;
+  font-weight: 400;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

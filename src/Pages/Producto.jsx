@@ -93,7 +93,6 @@ const Producto = () => {
   return (
     <Container>
       <NavBar />
-      <Announcement />
 
       <Wrapper>
         <ImgContainer>

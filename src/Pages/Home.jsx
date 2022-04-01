@@ -5,12 +5,13 @@ import Categories from "../components/Categories";
 import Products from "../components/Products";
 import NewsLetter from "../components/NewsLetter";
 import Footer from "../components/Footer";
+import FullPageSlider from "../components/FullPageSlider";
 const Home = () => {
   return (
     <>
-      <Announcement />
       <NavBar />
-      <Slider />
+      {/* <Slider /> */}
+      <FullPageSlider />
       <h1>CATEGORÍAS</h1>
       <Categories />
       <h1>NOVEDADES</h1>

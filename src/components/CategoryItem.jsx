@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   display: flex;
@@ -27,6 +29,9 @@ const Title = styled.h1`
   font-size: 4rem;
   color: white;
   font-weight: bold;
+  ${mobile({
+    fontSize: "2rem",
+  })}
 `;
 
 const Button = styled.button`
@@ -35,15 +40,23 @@ const Button = styled.button`
   cursor: pointer;
   color: gray;
   font-size: 1.5rem;
+
+  &:hover {
+    background-color: #f5f5f5;
+    color: black;
+  }
 `;
 
 const CategoryItem = ({ item }) => {
   return (
     <Container>
-      <Image src={item.img} />
+      <Image src={item.image} />
       <Info>
-        <Title>{item.title}</Title>
-        <Button>COMPRAR AHORA</Button>
+        <Title>{item.name}</Title>
+
+        <Link to={`/categorias/${item.slug}`}>
+          <Button>IR A CATEGORÍA</Button>
+        </Link>
       </Info>
     </Container>
   );

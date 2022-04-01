@@ -4,6 +4,7 @@ import ProductList from "./Pages/ProductList";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Cart from "./Pages/Cart";
+import CategoriesList from "./Pages/CategoriesList";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -12,8 +13,10 @@ function App() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route index element={<Home />} />
-        <Route path="productos" element={<ProductList />} />
-        <Route path="productos/:productId" element={<Producto />} />
+        <Route path="productos" element={<ProductList />}>
+          <Route path="productos/:productId" element={<Producto />} />
+        </Route>
+        <Route path="categorias" element={<CategoriesList />} />
         <Route path="registro" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="cart" element={<Cart />} />

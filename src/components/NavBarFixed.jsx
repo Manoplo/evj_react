@@ -7,11 +7,7 @@ import { mobile } from "../responsive";
 const Container = styled.div`
   height: 80px;
   ${mobile({ height: "50px" })}
-  position: fixed;
-  top: 0;
-  width: 100%;
   background-color: transparent;
-  z-index: 100;
 `;
 
 const Wrapper = styled.div`
@@ -48,7 +44,7 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-weight: bold;
-  font-size: 60px;
+  font-size: 40px;
   ${mobile({ fontSize: "24px" })}
 `;
 const Right = styled.div`
@@ -68,7 +64,7 @@ const MenuItem = styled.div`
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
-const Navbar = () => {
+const NavBarFixed = () => {
   return (
     <Container>
       <Wrapper>
@@ -94,4 +90,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBarFixed;

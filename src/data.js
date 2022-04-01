@@ -25,18 +25,21 @@ export const categories = [
     img: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80",
     title: "Blusas",
     desc: "A red shirt - it is pretty red!",
+    type: 'blusas'
   },
   {
     id: 2,
     img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
     title: "Vestidos",
     desc: "A nice pair of trousers.",
+    type: 'vestidos'
   },
   {
     id: 3,
     img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     title: "Accesorios",
     desc: "A pair of nice shoes.",
+    type: 'accesorios'
   },
 ];
 
