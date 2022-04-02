@@ -1,8 +1,10 @@
 import { Badge } from "@material-ui/core";
-import { Search, ShoppingCartOutlined } from "@material-ui/icons";
-import React from "react";
+import { Search, ShoppingCartOutlined, MenuOutlined } from "@material-ui/icons";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import SideBar from "./SideBar";
 
 const Container = styled.div`
   height: 80px;
@@ -12,6 +14,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   /* padding: 10px 20px; */
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -64,25 +67,49 @@ const MenuItem = styled.div`
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
+const MenuContainer = styled.div`
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-left: 60px;
+`;
+
 const NavBarFixed = () => {
+  const [open, setOpen] = useState(false);
+
   return (
     <Container>
       <Wrapper>
+        <SideBar open={open} onClick={() => setOpen(!open)} />
         <Left>
-          <SearchContainer>
+          <MenuContainer>
+            <MenuOutlined onClick={() => setOpen(!open)} />
+          </MenuContainer>
+          {/*   <SearchContainer>
             <Input placeholder="Search" />
             <Search style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer>
+          </SearchContainer> */}
         </Left>
         <Center>
-          <Logo>EVJ</Logo>
+          <Logo>
+            <Link to={"/"}>
+              {" "}
+              <span className="logo">EVJ</span>{" "}
+            </Link>
+          </Logo>
         </Center>
         <Right>
-          <MenuItem>INICIAR SESIÓN</MenuItem>
+          <Link to={"/login"}>
+            <MenuItem>INICIAR SESIÓN</MenuItem>
+          </Link>
           <MenuItem>
-            <Badge badgeContent={4} color="primary">
-              <ShoppingCartOutlined />
-            </Badge>
+            <Link to={"/cart"}>
+              <Badge badgeContent={4} color="primary">
+                <ShoppingCartOutlined />
+              </Badge>
+            </Link>
           </MenuItem>
         </Right>
       </Wrapper>

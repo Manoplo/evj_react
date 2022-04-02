@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { products } from "../data";
+/* import { products } from "../data"; */
 import Product from "./Product";
 
 const Container = styled.div`
@@ -10,7 +10,7 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-const Products = () => {
+const Products = ({ products }) => {
   return (
     <Container>
       {products.map((product) => {

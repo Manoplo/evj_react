@@ -134,11 +134,11 @@ const Cart = () => {
     <Container>
       <NavBarFixed />
       <Wrapper>
-        <Title>TU CARRO</Title>
+        <Title>CESTA DE LA COMPRA</Title>
         <Top>
           <TopButton>CONTINUA COMPRANDO</TopButton>
           <TopTexts>
-            <TopText>Bolsa de la compra(2)</TopText>
+            <TopText>Cesta de la compra(2)</TopText>
             <TopText>Lista de deseos(0)</TopText>
           </TopTexts>
         </Top>

@@ -63,3 +63,11 @@ a {
   color: black;
   text-decoration: none;
 }
+
+.logo {
+  transition: 0.2s all ease-in-out;
+}
+
+.logo:hover {
+  color: lightcoral;
+}

@@ -26,7 +26,7 @@ const Categories = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(
+      const result = await axios.get(
         "http://elvestidordejulietta.test/api/v1/categories"
       );
       setCategories(result.data);

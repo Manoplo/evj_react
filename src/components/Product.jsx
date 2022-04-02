@@ -3,6 +3,8 @@ import {
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@material-ui/icons";
+import { Link, useParams } from "react-router-dom";
+
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -62,15 +64,19 @@ const Image = styled.img`
 `;
 
 const Product = ({ item }) => {
+  const { categorySlug } = useParams();
+
   return (
     <Container>
-      <Image src={item.img} />
+      <Image src={item.image} />
       <Info>
         <Icon>
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
-          <SearchOutlined />
+          <Link to={`/categorias/${categorySlug}/${item.id}`}>
+            <SearchOutlined />
+          </Link>
         </Icon>
         <Icon>
           <FavoriteBorderOutlined />
