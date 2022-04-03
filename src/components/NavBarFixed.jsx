@@ -9,15 +9,17 @@ import SideBar from "./SideBar";
 const Container = styled.div`
   height: 80px;
   ${mobile({ height: "50px" })}
-  background-color: transparent;
 `;
 
 const Wrapper = styled.div`
   /* padding: 10px 20px; */
-
+  position: fixed;
+  width: 100%;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
   ${mobile({ padding: "10px 0px" })}
 `;
 

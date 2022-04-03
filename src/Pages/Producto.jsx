@@ -1,15 +1,23 @@
 import styled from "styled-components";
-import Announcement from "../components/Announcement";
-import NavBar from "../components/NavBar";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Add, Remove, ShoppingBasket } from "@material-ui/icons";
+import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
+import { InnerImageZoom } from "react-inner-image-zoom";
 import Footer from "../components/Footer";
 import NewsLetter from "../components/NewsLetter";
-import { Add, Remove, ShoppingBasket } from "@material-ui/icons";
+import NavBarFixed from "../components/NavBarFixed";
+import axios from "axios";
+import { mobile } from "../responsive";
 
 const Container = styled.div``;
 
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
+  ${mobile({
+    flexDirection: "column",
+  })}
 `;
 const ImgContainer = styled.div`
   flex: 1;
@@ -24,6 +32,9 @@ const Img = styled.img`
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
+  ${mobile({
+    padding: "0px",
+  })}
 `;
 const Title = styled.h1`
   font-weight: 200;
@@ -90,26 +101,55 @@ const Button = styled.button`
 `;
 
 const Producto = () => {
+  const [amount, setAmount] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [size, setSize] = useState("");
+  const [product, setProduct] = useState({});
+
+  const { productId, categorySlug } = useParams();
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const result = await axios.get(
+          `http://elvestidordejulietta.test/api/v1/categories/${categorySlug}/${productId}`
+        );
+        console.log(result);
+        setProduct(result.data);
+        setTotal(result.data.price);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProduct();
+  }, [productId, categorySlug]);
+
+  const increaseAmount = () => {
+    setAmount(amount + 1);
+    setTotal(total + product.price);
+  };
+  const decreaseAmount = () => {
+    if (amount < 2) return;
+
+    setAmount(amount - 1);
+    setTotal(total - product.price);
+  };
+  const img =
+    "https://fotografias.lasexta.com/clipping/cmsimages02/2020/09/21/86828440-B1FB-43AC-9E9C-A94AC6A4B8BD/default.jpg?crop=1300,731,x0,y0&width=1900&height=1069&optimize=low";
   return (
     <Container>
-      <NavBar />
+      <NavBarFixed />
 
       <Wrapper>
         <ImgContainer>
-          <Img
-            src="https://images.pexels.com/photos/3661622/pexels-photo-3661622.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            alt="producto"
-          />
+          {/*  <Img src={product.image} alt="producto" /> */}
+          <InnerImageZoom src={product.image} className="zoomed_image" />
         </ImgContainer>
         <InfoContainer>
-          <Title>Lorem</Title>
-          <Desc>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
-            recusandae iusto laboriosam quis veritatis quasi vero laudantium
-            nulla, architecto nobis omnis. In numquam quidem incidunt pariatur
-            porro quo nemo dicta.
-          </Desc>
-          <Price>20€</Price>
+          <Title>{product?.name}</Title>
+          <Desc>{product?.description}</Desc>
+          <Price>{total}€</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Talla</FilterTitle>
@@ -124,9 +164,9 @@ const Producto = () => {
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
+              <Remove onClick={decreaseAmount} />
+              <Amount>{amount}</Amount>
+              <Add onClick={increaseAmount} />
             </AmountContainer>
           </AddContainer>
           <Button>

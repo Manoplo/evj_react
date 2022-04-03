@@ -55,46 +55,42 @@ const Category = () => {
   return (
     <Container>
       <NavBarFixed />
-      {error ? (
-        <h1>Error</h1>
-      ) : (
-        <>
-          <Title>{categorySlug}</Title>
-          <FilterContainer>
-            <Filter>
-              <FilterText>Filtrar productos:</FilterText>
-              <Select>
-                <Option disabled selected>
-                  Color
-                </Option>
-                <Option>Oscuros</Option>
-                <Option>Claros</Option>
-                <Option>Estampados</Option>
-              </Select>
-              <Select>
-                <Option disabled selected>
-                  Tamaños
-                </Option>
-                <Option>XS</Option>
-                <Option>S</Option>
-                <Option>M</Option>
-                <Option>L</Option>
-                <Option>XL</Option>
-              </Select>
-            </Filter>
-            <Filter>
-              <FilterText>Ordenar productos:</FilterText>
-              <Select>
-                <Option selected>Más nuevo</Option>
-                <Option>Precio(más)</Option>
-                <Option>Precio(menos)</Option>
-              </Select>
-            </Filter>
-          </FilterContainer>
-          {/* PRODUCTS HERE */}
-          <Products products={products} />
-        </>
-      )}
+
+      <Title>{categorySlug}</Title>
+      <FilterContainer>
+        <Filter>
+          <FilterText>Filtrar productos:</FilterText>
+          <Select>
+            <Option disabled selected>
+              Color
+            </Option>
+            <Option>Oscuros</Option>
+            <Option>Claros</Option>
+            <Option>Estampados</Option>
+          </Select>
+          <Select>
+            <Option disabled selected>
+              Tamaños
+            </Option>
+            <Option>XS</Option>
+            <Option>S</Option>
+            <Option>M</Option>
+            <Option>L</Option>
+            <Option>XL</Option>
+          </Select>
+        </Filter>
+        <Filter>
+          <FilterText>Ordenar productos:</FilterText>
+          <Select>
+            <Option selected>Más nuevo</Option>
+            <Option>Precio(más)</Option>
+            <Option>Precio(menos)</Option>
+          </Select>
+        </Filter>
+      </FilterContainer>
+      {/* PRODUCTS HERE */}
+      <Products products={products} />
+      {/* PRODUCTS END HERE */}
       <NewsLetter />
       <Footer />
     </Container>

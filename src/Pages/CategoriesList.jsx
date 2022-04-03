@@ -1,10 +1,11 @@
 import Announcement from "../components/Announcement";
 import styled from "styled-components";
-import NavBar from "../components/NavBar";
+
 import Footer from "../components/Footer";
 import NewsLetter from "../components/NewsLetter";
 import Products from "../components/Products";
 import Categories from "../components/Categories";
+import NavBarFixed from "../components/NavBarFixed";
 
 const Container = styled.div``;
 const Title = styled.h1`
@@ -33,7 +34,7 @@ const Option = styled.option``;
 const CategoriesList = () => {
   return (
     <Container>
-      <NavBar />
+      <NavBarFixed />
 
       <Title>Vestidos</Title>
       <FilterContainer>

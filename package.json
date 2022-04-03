@@ -14,6 +14,7 @@
     "axios": "^0.26.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-inner-image-zoom": "^3.0.0",
     "react-router-dom": "^6.2.2",
     "styled-components": "^5.3.3"
   },
