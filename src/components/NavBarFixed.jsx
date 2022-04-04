@@ -1,6 +1,8 @@
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined, MenuOutlined } from "@material-ui/icons";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectItems } from "../app/slices/cartSlice";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive";
@@ -80,6 +82,7 @@ const MenuContainer = styled.div`
 
 const NavBarFixed = () => {
   const [open, setOpen] = useState(false);
+  const numberOfItems = useSelector(selectItems).length;
 
   return (
     <Container>
@@ -89,10 +92,6 @@ const NavBarFixed = () => {
           <MenuContainer>
             <MenuOutlined onClick={() => setOpen(!open)} />
           </MenuContainer>
-          {/*   <SearchContainer>
-            <Input placeholder="Search" />
-            <Search style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer> */}
         </Left>
         <Center>
           <Logo>
@@ -108,7 +107,7 @@ const NavBarFixed = () => {
           </Link>
           <MenuItem>
             <Link to={"/cart"}>
-              <Badge badgeContent={4} color="primary">
+              <Badge badgeContent={numberOfItems} color="primary">
                 <ShoppingCartOutlined />
               </Badge>
             </Link>

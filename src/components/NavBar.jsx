@@ -1,6 +1,8 @@
 import { Badge, Menu } from "@material-ui/core";
 import { MenuOutlined, Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectItems } from "../app/slices/cartSlice";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive";
@@ -27,6 +29,7 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  margin-top: 5px;
 `;
 
 const SearchContainer = styled.div`
@@ -54,13 +57,23 @@ const Center = styled.div`
 const Logo = styled.h1`
   font-weight: bold;
   font-size: 60px;
-  ${mobile({ fontSize: "24px" })}
+  margin-bottom: -20px;
+  margin-top: 5px;
+  ${mobile({ fontSize: "24px", marginBottom: "0" })}
 `;
+
+const SubLogo = styled.span`
+  font-size: 13px;
+  margin-bottom: -200px;
+  ${mobile({ display: "none" })}
+`;
+
 const Right = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 5px;
 
   ${mobile({ flex: 2, justifyContent: "center" })}
 `;
@@ -84,6 +97,7 @@ const MenuContainer = styled.div`
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const numberOfItems = useSelector(selectItems).length;
 
   return (
     <Container>
@@ -96,6 +110,7 @@ const Navbar = () => {
         </Left>
         <Center>
           <Logo>EVJ</Logo>
+          <SubLogo>El vestidor de Julietta</SubLogo>
         </Center>
         <Right>
           <Link to={"/login"}>
@@ -103,7 +118,7 @@ const Navbar = () => {
           </Link>
           <MenuItem>
             <Link to={"/cart"}>
-              <Badge badgeContent={4} color="primary">
+              <Badge badgeContent={numberOfItems} color="primary">
                 <ShoppingCartOutlined />
               </Badge>
             </Link>

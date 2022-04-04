@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { addItem } from "../app/slices/cartSlice";
+import { useDispatch } from "react-redux";
 import { Add, Remove, ShoppingBasket } from "@material-ui/icons";
-import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import { InnerImageZoom } from "react-inner-image-zoom";
+import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import Footer from "../components/Footer";
 import NewsLetter from "../components/NewsLetter";
 import NavBarFixed from "../components/NavBarFixed";
@@ -107,6 +109,8 @@ const Producto = () => {
   const [product, setProduct] = useState({});
 
   const { productId, categorySlug } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -114,11 +118,11 @@ const Producto = () => {
         const result = await axios.get(
           `http://elvestidordejulietta.test/api/v1/categories/${categorySlug}/${productId}`
         );
-        console.log(result);
+
         setProduct(result.data);
         setTotal(result.data.price);
       } catch (error) {
-        console.log(error);
+        navigate(`/categorias/${categorySlug}`);
       }
     };
 
@@ -135,16 +139,14 @@ const Producto = () => {
     setAmount(amount - 1);
     setTotal(total - product.price);
   };
-  const img =
-    "https://fotografias.lasexta.com/clipping/cmsimages02/2020/09/21/86828440-B1FB-43AC-9E9C-A94AC6A4B8BD/default.jpg?crop=1300,731,x0,y0&width=1900&height=1069&optimize=low";
+
   return (
     <Container>
       <NavBarFixed />
 
       <Wrapper>
         <ImgContainer>
-          {/*  <Img src={product.image} alt="producto" /> */}
-          <InnerImageZoom src={product.image} className="zoomed_image" />
+          <InnerImageZoom src={product?.image} className="zoomed_image" />
         </ImgContainer>
         <InfoContainer>
           <Title>{product?.name}</Title>
@@ -164,12 +166,16 @@ const Producto = () => {
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove onClick={decreaseAmount} />
+              <Remove onClick={decreaseAmount} style={{ cursor: "pointer" }} />
               <Amount>{amount}</Amount>
-              <Add onClick={increaseAmount} />
+              <Add onClick={increaseAmount} style={{ cursor: "pointer" }} />
             </AmountContainer>
           </AddContainer>
-          <Button>
+          <Button
+            onClick={() =>
+              dispatch(addItem({ ...product, quantity: amount, price: total }))
+            }
+          >
             {" "}
             <ShoppingBasket /> AÑADIR AL CARRITO
           </Button>

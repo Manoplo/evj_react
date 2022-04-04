@@ -1,12 +1,22 @@
 import styled from "styled-components";
 import NavBarFixed from "../components/NavBarFixed";
-import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
-import { Add, Remove } from "@material-ui/icons";
+import {
+  Add,
+  Remove,
+  ShoppingBasket,
+  ShoppingBasketOutlined,
+} from "@material-ui/icons";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { removeItem, selectItems } from "../app/slices/cartSlice";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 20px;
+  width: 80%;
+  margin: 0 auto;
 `;
 const Title = styled.h1`
   font-size: 40px;
@@ -20,13 +30,22 @@ const Top = styled.div`
 `;
 
 const TopButton = styled.button`
-  padding: 10px;
+  padding: 16px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   cursor: pointer;
-  border: ${(props) => props.type === "filled" && "none"};
+  border: 1px solid lightpink;
   background-color: ${(props) =>
     props.type === "filled" ? "black" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: lightpink;
+    color: white;
+  }
 `;
 
 const TopTexts = styled.div``;
@@ -82,6 +101,9 @@ const PriceDetail = styled.div`
 const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
+  border: 1px solid lightpink;
+  border-radius: 10px;
+  padding: 5px;
   margin-bottom: 20px;
 `;
 const ProductAmount = styled.span`
@@ -128,85 +150,122 @@ const Button = styled.button`
   color: white;
   font-weight: 600;
 `;
+const RemoveButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  background-color: white;
+  color: black;
+  font-weight: 600;
+  padding: 16px;
+`;
+
+const NoProducts = styled.h1`
+  font-size: 40px;
+  font-weight: 300;
+  text-align: center;
+  margin-top: 20vh;
+  font-family: "Urbanist", sans-serif;
+`;
 
 const Cart = () => {
+  // BRINGS ITEMS FROM THE REDUX STORE
+  const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [sendAmount, setSendAmount] = useState(0);
+  const items = useSelector(selectItems);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const clearItem = (item) => {
+    dispatch(removeItem(item));
+  };
+
+  useEffect(() => {
+    setProducts([...items]);
+  }, [items]);
+
+  useEffect(() => {
+    let totalAmount = 0;
+    products.forEach((product) => {
+      totalAmount += product.price;
+    });
+    setTotal(totalAmount);
+  }, [products]);
+
+  useEffect(() => {
+    total < 70 && setSendAmount(3.5);
+    products.length === 0 && setSendAmount(0);
+  }, [total, products]);
+
+  console.log(items);
+
   return (
     <Container>
       <NavBarFixed />
       <Wrapper>
         <Title>CESTA DE LA COMPRA</Title>
         <Top>
-          <TopButton>CONTINUA COMPRANDO</TopButton>
+          <TopButton onClick={() => navigate("/categorias")}>
+            <ShoppingBasketOutlined />
+            CONTINUA COMPRANDO
+          </TopButton>
           <TopTexts>
-            <TopText>Cesta de la compra(2)</TopText>
+            <TopText>Cesta de la compra({products.length})</TopText>
             <TopText>Lista de deseos(0)</TopText>
           </TopTexts>
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src="https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1980&q=80" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> TRAJE CORTO
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 37
-                  </ProductId>
-                  <ProductSize>
-                    <b>Talla:</b> S
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>30€</ProductPrice>
-              </PriceDetail>
-            </Product>
-            <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1131&q=80" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> TRAJE CORTO
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 37
-                  </ProductId>
-                  <ProductSize>
-                    <b>Talla:</b> S
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>30€</ProductPrice>
-              </PriceDetail>
-            </Product>
+            {products.length > 0 &&
+              products.map((item) => (
+                <>
+                  <Product>
+                    <ProductDetail>
+                      <Image src={item.image} />
+                      <Details>
+                        <ProductName>
+                          <b>Product:</b> {item.name}
+                        </ProductName>
+                        <ProductId>
+                          <b>ID:</b> {item.id}
+                        </ProductId>
+                        <ProductSize>
+                          <b>Talla:</b> S
+                        </ProductSize>
+                        <RemoveButton onClick={() => clearItem(item)}>
+                          QUITAR PRODUCTO
+                        </RemoveButton>
+                      </Details>
+                    </ProductDetail>
+                    <PriceDetail>
+                      <ProductAmountContainer>
+                        <ProductAmount>{item.quantity}</ProductAmount>
+                      </ProductAmountContainer>
+                      <ProductPrice>{item.price}€</ProductPrice>
+                    </PriceDetail>
+                  </Product>
+                  <Hr />
+                </>
+              ))}
+            {products.length === 0 && (
+              <NoProducts> No hay productos en tu cesta</NoProducts>
+            )}
           </Info>
           <Summary>
             <SummaryTitle>RESUMEN DEL PEDIDO</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>60€</SummaryItemPrice>
+              <SummaryItemPrice>{total.toFixed(2)}€</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Envío</SummaryItemText>
-              <SummaryItemPrice>3.50€</SummaryItemPrice>
+              <SummaryItemPrice>{sendAmount}€</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>TOTAL</SummaryItemText>
-              <SummaryItemPrice>63.50€</SummaryItemPrice>
+              <SummaryItemPrice>
+                {(total + sendAmount).toFixed(2)}€
+              </SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <Button>COMPRAR AHORA</Button>

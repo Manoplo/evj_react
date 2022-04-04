@@ -11,10 +11,12 @@
     "@fullpage/react-fullpage": "^0.1.22",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
+    "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.26.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-inner-image-zoom": "^3.0.0",
+    "react-redux": "^7.2.8",
     "react-router-dom": "^6.2.2",
     "styled-components": "^5.3.3"
   },
