@@ -75,6 +75,7 @@ const Product = styled.div`
 const ProductDetail = styled.div`
   flex: 2;
   display: flex;
+  margin-bottom: 20px;
 `;
 
 const Details = styled.div`
@@ -82,6 +83,7 @@ const Details = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  gap: 10px;
 `;
 
 const ProductName = styled.span``;
@@ -157,11 +159,18 @@ const RemoveButton = styled.button`
   color: black;
   font-weight: 600;
   padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;
 
 const NoProducts = styled.h1`
   font-size: 40px;
-  font-weight: 300;
+  font-weight: 100;
   text-align: center;
   margin-top: 20vh;
   font-family: "Urbanist", sans-serif;

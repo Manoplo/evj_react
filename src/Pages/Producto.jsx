@@ -5,6 +5,7 @@ import { addItem } from "../app/slices/cartSlice";
 import { useDispatch } from "react-redux";
 import { Add, Remove, ShoppingBasket } from "@material-ui/icons";
 import { InnerImageZoom } from "react-inner-image-zoom";
+import toast, { Toaster } from "react-hot-toast";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import Footer from "../components/Footer";
 import NewsLetter from "../components/NewsLetter";
@@ -112,6 +113,9 @@ const Producto = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const notify = () =>
+    toast("Producto agregado al carrito", { position: "top-right" });
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -138,6 +142,23 @@ const Producto = () => {
 
     setAmount(amount - 1);
     setTotal(total - product.price);
+  };
+
+  const addToCart = () => {
+    dispatch(addItem({ ...product, quantity: amount, price: total }));
+    // Toast animation
+    toast.success("PRODUCTO AÑADIDO AL CARRITO", {
+      style: {
+        border: "1px solid lightpink",
+        padding: "16px",
+        color: "black",
+        fontFamily: "Urbanist",
+      },
+      iconTheme: {
+        primary: "lightpink",
+        secondary: "#FFFAEE",
+      },
+    });
   };
 
   return (
@@ -171,13 +192,10 @@ const Producto = () => {
               <Add onClick={increaseAmount} style={{ cursor: "pointer" }} />
             </AmountContainer>
           </AddContainer>
-          <Button
-            onClick={() =>
-              dispatch(addItem({ ...product, quantity: amount, price: total }))
-            }
-          >
+          <Button onClick={() => addToCart()}>
             {" "}
             <ShoppingBasket /> AÑADIR AL CARRITO
+            <Toaster />
           </Button>
         </InfoContainer>
       </Wrapper>
