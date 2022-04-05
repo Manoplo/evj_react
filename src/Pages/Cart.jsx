@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import NavBarFixed from "../components/NavBarFixed";
 import Footer from "../components/Footer";
-import {
-  Add,
-  Remove,
-  ShoppingBasket,
-  ShoppingBasketOutlined,
-} from "@material-ui/icons";
+import { ShoppingBasketOutlined } from "@material-ui/icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";

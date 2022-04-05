@@ -1,12 +1,13 @@
 import { Badge, Menu } from "@material-ui/core";
 import { MenuOutlined, Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectItems } from "../app/slices/cartSlice";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import SideBar from "./SideBar";
+import { logout } from "../app/slices/authSlice";
 
 const Container = styled.div`
   height: 80px;
@@ -98,6 +99,15 @@ const MenuContainer = styled.div`
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const numberOfItems = useSelector(selectItems).length;
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    if (!isLoggedIn) {
+      return;
+    }
+    dispatch(logout());
+  };
 
   return (
     <Container>
@@ -114,7 +124,9 @@ const Navbar = () => {
         </Center>
         <Right>
           <Link to={"/login"}>
-            <MenuItem>INICIAR SESIÓN</MenuItem>
+            <MenuItem onClick={handleLogout}>
+              {isLoggedIn ? "SALIR" : "INICIAR SESIÓN"}
+            </MenuItem>
           </Link>
           <MenuItem>
             <Link to={"/cart"}>

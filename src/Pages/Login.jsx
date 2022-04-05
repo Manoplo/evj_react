@@ -1,16 +1,22 @@
 import { Lock } from "@material-ui/icons";
-
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../app/slices/authSlice";
+import authService from "../services/auth.service";
+
+import axios from "axios";
 
 const Container = styled.div`
   height: 100vh;
   width: 99vw;
-  background: linear-gradient(
+  /*  background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
     url("https://images.pexels.com/photos/934063/pexels-photo-934063.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-      center;
+      center; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,16 +84,51 @@ const Button = styled.button`
 `;
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const form = {
+      email: email,
+      password: password,
+    };
+
+    dispatch(login(form));
+  };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  });
+
+  /*  dispatch(login(email, password)); */
+
   return (
     <Container>
       <Wrapper>
         <Title>ACCEDER</Title>
-        <Form>
+        <Form onSubmit={handleLogin}>
           <Label>Email:</Label>
-          <Input placeholder="email" type="email" />
+          <Input
+            placeholder="email"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <Label>Contraseña</Label>
-          <Input placeholder="contraseña" type="password" />
-          <Button>
+          <Input
+            placeholder="contraseña"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button type="submit">
             {" "}
             <Lock /> ACCEDER
           </Button>
