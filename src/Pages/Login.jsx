@@ -83,6 +83,12 @@ const Button = styled.button`
   }
 `;
 
+const WelcomeMessage = styled.span`
+  color: lightpink;
+  font-size: 15px;
+  font-weight: 700;
+`;
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -90,7 +96,10 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  /* const { isLoggedIn } = useSelector((state) => state.auth); */
+  const auth = useSelector((state) => state.auth);
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -104,7 +113,12 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (
+      auth.isLoggedIn &&
+      user &&
+      user.accessToken &&
+      user.accessToken !== ""
+    ) {
       navigate("/");
     }
   });
@@ -114,6 +128,9 @@ const Login = () => {
   return (
     <Container>
       <Wrapper>
+        {auth?.user?.message && (
+          <WelcomeMessage> {auth?.user?.message}</WelcomeMessage>
+        )}
         <Title>ACCEDER</Title>
         <Form onSubmit={handleLogin}>
           <Label>Email:</Label>

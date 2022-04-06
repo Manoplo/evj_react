@@ -90,7 +90,7 @@ const Register = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/");
+      navigate("/login");
     }
   });
 

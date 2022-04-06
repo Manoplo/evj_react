@@ -34,7 +34,9 @@ export const login = createAsyncThunk("auth/login", async( { email, password }, 
             email,
             password
             });
-        console.log(response.data)
+        if(response.data.accessToken){
+            localStorage.setItem("user", JSON.stringify(response.data));
+        }
         return {
             user: response.data
         }
