@@ -2,7 +2,7 @@ import { Lock } from "@material-ui/icons";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../app/slices/authSlice";
 import authService from "../services/auth.service";
 
@@ -50,7 +50,7 @@ const Input = styled.input`
   border: 1px solid lightpink;
 `;
 
-const Link = styled.a`
+const LinkStyle = styled.span`
   text-decoration: underline;
   color: black;
   font-size: 14px;
@@ -132,8 +132,11 @@ const Login = () => {
             {" "}
             <Lock /> ACCEDER
           </Button>
-          <Link>¿OLVIDASTE LA CONTRASEÑA?</Link>
-          <Link>¿NO TIENES CUENTA?</Link>
+          <LinkStyle>¿OLVIDASTE LA CONTRASEÑA?</LinkStyle>
+          <LinkStyle>
+            {" "}
+            <Link to={"/registro"}>¿NO TIENES CUENTA?</Link>{" "}
+          </LinkStyle>
         </Form>
       </Wrapper>
     </Container>

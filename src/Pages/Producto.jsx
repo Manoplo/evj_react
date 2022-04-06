@@ -3,7 +3,12 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { addItem } from "../app/slices/cartSlice";
 import { useDispatch } from "react-redux";
-import { Add, Remove, ShoppingBasket } from "@material-ui/icons";
+import {
+  Add,
+  Remove,
+  ShoppingBasket,
+  ShoppingCartOutlined,
+} from "@material-ui/icons";
 import { InnerImageZoom } from "react-inner-image-zoom";
 import toast, { Toaster } from "react-hot-toast";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
@@ -113,9 +118,6 @@ const Producto = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const notify = () =>
-    toast("Producto agregado al carrito", { position: "top-right" });
-
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -167,7 +169,11 @@ const Producto = () => {
 
       <Wrapper>
         <ImgContainer>
-          <InnerImageZoom src={product?.image} className="zoomed_image" />
+          <InnerImageZoom
+            zoomScale={1.5}
+            src={product?.image}
+            className="zoomed_image"
+          />
         </ImgContainer>
         <InfoContainer>
           <Title>{product?.name}</Title>
@@ -194,7 +200,12 @@ const Producto = () => {
           </AddContainer>
           <Button onClick={() => addToCart()}>
             {" "}
-            <ShoppingBasket /> AÑADIR AL CARRITO
+            <ShoppingCartOutlined /> AÑADIR AL CARRITO
+            <Toaster />
+          </Button>
+          <Button onClick={() => navigate(`/categorias/${categorySlug}`)}>
+            {" "}
+            <ShoppingBasket /> SEGUIR COMPRANDO
             <Toaster />
           </Button>
         </InfoContainer>

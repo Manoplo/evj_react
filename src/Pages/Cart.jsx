@@ -59,7 +59,9 @@ const Info = styled.div`
 `;
 
 const Image = styled.img`
-  width: 200px;
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
 `;
 const Product = styled.div`
   display: flex;

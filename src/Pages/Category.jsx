@@ -2,6 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { PropagateLoader } from "react-spinners";
 import Footer from "../components/Footer";
 import NewsLetter from "../components/NewsLetter";
 import Products from "../components/Products";
@@ -32,12 +33,32 @@ const Select = styled.select`
 `;
 const Option = styled.option``;
 
+const LoaderContainer = styled.div`
+  width: 80vw;
+  height: 50vh;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const LoaderTitle = styled.h1`
+  font-size: 30px;
+  font-weight: 300;
+  text-align: center;
+  font-family: "Urbanist", sans-serif;
+`;
+
 const Category = () => {
   const { categorySlug } = useParams();
 
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  // Data fetching
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -45,6 +66,7 @@ const Category = () => {
           `http://elvestidordejulietta.test/api/v1/categories/${categorySlug}`
         );
         setProducts(result.data);
+        setLoading(false);
       } catch (error) {
         navigate("/categorias");
       }
@@ -89,7 +111,14 @@ const Category = () => {
         </Filter>
       </FilterContainer>
       {/* PRODUCTS HERE */}
-      <Products products={products} />
+      {loading ? (
+        <LoaderContainer>
+          <PropagateLoader color={"#e491b8"} />
+          <LoaderTitle>Cargando...</LoaderTitle>
+        </LoaderContainer>
+      ) : (
+        <Products products={products} />
+      )}
       {/* PRODUCTS END HERE */}
       <NewsLetter />
       <Footer />

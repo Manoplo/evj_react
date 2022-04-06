@@ -6,15 +6,23 @@ import authService from "../../services/auth.service";
 // Retrieve user if exists from localstorage. 
 const user = JSON.parse(localStorage.getItem("user"));
 
-export const register = createAsyncThunk("auth/register", async({ name, lastname, email, password, confirmPassword }) => {
+export const register = createAsyncThunk("auth/register", async({ name, lastname, email, password, confirmPassword }, {rejectWithValue}) => {
 
     try {
 
-        const response = await authService.register(name, lastname, email, password, confirmPassword);
+        const response = await axios.post("http://elvestidordejulietta.test/api/v1/user/register", {
+            name,
+            lastname,
+            email,
+            password,
+            confirmPassword
+        })
+        console.log(response);
         return response.data
 
     } catch (error) {
-        console.log(error);
+        
+        return rejectWithValue(error.response.data);
     }
 
 })
@@ -41,7 +49,7 @@ export const logout = createAsyncThunk("auth/logout", () => {
     authService.logout();
 })
 
-const initialState = user ? { isLoggedIn: true, user } : { isLoggedIn: false, user: null }
+const initialState = user ? { isLoggedIn: true, user, errors: {} } : { isLoggedIn: false, user: null, errors: {} };
 
 
 const authSlice = createSlice({
@@ -53,7 +61,9 @@ const authSlice = createSlice({
             state.isLoggedIn = true;
         },
         [register.rejected] : (state, action) => {
+            state.errors = action.payload;
             state.isLoggedIn  = false;
+
         },
         [login.fulfilled] : (state, action) => {
            
@@ -64,11 +74,13 @@ const authSlice = createSlice({
         [login.rejected] : (state, action) => {
             state.isLoggedIn = false;
             state.user = null;
+            state.errors = action.payload;
         },
 
         [logout.fulfilled] : (state, action) => {
             state.user = null;
             state.isLoggedIn = false;
+            state.errors = {};
         }
 
     }

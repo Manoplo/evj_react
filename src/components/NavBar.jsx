@@ -1,5 +1,9 @@
 import { Badge, Menu } from "@material-ui/core";
-import { MenuOutlined, Search, ShoppingCartOutlined } from "@material-ui/icons";
+import {
+  MenuOutlined,
+  PermIdentityOutlined,
+  ShoppingCartOutlined,
+} from "@material-ui/icons";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectItems } from "../app/slices/cartSlice";
@@ -80,10 +84,11 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  font-family: "Bodoni Moda", serif;
+  font-family: "Urbanist", serif;
   font-size: 16px;
   cursor: pointer;
   margin-left: 25px;
+
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
@@ -123,11 +128,25 @@ const Navbar = () => {
           <SubLogo>El vestidor de Julietta</SubLogo>
         </Center>
         <Right>
-          <Link to={"/login"}>
-            <MenuItem onClick={handleLogout}>
-              {isLoggedIn ? "SALIR" : "INICIAR SESIÓN"}
-            </MenuItem>
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <MenuItem>
+                <PermIdentityOutlined />
+              </MenuItem>
+
+              <MenuItem onClick={handleLogout}>
+                {" "}
+                <span className="logo">SALIR</span>{" "}
+              </MenuItem>
+            </>
+          ) : (
+            <Link to={"/login"}>
+              <MenuItem>
+                {" "}
+                <span className="logo">INICIAR SESIÓN</span>
+              </MenuItem>
+            </Link>
+          )}
           <MenuItem>
             <Link to={"/cart"}>
               <Badge badgeContent={numberOfItems} color="primary">

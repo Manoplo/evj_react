@@ -1,11 +1,16 @@
 import { Badge } from "@material-ui/core";
-import { Search, ShoppingCartOutlined, MenuOutlined } from "@material-ui/icons";
+import {
+  PermIdentityOutlined,
+  ShoppingCartOutlined,
+  MenuOutlined,
+} from "@material-ui/icons";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectItems } from "../app/slices/cartSlice";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { logout } from "../app/slices/authSlice";
 import SideBar from "./SideBar";
 
 const Container = styled.div`
@@ -64,7 +69,7 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  font-family: "Bodoni Moda", serif;
+  font-family: "Urbanist", serif;
   font-size: 16px;
   cursor: pointer;
   margin-left: 25px;
@@ -83,6 +88,15 @@ const MenuContainer = styled.div`
 const NavBarFixed = () => {
   const [open, setOpen] = useState(false);
   const numberOfItems = useSelector(selectItems).length;
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    if (!isLoggedIn) {
+      return;
+    }
+    dispatch(logout());
+  };
 
   return (
     <Container>
@@ -102,9 +116,22 @@ const NavBarFixed = () => {
           </Logo>
         </Center>
         <Right>
-          <Link to={"/login"}>
-            <MenuItem>INICIAR SESIÓN</MenuItem>
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <MenuItem>
+                <PermIdentityOutlined />
+              </MenuItem>
+
+              <MenuItem onClick={handleLogout}>SALIR</MenuItem>
+            </>
+          ) : (
+            <Link to={"/login"}>
+              <MenuItem>
+                {" "}
+                <span className="logo">INICIAR SESIÓN</span>
+              </MenuItem>
+            </Link>
+          )}
           <MenuItem>
             <Link to={"/cart"}>
               <Badge badgeContent={numberOfItems} color="primary">
