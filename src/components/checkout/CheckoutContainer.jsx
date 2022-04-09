@@ -38,12 +38,17 @@ const CheckoutContainer = (props) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const checkout = useSelector((state) => state.checkout);
+  const reduxStep = useSelector((state) => state.checkout.step);
+  console.log();
 
   useEffect(() => {
-    setStep(checkout.step);
     dispatch(setTotal(props.total));
-    dispatch(stepOne(cart.items));
-  }, [step]);
+    /* dispatch(stepOne(cart.items)); */
+  }, []);
+
+  useEffect(() => {
+    setStep(reduxStep);
+  }, [reduxStep]);
 
   const Stepper = (step) => {
     switch (step) {
@@ -63,7 +68,7 @@ const CheckoutContainer = (props) => {
   return (
     <>
       <HeaderContainer>
-        <Title>Paso {step} de 3</Title>
+        <Title>Paso {step} de 2</Title>
         <Button onClick={() => props.closeModal(false)}>X</Button>
       </HeaderContainer>
       {Stepper(step)}

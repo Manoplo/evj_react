@@ -315,7 +315,9 @@ const Cart = () => {
                 disabled={isButtonDisabled}
                 onClick={() => setIsCheckingOut(true)}
               >
-                COMPRAR AHORA
+                {isButtonDisabled
+                  ? "No hay productos en tu cesta"
+                  : "COMPRAR AHORA"}
               </Button>
             </SummaryItem>
           </Summary>
