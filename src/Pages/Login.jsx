@@ -1,10 +1,9 @@
-import { Lock } from "@material-ui/icons";
+import { ArrowBackIosOutlined, Lock } from "@material-ui/icons";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../app/slices/authSlice";
-import authService from "../services/auth.service";
+import { login, clearErrors } from "../app/slices/authSlice";
 
 import axios from "axios";
 
@@ -63,6 +62,12 @@ const LinkStyle = styled.span`
   }
 `;
 
+const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+`;
+
 const Button = styled.button`
   margin-top: 20px;
   padding: 15px;
@@ -89,6 +94,13 @@ const WelcomeMessage = styled.span`
   font-weight: 700;
 `;
 
+const Error = styled.p`
+  color: tomato;
+  font-size: 12px;
+  font-style: italic;
+  margin-top: -5px;
+`;
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -110,6 +122,11 @@ const Login = () => {
     };
 
     dispatch(login(form));
+  };
+
+  const clearAndNavigate = () => {
+    dispatch(clearErrors());
+    navigate("/");
   };
 
   useEffect(() => {
@@ -145,10 +162,17 @@ const Login = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button type="submit">
-            {" "}
-            <Lock /> ACCEDER
-          </Button>
+          {auth?.errors?.message && <Error>{auth?.errors.message}</Error>}
+          <ButtonsContainer>
+            <Button type="submit">
+              {" "}
+              <Lock /> ACCEDER
+            </Button>
+            <Button onClick={clearAndNavigate}>
+              {" "}
+              <ArrowBackIosOutlined /> VOLVER
+            </Button>
+          </ButtonsContainer>
           <LinkStyle>¿OLVIDASTE LA CONTRASEÑA?</LinkStyle>
           <LinkStyle>
             {" "}

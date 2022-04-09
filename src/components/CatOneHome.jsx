@@ -22,7 +22,7 @@ const Title = styled.h1`
   font-weight: 200;
 `;
 
-const Categories = () => {
+const CatOneHome = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -37,11 +37,11 @@ const Categories = () => {
 
   return (
     <Container>
-      {categories.map((item) => (
-        <CategoryItem item={item} key={item.id} />
-      ))}
+      {categories.map(
+        (item, index) => index < 3 && <CategoryItem item={item} key={item.id} />
+      )}
     </Container>
   );
 };
 
-export default Categories;
+export default CatOneHome;

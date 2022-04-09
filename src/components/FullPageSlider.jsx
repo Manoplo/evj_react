@@ -1,11 +1,13 @@
 import ReactFullpage from "@fullpage/react-fullpage";
 import Categories from "./Categories";
+import CatOneHome from "./CatOneHome";
 import Footer from "./Footer";
 import NewsLetter from "./NewsLetter";
 import Products from "./Products";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useState, useEffect } from "react";
+import CatTwoHome from "./CatTwoHome";
 
 const SliderWrapper = styled.div`
   display: flex;
@@ -15,7 +17,7 @@ const SliderWrapper = styled.div`
 const Image = styled.img`
   height: 70vh;
   object-fit: cover;
-  ${mobile({ height: "100vh", width: "100vw" })}
+  ${mobile({ height: "80vh", width: "80vw" })}
 `;
 
 const Tooltip = styled.span`
@@ -27,10 +29,18 @@ const Tooltip = styled.span`
   ${mobile({ display: "none" })}
 `;
 
+const BottomContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+`;
+
 const FullPageSlider = () => {
   return (
     <ReactFullpage
-      scrollingSpeed={1000}
+      licenseKey="YOUR_KEY_HERE"
+      scrollingSpeed={700}
       controlArrows={true}
       navigation={true}
       render={({ state, fullpageApi }) => {
@@ -68,15 +78,18 @@ const FullPageSlider = () => {
                 </SliderWrapper>
               </div>
             </div>
-            <div className="section">
-              <Categories />
+            <div className="section fp-auto-height-responsive">
+              <CatOneHome />
+              <CatTwoHome />
             </div>
             <div className="section">
               {/* <Products /> TODO - ENDPOINT TO BRING PRODUCTS ORDER BY CREATED AT */}
             </div>
             <div className="section">
-              <NewsLetter />
-              <Footer />
+              <BottomContainer>
+                <NewsLetter />
+                <Footer />
+              </BottomContainer>
             </div>
           </ReactFullpage.Wrapper>
         );

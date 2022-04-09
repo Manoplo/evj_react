@@ -8,17 +8,26 @@ import {
 } from "@material-ui/icons";
 
 import styled from "styled-components";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   display: flex;
   margin: 0 auto;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
+  padding: 50px 0;
+  ${mobile({
+    padding: "0px",
+  })}
 `;
 
 const Wrapper = styled.div`
   width: 90%;
+
   display: flex;
   margin: 0 auto;
+  ${mobile({
+    flexDirection: "column",
+  })}
 `;
 
 const Left = styled.div`
@@ -30,7 +39,11 @@ const Left = styled.div`
   padding: 20px;
 `;
 
-const Logo = styled.h1``;
+const Logo = styled.h1`
+  ${mobile({
+    fontSize: "24px",
+  })}
+`;
 const Desc = styled.p`
   text-align: left;
 `;
@@ -71,6 +84,10 @@ const ListItem = styled.li`
 const Right = styled.div`
   flex: 1;
   padding: 20px;
+  ${mobile({
+    padding: "0 20px 20px 20px",
+    marginTop: "-20px",
+  })}
 `;
 
 const ContactItem = styled.div`

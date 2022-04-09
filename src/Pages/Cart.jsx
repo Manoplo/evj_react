@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeItem, selectItems } from "../app/slices/cartSlice";
+import CheckoutContainer from "../components/checkout/CheckoutContainer";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -145,9 +146,11 @@ const SummaryItemPrice = styled.span``;
 const Button = styled.button`
   width: 100%;
   padding: 10px;
-  background-color: black;
+  background-color: ${(props) => (props.disabled === true ? "gray" : "black")};
   color: white;
   font-weight: 600;
+  border: none;
+  cursor: pointer;
 `;
 const RemoveButton = styled.button`
   width: 100%;
@@ -173,11 +176,29 @@ const NoProducts = styled.h1`
   font-family: "Urbanist", sans-serif;
 `;
 
+const CheckoutContainerWrapper = styled.div`
+  width: 25vw;
+  height: 50vh;
+  margin: 0 auto;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 13%;
+  left: 35%;
+  background-color: white;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+`;
+
 const Cart = () => {
   // BRINGS ITEMS FROM THE REDUX STORE
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [sendAmount, setSendAmount] = useState(0);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const items = useSelector(selectItems);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -185,6 +206,14 @@ const Cart = () => {
   const clearItem = (item) => {
     dispatch(removeItem(item));
   };
+
+  useEffect(() => {
+    if (items.length > 0) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  }, [items]);
 
   useEffect(() => {
     setProducts([...items]);
@@ -208,6 +237,14 @@ const Cart = () => {
   return (
     <Container>
       <NavBarFixed />
+      {isCheckingOut && (
+        <CheckoutContainerWrapper>
+          <CheckoutContainer
+            closeModal={(isCheckingOut) => setIsCheckingOut(isCheckingOut)}
+            total={(total + sendAmount).toFixed(2)}
+          />
+        </CheckoutContainerWrapper>
+      )}
       <Wrapper>
         <Title>CESTA DE LA COMPRA</Title>
         <Top>
@@ -274,7 +311,12 @@ const Cart = () => {
               </SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <Button>COMPRAR AHORA</Button>
+              <Button
+                disabled={isButtonDisabled}
+                onClick={() => setIsCheckingOut(true)}
+              >
+                COMPRAR AHORA
+              </Button>
             </SummaryItem>
           </Summary>
         </Bottom>

@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { register } from "../app/slices/authSlice";
+import { register, clearErrors } from "../app/slices/authSlice";
+import { ArrowBackIosOutlined } from "@material-ui/icons";
 
 const Container = styled.div`
   height: 100vh;
@@ -53,11 +54,21 @@ const Button = styled.button`
   max-width: 40%;
   font-weight: 700;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
 
   &:hover {
     background-color: lightpink;
     color: white;
   }
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
 `;
 
 const Error = styled.p`
@@ -86,6 +97,11 @@ const Register = () => {
     e.preventDefault();
 
     dispatch(register(user));
+  };
+
+  const clearAndNavigate = () => {
+    dispatch(clearErrors());
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -152,7 +168,13 @@ const Register = () => {
             <a href="#">Términos y condiciones</a> y la{" "}
             <a href="#">Política de privacidad</a>
           </Agreement>
-          <Button>CREAR CUENTA</Button>
+          <ButtonsContainer>
+            <Button>CREAR CUENTA</Button>
+            <Button onClick={clearAndNavigate}>
+              <ArrowBackIosOutlined />
+              VOLVER
+            </Button>
+          </ButtonsContainer>
         </Form>
       </Wrapper>
     </Container>

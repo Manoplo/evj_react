@@ -4,6 +4,7 @@ import {
   ShoppingBasketOutlined,
 } from "@material-ui/icons";
 import { Link, useParams } from "react-router-dom";
+import { mobile } from "../responsive";
 
 import styled from "styled-components";
 
@@ -16,6 +17,15 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  ${mobile({
+    minWidth: "100%",
+    height: "100%",
+    flex: 1,
+    margin: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "15px",
+  })}
 `;
 
 const Icon = styled.div`
@@ -50,6 +60,11 @@ const Info = styled.div`
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+  ${mobile({
+    top: "0",
+    height: "100%",
+    width: "100%",
+  })}
 
   &:hover {
     opacity: 1;

@@ -29,6 +29,9 @@ const Wrapper = styled.div`
 `;
 const ImgContainer = styled.div`
   flex: 1;
+  ${mobile({
+    height: "90vh",
+  })}
 `;
 
 const Img = styled.img`

@@ -4,10 +4,21 @@ import { mobile } from "../responsive";
 
 const Container = styled.div`
   display: flex;
-  flex: 1;
+  /* flex: 1; */
   margin: 3px;
+  width: 32%;
   height: 70vh;
   position: relative;
+  margin-bottom: 15px;
+  ${mobile({
+    width: "100%",
+    height: "100%",
+    flex: 1,
+    margin: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "15px",
+  })}
 `;
 
 const Image = styled.img`
@@ -27,10 +38,10 @@ const Info = styled.div`
 `;
 const Title = styled.h1`
   font-size: 4rem;
-  color: white;
+  color: #ffdcdc;
   font-weight: bold;
   ${mobile({
-    fontSize: "2rem",
+    fontSize: "3rem",
   })}
 `;
 
@@ -40,10 +51,10 @@ const Button = styled.button`
   cursor: pointer;
   color: gray;
   font-size: 1.5rem;
-
+  transition: all 0.2s ease;
   &:hover {
     background-color: #f5f5f5;
-    color: black;
+    color: #ff6d83;
   }
 `;
 
@@ -55,7 +66,7 @@ const CategoryItem = ({ item }) => {
         <Title>{item.name}</Title>
 
         <Link to={`/categorias/${item.slug}`}>
-          <Button>IR A CATEGORÍA</Button>
+          <Button>VER AHORA</Button>
         </Link>
       </Info>
     </Container>

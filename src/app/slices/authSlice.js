@@ -17,7 +17,7 @@ export const register = createAsyncThunk("auth/register", async({ name, lastname
             password,
             confirmPassword
         })
-        console.log(response);
+      
         return response.data
 
     } catch (error) {
@@ -41,8 +41,8 @@ export const login = createAsyncThunk("auth/login", async( { email, password }, 
             user: response.data
         }
     } catch (error) {
-        console.log(error);
-        return rejectWithValue('Ooops, it failed to login');
+        
+        return rejectWithValue(error.response.data);
     }
 })
 
@@ -57,6 +57,11 @@ const initialState = user ? { isLoggedIn: true, user, errors: {} } : { isLoggedI
 const authSlice = createSlice({
     name : "auth",
     initialState,
+    reducers: {
+        clearErrors (state) {
+            state.errors = {};
+        }
+    },
     extraReducers : {
         [register.fulfilled] : (state, action) => {
             state.user = action.payload;
@@ -74,6 +79,7 @@ const authSlice = createSlice({
         },
 
         [login.rejected] : (state, action) => {
+            
             state.isLoggedIn = false;
             state.user = null;
             state.errors = action.payload;
@@ -89,6 +95,7 @@ const authSlice = createSlice({
 })
 
 const { reducer } = authSlice;
+export const { clearErrors } = authSlice.actions;
 export default reducer;
 
 

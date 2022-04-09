@@ -4,7 +4,8 @@ export const cartSlice = createSlice({
 
     name : "cart",
     initialState : {
-        items : []
+        items : [],
+        total: 0,
     },
 
     reducers : {
@@ -37,6 +38,10 @@ export const cartSlice = createSlice({
                 item.price  -=  item.price / item.quantity;
                 item.quantity -= 1;
             }
+        },
+
+        setTotal : (state, action) => {
+            state.total = action.payload;
         }
 
     }
@@ -45,6 +50,6 @@ export const cartSlice = createSlice({
 // returns any data from the state 
 export const selectItems = state => state.cart.items;
 // exports slice methods
-export const { addItem, removeItem } = cartSlice.actions;
+export const { addItem, removeItem, setTotal } = cartSlice.actions;
 // exports the slice
 export default cartSlice.reducer;
