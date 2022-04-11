@@ -4,6 +4,7 @@ import { setTotal } from "../../app/slices/cartSlice";
 import { stepOne } from "../../app/slices/checkoutSlice";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
+import Checkout from "./Checkout";
 import styled from "styled-components";
 
 const Title = styled.h1`
@@ -32,6 +33,11 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const Disclaimer = styled.div``;
+const DisclaimerParagraph = styled.p`
+  font-size: 12px;
+`;
+
 const CheckoutContainer = (props) => {
   const [step, setStep] = useState(1);
 
@@ -58,6 +64,8 @@ const CheckoutContainer = (props) => {
       case 2:
         return <StepTwo />;
         break;
+      case 3:
+        return <Checkout />;
 
       default:
         return null;
@@ -68,10 +76,17 @@ const CheckoutContainer = (props) => {
   return (
     <>
       <HeaderContainer>
-        <Title>Paso {step} de 2</Title>
+        <Title>Paso {step} de 3</Title>
         <Button onClick={() => props.closeModal(false)}>X</Button>
       </HeaderContainer>
       {Stepper(step)}
+      <Disclaimer>
+        <DisclaimerParagraph>
+          EVJ almacena sus datos para fines propios y no comercia con ellos bajo
+          ningún concepto. Al pulsar siguiente, aceptas nuestras políticas de
+          tratamiento de datos.
+        </DisclaimerParagraph>
+      </Disclaimer>
     </>
   );
 };

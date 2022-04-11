@@ -6,6 +6,7 @@ import Login from "./Pages/Login";
 import Cart from "./Pages/Cart";
 import CategoriesList from "./Pages/CategoriesList";
 import Category from "./Pages/Category";
+import Success from "./Pages/Success";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="registro" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="cart" element={<Cart />} />
+        <Route path="success" element={<Success />} />
       </Routes>
     </BrowserRouter>
   );

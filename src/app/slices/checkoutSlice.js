@@ -24,13 +24,19 @@ export const checkoutSlice = createSlice({
         },
 
         prevStep : (state, action) => {
-            console.log('first')
-            state.step = 1;
+            if(state.step > 1) {
+                state.step -= 1;
+            }
             
+        },
+
+        checkoutStep : (state, action) => {
+            state.step = 3;
         }
+
 
     }
 })
 
-export const { stepOne, stepTwo, prevStep } = checkoutSlice.actions;
+export const { stepOne, stepTwo, prevStep, checkoutStep } = checkoutSlice.actions;
 export default checkoutSlice.reducer;

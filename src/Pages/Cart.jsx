@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeItem, selectItems } from "../app/slices/cartSlice";
 import CheckoutContainer from "../components/checkout/CheckoutContainer";
+import { mobile } from "../responsive";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -178,10 +179,9 @@ const NoProducts = styled.h1`
 
 const CheckoutContainerWrapper = styled.div`
   width: 25vw;
-  height: 50vh;
+  min-height: 50vh;
   margin: 0 auto;
   border: 1px solid lightgray;
-  border-radius: 10px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -190,6 +190,12 @@ const CheckoutContainerWrapper = styled.div`
   left: 35%;
   background-color: white;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  ${mobile({
+    width: "90vw",
+    height: "100vh",
+    top: "8%",
+    left: "0",
+  })}
 `;
 
 const Cart = () => {
