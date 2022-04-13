@@ -1,13 +1,29 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Success = () => {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   useEffect(() => {
-    setTimeout(() => {
+    /* setTimeout(() => {
       navigate("/");
-    }, 5000);
+    }, 5000); */
+    // Si no existe el user auth en el localstorage, mandamos el objeto userInfo y se almacena en un endpoint para usuarios no registrados
+    if (!user) {
+      axios
+        .post(
+          "http://elvestidordejulietta.test/api/v1/orders/unregistered",
+          userInfo
+        )
+        .then((res) => {
+          console.log(res.data);
+          localStorage.removeItem("userInfo");
+        })
+        .catch((err) => console.log(err));
+    }
   }, []);
 
   return (

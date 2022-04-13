@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   PaymentElement,
   useStripe,
@@ -7,6 +8,8 @@ import {
 
 import styled from "styled-components";
 import { CreditCardOutlined } from "@material-ui/icons";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Button = styled.button`
   background: black;
@@ -24,6 +27,11 @@ const Button = styled.button`
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const shippingData = useSelector((state) => state.checkout.shipping);
+  const userData = useSelector((state) => state.checkout.user);
+  const items = useSelector((state) => state.cart);
+  const navigate = useNavigate();
 
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +53,19 @@ const CheckoutForm = () => {
       switch (paymentIntent.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
+          /* if (!user) {
+            const userInfo = {
+              user: userData,
+              shipping: shippingData,
+              items: items,
+            };
+            axios
+              .post("http://elvestidordejulietta.test/api/v1/orders", userInfo)
+              .then((res) => {
+                console.log(res.data);
+              })
+              .catch((err) => console.log(err));
+          } */
           break;
         case "processing":
           setMessage("Your payment is processing.");
@@ -61,6 +82,16 @@ const CheckoutForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    // SI no existe el usuario auth en el localstorage, se crea un objeto userInfo
+    if (!user) {
+      const userInfo = {
+        user: userData,
+        shipping: shippingData,
+        items: items,
+      };
+      // Se almacena el objeto userInfo para recuperarlo en la pantalla de success
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    }
 
     if (!stripe && !elements) {
       return;
