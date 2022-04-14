@@ -53,19 +53,6 @@ const CheckoutForm = () => {
       switch (paymentIntent.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
-          /* if (!user) {
-            const userInfo = {
-              user: userData,
-              shipping: shippingData,
-              items: items,
-            };
-            axios
-              .post("http://elvestidordejulietta.test/api/v1/orders", userInfo)
-              .then((res) => {
-                console.log(res.data);
-              })
-              .catch((err) => console.log(err));
-          } */
           break;
         case "processing":
           setMessage("Your payment is processing.");

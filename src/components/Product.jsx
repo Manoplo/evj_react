@@ -89,7 +89,11 @@ const Product = ({ item }) => {
           <ShoppingBasketOutlined />
         </Icon>
         <Icon>
-          <Link to={`/categorias/${categorySlug}/${item.id}`}>
+          <Link
+            to={`/categorias/${
+              categorySlug !== undefined ? categorySlug : item.category.slug
+            }/${item.id}`}
+          >
             <SearchOutlined />
           </Link>
         </Icon>

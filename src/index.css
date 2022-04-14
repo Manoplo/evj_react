@@ -28,7 +28,18 @@ body {
     display: none;
   }
 }
+
+.zoomed_image {
+  width: 60%;
+  height: 90%;
+}
+
+@media screen and (max-width: 768px) {
   
+  .zoomed_image {
+    width: 100%;
+  }
+}
 
 
 

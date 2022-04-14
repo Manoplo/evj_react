@@ -8,9 +8,6 @@ const Success = () => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   useEffect(() => {
-    /* setTimeout(() => {
-      navigate("/");
-    }, 5000); */
     // Si no existe el user auth en el localstorage, mandamos el objeto userInfo y se almacena en un endpoint para usuarios no registrados
     if (!user) {
       axios
@@ -21,8 +18,12 @@ const Success = () => {
         .then((res) => {
           console.log(res.data);
           localStorage.removeItem("userInfo");
+          navigate("/");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          navigate("/");
+        });
     }
   }, []);
 

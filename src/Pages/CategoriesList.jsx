@@ -6,6 +6,7 @@ import NewsLetter from "../components/NewsLetter";
 import Products from "../components/Products";
 import Categories from "../components/Categories";
 import NavBarFixed from "../components/NavBarFixed";
+import { Link } from "react-router-dom";
 
 const Container = styled.div``;
 const Title = styled.h1`
@@ -13,7 +14,8 @@ const Title = styled.h1`
 `;
 const FilterContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  width: 85%;
+  margin: 20px auto;
 `;
 const Filter = styled.div`
   margin: 20px;
@@ -36,37 +38,14 @@ const CategoriesList = () => {
     <Container>
       <NavBarFixed />
 
-      <Title>Vestidos</Title>
       <FilterContainer>
-        <Filter>
-          <FilterText>Filtrar productos:</FilterText>
-          <Select>
-            <Option disabled selected>
-              Color
-            </Option>
-            <Option>Oscuros</Option>
-            <Option>Claros</Option>
-            <Option>Estampados</Option>
-          </Select>
-          <Select>
-            <Option disabled selected>
-              Tamaños
-            </Option>
-            <Option>XS</Option>
-            <Option>S</Option>
-            <Option>M</Option>
-            <Option>L</Option>
-            <Option>XL</Option>
-          </Select>
-        </Filter>
-        <Filter>
-          <FilterText>Ordenar productos:</FilterText>
-          <Select>
-            <Option selected>Más nuevo</Option>
-            <Option>Precio(más)</Option>
-            <Option>Precio(menos)</Option>
-          </Select>
-        </Filter>
+        <Link to="/">
+          <p>Home</p>
+        </Link>
+        <p>/</p>
+        <Link to="/categorias">
+          <p>Categorías</p>
+        </Link>
       </FilterContainer>
       <Categories />
       <NewsLetter />

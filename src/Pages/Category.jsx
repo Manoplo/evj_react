@@ -10,11 +10,17 @@ import Products from "../components/Products";
 import NavBarFixed from "../components/NavBarFixed";
 
 const Container = styled.div``;
-const Title = styled.h1`
-  margin: 20px;
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 90%;
+  margin: 0 auto;
 `;
+const Title = styled.h1``;
 const FilterContainer = styled.div`
   display: flex;
+  width: 92%;
+  margin: 0 auto;
   justify-content: space-between;
 `;
 const Filter = styled.div`
@@ -77,8 +83,10 @@ const Category = () => {
   return (
     <Container>
       <NavBarFixed />
+      <TitleContainer>
+        <Title>{categorySlug}</Title>
+      </TitleContainer>
 
-      <Title>{categorySlug}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filtrar productos:</FilterText>
@@ -110,6 +118,7 @@ const Category = () => {
           </Select>
         </Filter>
       </FilterContainer>
+
       {/* PRODUCTS HERE */}
       {loading ? (
         <LoaderContainer>

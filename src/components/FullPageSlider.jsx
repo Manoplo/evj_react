@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useState, useEffect } from "react";
 import CatTwoHome from "./CatTwoHome";
+import axios from "axios";
 
 const SliderWrapper = styled.div`
   display: flex;
@@ -37,6 +38,23 @@ const BottomContainer = styled.div`
 `;
 
 const FullPageSlider = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios(
+          "http://elvestidordejulietta.test/api/v1/products/latest"
+        );
+        console.log(response.data);
+        setProducts(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
   return (
     <ReactFullpage
       licenseKey="YOUR_KEY_HERE"
@@ -84,6 +102,7 @@ const FullPageSlider = () => {
             </div>
             <div className="section">
               {/* <Products /> TODO - ENDPOINT TO BRING PRODUCTS ORDER BY CREATED AT */}
+              <Products products={products} />
             </div>
             <div className="section">
               <BottomContainer>
