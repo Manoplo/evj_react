@@ -8,6 +8,7 @@ import CategoriesList from "./Pages/CategoriesList";
 import Category from "./Pages/Category";
 import Success from "./Pages/Success";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Profile from "./Pages/Profile";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="cart" element={<Cart />} />
         <Route path="success" element={<Success />} />
+        <Route path="profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

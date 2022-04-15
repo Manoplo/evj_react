@@ -59,6 +59,7 @@ const FullPageSlider = () => {
     <ReactFullpage
       licenseKey="YOUR_KEY_HERE"
       scrollingSpeed={700}
+      scrollOverflow={true}
       controlArrows={true}
       navigation={true}
       render={({ state, fullpageApi }) => {

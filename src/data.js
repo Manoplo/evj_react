@@ -76,3 +76,142 @@ export const products = [
   },
 
 ]
+
+export const orders = [
+  {
+    id: 1,
+    orderedAt: new Date().toLocaleDateString(),
+    total: '100€',
+    status: 'Pendiente',
+    products: [
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+    ]
+
+  },
+  {
+    id: 2,
+    orderedAt: new Date().toLocaleDateString(),
+    total: '100€',
+    status: 'Pendiente',
+    products: [
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+    ]
+
+  },
+  {
+    id: 3,
+    orderedAt: new Date().toLocaleDateString(),
+    total: '100€',
+    status: 'Pendiente',
+    products: [
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+    ]
+
+  },
+  {
+    id: 4,
+    orderedAt: new Date().toLocaleDateString(),
+    total: '100€',
+    status: 'Enviado',
+    products: [
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+    ]
+
+  },
+  {
+    id: 5,
+    orderedAt: new Date().toLocaleDateString(),
+    total: '100€',
+    status: 'Cancelado',
+    products: [
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+      {
+        id: 1,
+        img: "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        title: "Vestido Rosa",
+        price: '50€',
+        quantity: 1,
+      },
+    ]
+
+  },
+]

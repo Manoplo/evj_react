@@ -131,7 +131,9 @@ const Navbar = () => {
           {isLoggedIn ? (
             <>
               <MenuItem>
-                <PermIdentityOutlined />
+                <Link to="/profile">
+                  <PermIdentityOutlined />
+                </Link>
               </MenuItem>
 
               <MenuItem onClick={handleLogout}>
