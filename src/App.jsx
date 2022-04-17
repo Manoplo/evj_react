@@ -1,6 +1,5 @@
 import Producto from "./Pages/Producto";
 import Home from "./Pages/Home";
-import ProductList from "./Pages/ProductList";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Cart from "./Pages/Cart";
@@ -9,6 +8,7 @@ import Category from "./Pages/Category";
 import Success from "./Pages/Success";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from "./Pages/Profile";
+import Guard from "./components/guards/Guard";
 
 function App() {
   return (
@@ -16,8 +16,6 @@ function App() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route index element={<Home />} />
-        {/* <Route path="productos" element={<ProductList />} />
-        <Route path="productos/:productId" element={<Producto />} /> */}
 
         <Route path="categorias" element={<CategoriesList />} />
         <Route path="categorias/:categorySlug" element={<Category />} />
@@ -29,7 +27,9 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="cart" element={<Cart />} />
         <Route path="success" element={<Success />} />
-        <Route path="profile" element={<Profile />} />
+        <Route element={<Guard pathname="/" />}>
+          <Route path="profile" element={<Profile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

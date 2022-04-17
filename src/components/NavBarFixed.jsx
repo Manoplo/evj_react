@@ -119,7 +119,9 @@ const NavBarFixed = () => {
           {isLoggedIn ? (
             <>
               <MenuItem>
-                <PermIdentityOutlined />
+                <Link to="/profile">
+                  <PermIdentityOutlined />
+                </Link>
               </MenuItem>
 
               <MenuItem onClick={handleLogout}>SALIR</MenuItem>

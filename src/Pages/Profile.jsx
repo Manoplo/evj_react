@@ -5,15 +5,20 @@ import {
   AssignmentIndOutlined,
   AlternateEmailOutlined,
   LocalShippingOutlined,
+  Edit,
+  ArrowBackIosOutlined,
 } from "@material-ui/icons";
 import NavBarFixed from "../components/NavBarFixed";
 import Footer from "../components/Footer";
+import EditProfile from "../components/EditProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { mobile } from "../responsive";
+import authHeader from "../services/auth-header";
+import axios from "axios";
 // Remove this import of mocking data when real orders are fetched
 import { orders } from "../data";
-import { mobile } from "../responsive";
 
 const Wrapper = styled.div`
   display: flex;
@@ -55,17 +60,31 @@ const InfoContainer = styled.div`
 `;
 
 const Profile = () => {
+  const [isEditing, setIsEditing] = useState(false);
   const [isOrdersSelected, setIsOrdersSelected] = useState(true);
+
+  const [details, setDetails] = useState(null);
 
   const auth = useSelector((state) => state.auth);
   const { user } = auth;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!auth.isLoggedIn) {
-      navigate("/login");
-    }
-  }, [auth.isLoggedIn]);
+    const fetchDetails = async () => {
+      try {
+        const response = await axios.get(
+          `http://elvestidordejulietta.test/api/v1/details/${user.user.id}`,
+          {
+            headers: authHeader(),
+          }
+        );
+        setDetails(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDetails();
+  }, []);
 
   return (
     <>
@@ -83,13 +102,24 @@ const Profile = () => {
           <TabButton
             onClick={() => setIsOrdersSelected(false)}
             selected={!isOrdersSelected ? "selected" : ""}
+            disabled={isEditing}
           >
             <LocalMallOutlined />
             Mis pedidos
           </TabButton>
         </TabContainer>
         <InfoContainer>
-          {isOrdersSelected ? <UserInfo user={{ ...user }} /> : <UserOrders />}
+          {isEditing ? (
+            <EditProfile closeEdit={(isEditing) => setIsEditing(isEditing)} />
+          ) : isOrdersSelected ? (
+            <UserInfo
+              user={{ ...user }}
+              details={{ ...details }}
+              editing={(editing) => setIsEditing(editing)}
+            />
+          ) : (
+            <UserOrders />
+          )}
         </InfoContainer>
       </Wrapper>
       <Footer />
@@ -108,6 +138,12 @@ const UserInfoRow = styled.div`
   align-items: center;
   gap: 10px;
 `;
+const UserInfoDetailsRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+`;
 const UserInfoTitle = styled.h1`
   font-size: 20px;
   font-weight: 800;
@@ -119,7 +155,32 @@ const UserInfoData = styled.h1`
   font-family: "Urbanist", sans-serif;
 `;
 
-const UserInfo = ({ user }) => {
+const Button = styled.button`
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid lightpink;
+  background-color: white;
+  cursor: pointer;
+  max-width: 20%;
+  font-weight: 700;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+
+  &:hover {
+    background-color: lightpink;
+    color: white;
+  }
+
+  ${mobile({
+    maxWidth: "100%",
+  })}
+`;
+
+const UserInfo = ({ user, details, editing }) => {
+  const navigate = useNavigate();
   return (
     <>
       <UserInfoContainer>
@@ -140,8 +201,41 @@ const UserInfo = ({ user }) => {
           <UserInfoTitle>Datos de envío</UserInfoTitle>
         </UserInfoRow>
         <UserInfoData>
-          No tenemos datos de envío aún. Edita tu cuenta para añadirlos.
+          {Object.keys(details).length > 0 ? (
+            <>
+              <UserInfoDetailsRow>
+                <b>Teléfono:</b> {details.phone}
+              </UserInfoDetailsRow>
+              <UserInfoDetailsRow>
+                <b>Dirección:</b> {details.address}
+              </UserInfoDetailsRow>
+              <UserInfoDetailsRow>
+                <b>Código Postal:</b> {details.cp}
+              </UserInfoDetailsRow>
+              <UserInfoDetailsRow>
+                <b>Ciudad:</b> {details.town}
+              </UserInfoDetailsRow>
+              <UserInfoDetailsRow>
+                <b>Provincia:</b> {details.province}
+              </UserInfoDetailsRow>
+            </>
+          ) : (
+            <>
+              <span>
+                {" "}
+                No tienes datos de envío. Edita tu perfil para añadirlos.
+              </span>
+            </>
+          )}
         </UserInfoData>
+        <Button onClick={() => editing(true)}>
+          <Edit />
+          Editar información
+        </Button>
+        <Button onClick={() => navigate("/")}>
+          <ArrowBackIosOutlined />
+          Salir
+        </Button>
       </UserInfoContainer>
     </>
   );

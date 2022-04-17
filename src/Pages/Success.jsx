@@ -1,6 +1,28 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components";
+import Lottie from "lottie-react";
+import success from "../lotties/success.json";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  margin-top: -200px;
+`;
+
+const Message = styled.h2`
+  margin-top: -150px;
+`;
+
+const style = {
+  height: "500px",
+  width: "500px",
+};
 
 const Success = () => {
   const navigate = useNavigate();
@@ -29,11 +51,13 @@ const Success = () => {
 
   return (
     <>
-      <div>Compra realizada con éxito!</div>
-      <p>
-        Hemos mandado un mensaje a tu correo electrónico con los datos de la
-        compra
-      </p>
+      <Wrapper>
+        <Lottie animationData={success} style={style} />
+        <Message>
+          ¡Compra realizada con éxito! Hemos enviado un mensaje a {user.email}{" "}
+          con los datos de la compra.{" "}
+        </Message>
+      </Wrapper>
     </>
   );
 };

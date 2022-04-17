@@ -1,8 +1,10 @@
 import { ArrowForward, ArrowForwardIosOutlined } from "@material-ui/icons";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { stepTwo } from "../../app/slices/checkoutSlice";
+import authHeader from "../../services/auth-header";
 
 const Form = styled.form``;
 const Input = styled.input`
@@ -54,11 +56,25 @@ const InputRow = styled.div`
 `;
 const ButtonRow = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 20px;
 `;
 const InputField = styled.div`
   width: 45%;
+`;
+
+const InputCheckBox = styled.input``;
+
+const CheckboxMessage = styled.span`
+  font-size: 12px;
+`;
+
+const CheckboxContainer = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 `;
 
 const StepOne = (props) => {
@@ -68,9 +84,11 @@ const StepOne = (props) => {
   const [user, setUser] = useState({});
   const [shipping, setShipping] = useState({});
   const [errors, setErrors] = useState({});
+  const [isChecked, setIsChecked] = useState(true);
   const dispatch = useDispatch();
 
   const userInfo = useSelector((state) => state.checkout);
+  const auth = useSelector((state) => state.auth);
   console.log(userInfo);
 
   const handleOrderInformation = () => {
@@ -84,7 +102,8 @@ const StepOne = (props) => {
       shipping.address &&
       shipping.province &&
       /\S+@\S+\.\S+/.test(user.email) &&
-      /^\d{9}$/.test(shipping.phone)
+      /^\d{9}$/.test(shipping.phone) &&
+      /^\d{5}$/.test(shipping.cp)
     ) {
       dispatch(stepTwo({ user, shipping }));
     } else {
@@ -97,6 +116,9 @@ const StepOne = (props) => {
           : null,
         town: !shipping.town ? "El municipio es obligatorio" : null,
         cp: !shipping.cp ? "El código postal es obligatorio" : null,
+        invalidCp: !/^\d{5}$/.test(shipping.cp)
+          ? "El código postal debe contener 5 cifras"
+          : null,
         phone: !shipping.phone ? "El teléfono es obligatorio" : null,
         invalidPhone: !/^\d{9}$/.test(shipping.phone)
           ? "El teléfono es inválido"
@@ -104,6 +126,33 @@ const StepOne = (props) => {
         address: !shipping.address ? "La dirección es obligatoria" : null,
         province: !shipping.province ? "La provincia es obligatoria" : null,
       });
+    }
+  };
+
+  const handleCheckBoxChange = async (e) => {
+    setIsChecked(!isChecked);
+    if (isChecked) {
+      const response = await axios(
+        `http://elvestidordejulietta.test/api/v1/details/all/${auth.user.user.id}`,
+        {
+          headers: authHeader(),
+        }
+      );
+      setUser({
+        name: response.data.user.name,
+        surname: response.data.user.lastname,
+        email: response.data.user.email,
+      });
+      setShipping({
+        phone: response.data.details.phone,
+        address: response.data.details.address,
+        town: response.data.details.town,
+        cp: response.data.details.cp,
+        province: response.data.details.province,
+      });
+    } else {
+      setUser({});
+      setShipping({});
     }
   };
 
@@ -119,6 +168,7 @@ const StepOne = (props) => {
           <Input
             type="text"
             placeholder="Nombre"
+            value={user.name || ""}
             onChange={(e) => {
               setUser({ ...user, name: e.target.value });
             }}
@@ -129,6 +179,7 @@ const StepOne = (props) => {
           <Input
             type="text"
             placeholder="Apellidos"
+            value={user.surname || ""}
             onChange={(e) => {
               setUser({ ...user, surname: e.target.value });
             }}
@@ -141,6 +192,7 @@ const StepOne = (props) => {
           <Input
             type="email"
             placeholder="Email"
+            value={user.email || ""}
             onChange={(e) => {
               setUser({ ...user, email: e.target.value });
             }}
@@ -154,6 +206,7 @@ const StepOne = (props) => {
           <Input
             type="text"
             placeholder="Teléfono"
+            value={shipping.phone || ""}
             onChange={(e) => {
               setShipping({ ...shipping, phone: e.target.value });
             }}
@@ -169,6 +222,7 @@ const StepOne = (props) => {
           <Input
             type="text"
             placeholder="Dirección"
+            value={shipping.address || ""}
             onChange={(e) => {
               setShipping({ ...shipping, address: e.target.value });
             }}
@@ -179,11 +233,13 @@ const StepOne = (props) => {
           <Input
             type="text"
             placeholder="Código Postal"
+            value={shipping.cp || ""}
             onChange={(e) => {
               setShipping({ ...shipping, cp: e.target.value });
             }}
           />
           {errors.cp && <Error>{errors.cp}</Error>}
+          {!errors.cp && errors.invalidCp && <Error>{errors.invalidCp}</Error>}
         </InputField>
       </InputRow>
       <InputRow>
@@ -191,6 +247,7 @@ const StepOne = (props) => {
           <Input
             type="text"
             placeholder="Localidad"
+            value={shipping.town || ""}
             onChange={(e) => {
               setShipping({ ...shipping, town: e.target.value });
             }}
@@ -201,6 +258,7 @@ const StepOne = (props) => {
           <Input
             type="text"
             placeholder="Provincia"
+            value={shipping.province || ""}
             onChange={(e) => {
               setShipping({ ...shipping, province: e.target.value });
             }}
@@ -209,6 +267,14 @@ const StepOne = (props) => {
         </InputField>
       </InputRow>
       <ButtonRow>
+        {auth.isLoggedIn && (
+          <>
+            <CheckboxContainer>
+              <InputCheckBox type="checkbox" onChange={handleCheckBoxChange} />
+              <CheckboxMessage>USAR MIS DATOS DE ENVÍO.</CheckboxMessage>
+            </CheckboxContainer>
+          </>
+        )}
         <Button onClick={handleOrderInformation}>
           SIGUIENTE <ArrowForwardIosOutlined />
         </Button>
