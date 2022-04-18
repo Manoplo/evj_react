@@ -42,6 +42,18 @@ const Info = styled.div`
   font-weight: 200;
 `;
 
+const Total = styled.h1`
+  font-family: "Urbanist", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+`;
+
+const ConfirmData = styled.h2`
+  font-family: "Urbanist", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+`;
+
 const StepTwo = (props) => {
   const dispatch = useDispatch();
 
@@ -59,7 +71,7 @@ const StepTwo = (props) => {
 
   return (
     <>
-      <div>CONFIRMA LOS DATOS DE ENVÍO</div>
+      <ConfirmData>CONFIRMA LOS DATOS DE ENVÍO:</ConfirmData>
       <UserInfo>
         <Desc>NOMBRE COMPLETO</Desc>
         <Info>{checkout.user.name + " " + checkout.user.surname}</Info>
@@ -67,6 +79,14 @@ const StepTwo = (props) => {
         <Info>{checkout.user.email}</Info>
         <Desc>TELÉFONO</Desc>
         <Info>{checkout.shipping.phone}</Info>
+        <Desc>DIRECCIÓN DE ENTREGA</Desc>
+        <Info>{checkout.shipping.address} </Info>
+        <Desc>LOCALIDAD</Desc>
+        <Info>
+          {checkout.shipping.town + " - " + checkout.shipping.province}
+        </Info>
+        <Desc>TOTAL:</Desc>
+        <Total>{cartInfo.total}€</Total>
       </UserInfo>
       <ButtonRow>
         <Button onClick={handlePrevStep}>Corregir</Button>

@@ -273,13 +273,13 @@ const Cart = () => {
                       <Image src={item.image} />
                       <Details>
                         <ProductName>
-                          <b>Product:</b> {item.name}
+                          <b>Producto:</b> {item.name}
                         </ProductName>
                         <ProductId>
                           <b>ID:</b> {item.id}
                         </ProductId>
                         <ProductSize>
-                          <b>Talla:</b> S
+                          <b>Talla:</b> {item.size}
                         </ProductSize>
                         <RemoveButton onClick={() => clearItem(item)}>
                           QUITAR PRODUCTO

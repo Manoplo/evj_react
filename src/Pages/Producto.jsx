@@ -5,10 +5,13 @@ import { addItem } from "../app/slices/cartSlice";
 import { useDispatch } from "react-redux";
 import {
   Add,
+  LocalLaundryServiceOutlined,
+  LocalOfferOutlined,
   Remove,
   ShoppingBasket,
   ShoppingCartOutlined,
 } from "@material-ui/icons";
+import { Collapse, Text } from "@nextui-org/react";
 import { InnerImageZoom } from "react-inner-image-zoom";
 import toast, { Toaster } from "react-hot-toast";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
@@ -114,6 +117,15 @@ const Button = styled.button`
   }
 `;
 
+const AccordionContainer = styled.div`
+  display: flex;
+  width: 50%;
+  margin-top: 20px;
+  ${mobile({
+    width: "100%",
+  })}
+`;
+
 const Producto = () => {
   const [amount, setAmount] = useState(1);
   const [total, setTotal] = useState(0);
@@ -141,6 +153,11 @@ const Producto = () => {
     fetchProduct();
   }, [productId, categorySlug]);
 
+  const handleSelectChange = (e) => {
+    setSize(e.target.value);
+    console.log(size);
+  };
+
   const increaseAmount = () => {
     setAmount(amount + 1);
     setTotal(total + product.price);
@@ -153,7 +170,9 @@ const Producto = () => {
   };
 
   const addToCart = () => {
-    dispatch(addItem({ ...product, quantity: amount, price: total }));
+    dispatch(
+      addItem({ ...product, quantity: amount, price: total, size: size })
+    );
     // Toast animation
     toast.success("PRODUCTO AÑADIDO AL CARRITO", {
       style: {
@@ -188,15 +207,15 @@ const Producto = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Talla</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
+              <FilterSize value={size} onChange={handleSelectChange}>
+                <FilterSizeOption value={"S"}>S</FilterSizeOption>
+                <FilterSizeOption value={"M"}>M</FilterSizeOption>
+                <FilterSizeOption value={"L"}>L</FilterSizeOption>
+                <FilterSizeOption value={"XL"}>XL</FilterSizeOption>
               </FilterSize>
             </Filter>
           </FilterContainer>
+
           <AddContainer>
             <AmountContainer>
               <Remove onClick={decreaseAmount} style={{ cursor: "pointer" }} />
@@ -214,6 +233,32 @@ const Producto = () => {
             <ShoppingBasket /> SEGUIR COMPRANDO
             <Toaster />
           </Button>
+          <AccordionContainer>
+            <Collapse.Group>
+              <Collapse
+                title="Equivalencia de tallas"
+                arrowIcon={<LocalOfferOutlined />}
+              >
+                <Text>
+                  <b>S</b> (34-36 aproximadamente) <br />
+                  <b>M</b> (37-39 aproximadamente) <br />
+                  <b>L</b> (40-42 aproximadamente) <br />
+                  <b>XL</b> (43-45 aproximadamente) <br />
+                </Text>
+              </Collapse>
+              <Collapse
+                title="Cuidado"
+                arrowIcon={<LocalLaundryServiceOutlined />}
+              >
+                <Text>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </Text>
+              </Collapse>
+            </Collapse.Group>
+          </AccordionContainer>
         </InfoContainer>
       </Wrapper>
       <NewsLetter />

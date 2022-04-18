@@ -1,4 +1,4 @@
-import { ArrowForward, ArrowForwardIosOutlined } from "@material-ui/icons";
+import { ArrowForwardIosOutlined } from "@material-ui/icons";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

@@ -35,18 +35,9 @@ const ProductList = () => {
     <Container>
       <NavBarFixed />
 
-      <Title>Vestidos</Title>
       <FilterContainer>
         <Filter>
-          <FilterText>Filtrar productos:</FilterText>
-          <Select>
-            <Option disabled selected>
-              Color
-            </Option>
-            <Option>Oscuros</Option>
-            <Option>Claros</Option>
-            <Option>Estampados</Option>
-          </Select>
+          <FilterText>Filtrar tallas:</FilterText>
           <Select>
             <Option disabled selected>
               Tamaños

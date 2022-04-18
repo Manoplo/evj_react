@@ -11,7 +11,7 @@ export const cartSlice = createSlice({
     reducers : {
 
         addItem : (state, action) => {
-            const { id, name, price, image, quantity } = action.payload;
+            const { id, name, price, image, size, quantity } = action.payload;
             const item = state.items.find(item => item.id === id);
 
             if (item) {
@@ -23,6 +23,7 @@ export const cartSlice = createSlice({
                     name,
                     price,
                     image,
+                    size: size,
                     quantity : quantity
                 });
             }

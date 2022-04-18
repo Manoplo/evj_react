@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { mobile } from "../responsive";
 import axios from "axios";
 import styled from "styled-components";
 import Lottie from "lottie-react";
@@ -17,6 +18,9 @@ const Wrapper = styled.div`
 
 const Message = styled.h2`
   margin-top: -150px;
+  ${mobile({
+    fontSize: "1.5rem",
+  })}
 `;
 
 const style = {
@@ -40,7 +44,23 @@ const Success = () => {
         .then((res) => {
           console.log(res.data);
           localStorage.removeItem("userInfo");
+          setTimeout(() => {
+            navigate("/");
+          }, 6000);
+        })
+        .catch((err) => {
+          console.log(err);
           navigate("/");
+        });
+    } else {
+      axios
+        .post("http://elvestidordejulietta.test/api/v1/orders", userInfo)
+        .then((res) => {
+          console.log(res.data);
+          localStorage.removeItem("userInfo");
+          setTimeout(() => {
+            navigate("/");
+          }, 6000);
         })
         .catch((err) => {
           console.log(err);
@@ -54,8 +74,8 @@ const Success = () => {
       <Wrapper>
         <Lottie animationData={success} style={style} />
         <Message>
-          ¡Compra realizada con éxito! Hemos enviado un mensaje a {user.email}{" "}
-          con los datos de la compra.{" "}
+          ¡Compra realizada con éxito! Hemos enviado un mensaje a tu correo
+          electrónico con los datos de la compra.{" "}
         </Message>
       </Wrapper>
     </>

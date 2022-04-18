@@ -7,6 +7,7 @@ import CategoriesList from "./Pages/CategoriesList";
 import Category from "./Pages/Category";
 import Success from "./Pages/Success";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Profile from "./Pages/Profile";
 import Guard from "./components/guards/Guard";
 

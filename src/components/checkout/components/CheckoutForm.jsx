@@ -78,6 +78,14 @@ const CheckoutForm = () => {
       };
       // Se almacena el objeto userInfo para recuperarlo en la pantalla de success
       localStorage.setItem("userInfo", JSON.stringify(userInfo));
+      // Si existe un user, pasamos el user auth y el objeto userInfo a un endpoint para usuarios registrados
+    } else {
+      const userInfo = {
+        user: user,
+        shipping: shippingData,
+        items: items,
+      };
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
     }
 
     if (!stripe && !elements) {

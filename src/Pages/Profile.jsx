@@ -17,8 +17,6 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import authHeader from "../services/auth-header";
 import axios from "axios";
-// Remove this import of mocking data when real orders are fetched
-import { orders } from "../data";
 
 const Wrapper = styled.div`
   display: flex;
@@ -64,6 +62,7 @@ const Profile = () => {
   const [isOrdersSelected, setIsOrdersSelected] = useState(true);
 
   const [details, setDetails] = useState(null);
+  const [orders, setOrders] = useState([]);
 
   const auth = useSelector((state) => state.auth);
   const { user } = auth;
@@ -84,6 +83,24 @@ const Profile = () => {
       }
     };
     fetchDetails();
+  }, []);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get(
+          `http://elvestidordejulietta.test/api/v1/orders/${user.user.id}`,
+          {
+            headers: authHeader(),
+          }
+        );
+
+        setOrders(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchOrders();
   }, []);
 
   return (
@@ -118,7 +135,7 @@ const Profile = () => {
               editing={(editing) => setIsEditing(editing)}
             />
           ) : (
-            <UserOrders />
+            <UserOrders orders={orders} />
           )}
         </InfoContainer>
       </Wrapper>
@@ -289,9 +306,9 @@ const OrderStatus = styled.span`
   padding: 8px;
   font-weight: 500;
   background-color: ${(props) =>
-    props.status === "Pendiente"
+    props.status === "procesado"
       ? "orange"
-      : props.status === "Enviado"
+      : props.status === "enviado"
       ? "green"
       : "red"};
 `;
@@ -321,7 +338,9 @@ const CancelButton = styled.button`
   cursor: pointer;
 `;
 
-const UserOrders = () => {
+const UserOrders = (props) => {
+  const { orders } = props;
+
   return (
     <>
       <UserOrdersContainer>
@@ -331,7 +350,9 @@ const UserOrders = () => {
             <OrderTitle>
               {" "}
               Fecha de realización del pedido:{" "}
-              <OrderSpan>{order.orderedAt}</OrderSpan>
+              <OrderSpan>
+                {new Date(order.created_at).toLocaleDateString()}
+              </OrderSpan>
             </OrderTitle>
             <OrderTitle>
               {" "}
@@ -345,15 +366,18 @@ const UserOrders = () => {
             <OrderProductsContainer>
               {order.products.map((product) => (
                 <>
-                  <h3>{product.title}</h3>
-                  <OrderParagraph>{product.price}</OrderParagraph>
-                  <OrderParagraph>Cantidad : {product.quantity}</OrderParagraph>
+                  <h3>{product.name}</h3>
+                  <OrderParagraph>{product.price}€</OrderParagraph>
+                  <OrderParagraph>
+                    Cantidad : {product.pivot.quantity}
+                  </OrderParagraph>
                 </>
               ))}
             </OrderProductsContainer>
             <OrderSpan>Total:</OrderSpan>
             <OrderTotal>
-              {order.total} <OrderSpan>(impuestos incluidos)</OrderSpan>{" "}
+              {order.total.toFixed(2)}€{" "}
+              <OrderSpan>(impuestos incluidos)</OrderSpan>{" "}
             </OrderTotal>
             <CancelButton>Cancelar pedido</CancelButton>
           </OrderContainer>
