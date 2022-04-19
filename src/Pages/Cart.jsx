@@ -19,11 +19,21 @@ const Title = styled.h1`
   font-size: 40px;
   font-weight: 300;
   text-align: center;
+  ${mobile({
+    fontSize: "30px",
+  })}
 `;
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${mobile({
+    flexDirection: "column",
+    alignItems: "start",
+    justifyContent: "flex-start",
+    gap: "20px",
+    marginBottom: "20px",
+  })}
 `;
 
 const TopButton = styled.button`
@@ -55,6 +65,9 @@ const TopText = styled.span`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
+  ${mobile({
+    flexDirection: "column",
+  })}
 `;
 const Info = styled.div`
   flex: 3;
@@ -69,6 +82,13 @@ const Product = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 20px 0 20px 0;
+  ${mobile({
+    flexDirection: "column",
+    alignItems: "start",
+    justifyContent: "flex-start",
+    gap: "20px",
+    width: "100%",
+  })}
 `;
 
 const ProductDetail = styled.div`
@@ -162,6 +182,9 @@ const RemoveButton = styled.button`
   padding: 16px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  ${mobile({
+    width: "80%",
+  })}
 
   &:hover {
     background-color: black;
@@ -211,6 +234,11 @@ const Cart = () => {
 
   const clearItem = (item) => {
     dispatch(removeItem(item));
+  };
+
+  const startCheckingOut = () => {
+    window.scrollTo(0, 0);
+    setIsCheckingOut(true);
   };
 
   useEffect(() => {
@@ -319,7 +347,7 @@ const Cart = () => {
             <SummaryItem>
               <Button
                 disabled={isButtonDisabled}
-                onClick={() => setIsCheckingOut(true)}
+                onClick={() => startCheckingOut()}
               >
                 {isButtonDisabled
                   ? "No hay productos en tu cesta"

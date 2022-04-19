@@ -8,6 +8,7 @@ import NewsLetter from "../components/NewsLetter";
 import Products from "../components/Products";
 
 import NavBarFixed from "../components/NavBarFixed";
+import { ArrowBackIosOutlined } from "@material-ui/icons";
 
 const Container = styled.div``;
 const TitleContainer = styled.div`
@@ -56,10 +57,33 @@ const LoaderTitle = styled.h1`
   font-family: "Urbanist", sans-serif;
 `;
 
+const Button = styled.button`
+  padding: 15px;
+  border: 1px solid lightpink;
+  min-width: 150px;
+  background-color: white;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &:hover {
+    background-color: lightpink;
+    color: white;
+  }
+`;
+const ButtonContainer = styled.div`
+  width: 90%;
+  margin: 0 auto;
+`;
+
 const Category = () => {
   const { categorySlug } = useParams();
 
   const [products, setProducts] = useState([]);
+  const [criteria, setCriteria] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -80,6 +104,34 @@ const Category = () => {
     fetchData();
   }, [categorySlug]);
 
+  useEffect(() => {
+    console.log(criteria, "Criteria changed");
+
+    console.log(products);
+  }, [criteria]);
+
+  const handleCriteriaChange = (e) => {
+    const newCriteria = e.target.value;
+    switch (newCriteria) {
+      case "newest":
+        setProducts(products.sort((a, b) => b.id - a.id));
+        break;
+      case "oldest":
+        setProducts(products.sort((a, b) => a.id - b.id));
+        break;
+      case "cheapest":
+        setProducts(products.sort((a, b) => a.price - b.price));
+        break;
+      case "expensive":
+        setProducts(products.sort((a, b) => b.price - a.price));
+        break;
+      default:
+        setProducts(products);
+    }
+
+    setCriteria(newCriteria);
+  };
+
   return (
     <Container>
       <NavBarFixed />
@@ -90,14 +142,23 @@ const Category = () => {
       <FilterContainer>
         <Filter>
           <FilterText>Ordenar productos:</FilterText>
-          <Select>
-            <Option selected>Más nuevo</Option>
-            <Option>Más antiguo</Option>
-            <Option>Precio(más)</Option>
-            <Option>Precio(menos)</Option>
+          <Select onChange={handleCriteriaChange}>
+            <Option selected={true} disabled="disabled">
+              Elige un criterio
+            </Option>
+            <Option value="newest">Más nuevo</Option>
+            <Option value="oldest">Más antiguo</Option>
+            <Option value="expensive">Precio(más)</Option>
+            <Option value="cheap">Precio(menos)</Option>
           </Select>
         </Filter>
       </FilterContainer>
+      <ButtonContainer>
+        <Button onClick={() => navigate("/categorias")}>
+          <ArrowBackIosOutlined />
+          CATEGORÍAS
+        </Button>
+      </ButtonContainer>
 
       {/* PRODUCTS HERE */}
       {loading ? (

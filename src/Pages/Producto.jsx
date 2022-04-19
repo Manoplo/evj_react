@@ -251,10 +251,9 @@ const Producto = () => {
                 arrowIcon={<LocalLaundryServiceOutlined />}
               >
                 <Text>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
+                  {product?.info
+                    ? product.info
+                    : "No hay información específica para este producto"}
                 </Text>
               </Collapse>
             </Collapse.Group>
