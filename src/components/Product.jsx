@@ -56,7 +56,7 @@ const Info = styled.div`
   left: 0;
   display: flex;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 2;
+  z-index: 0;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;

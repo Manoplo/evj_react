@@ -18,6 +18,7 @@ import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import Footer from "../components/Footer";
 import NewsLetter from "../components/NewsLetter";
 import NavBarFixed from "../components/NavBarFixed";
+import Recommendations from "../components/Recommendations";
 import axios from "axios";
 import { mobile } from "../responsive";
 
@@ -131,10 +132,15 @@ const Producto = () => {
   const [total, setTotal] = useState(0);
   const [size, setSize] = useState("");
   const [product, setProduct] = useState({});
+  const [recommendations, setRecommendations] = useState([]);
 
   const { productId, categorySlug } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [productId]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -151,6 +157,22 @@ const Producto = () => {
     };
 
     fetchProduct();
+  }, [productId, categorySlug]);
+
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        const result = await axios.get(
+          `http://elvestidordejulietta.test/api/v1/products/recommendations`
+        );
+        console.log(result.data);
+        setRecommendations(result.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchRecommendations();
   }, [productId, categorySlug]);
 
   const handleSelectChange = (e) => {
@@ -260,6 +282,7 @@ const Producto = () => {
           </AccordionContainer>
         </InfoContainer>
       </Wrapper>
+      <Recommendations recommendations={recommendations} />
       <NewsLetter />
       <Footer />
     </Container>
