@@ -37,6 +37,21 @@ const BottomContainer = styled.div`
   width: 100vw;
 `;
 
+const NewlyContainer = styled.div`
+  width: 90vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const New = styled.span`
+  font-size: 18px;
+  color: black;
+  font-family: "Bodoni Moda";
+  font-style: italic;
+`;
+
 const FullPageSlider = () => {
   const [products, setProducts] = useState([]);
 
@@ -103,6 +118,9 @@ const FullPageSlider = () => {
             </div>
             <div className="section">
               {/* <Products /> TODO - ENDPOINT TO BRING PRODUCTS ORDER BY CREATED AT */}
+              <NewlyContainer>
+                <New>Novedades</New>
+              </NewlyContainer>
               <Products products={products} />
             </div>
             <div className="section">

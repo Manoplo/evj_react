@@ -61,12 +61,20 @@ const CategoryLink = styled.h1`
   }
 `;
 
+const Search = styled.div`
+  border-bottom: 1px solid black;
+  font-weight: 600;
+`;
+
 const SideBar = ({ open, onClick }) => {
   return (
     <Sidebar open={open}>
       <SidebarContainer>
         <Wrapper>
           <CloseButton onClick={onClick}>X</CloseButton>
+          <Link to={"/search"} onClick={onClick}>
+            <Search>BUSCAR</Search>
+          </Link>
           <Link to={"/categorias/vestidos"} onClick={onClick}>
             <CategoryLink>VESTIDOS</CategoryLink>
           </Link>
