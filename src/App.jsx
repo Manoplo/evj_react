@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Profile from "./Pages/Profile";
 import Guard from "./components/guards/Guard";
+import Whishlist from "./Pages/Whishlist";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route element={<Guard pathname="/" />}>
           <Route path="profile" element={<Profile />} />
         </Route>
+        <Route path="whishlist" element={<Whishlist />} />
       </Routes>
     </BrowserRouter>
   );

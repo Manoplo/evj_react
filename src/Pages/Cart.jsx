@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import NavBarFixed from "../components/NavBarFixed";
 import Footer from "../components/Footer";
-import { ShoppingBasketOutlined } from "@material-ui/icons";
+import { ShoppingBasketOutlined, Bookmarks } from "@material-ui/icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { removeItem, selectItems } from "../app/slices/cartSlice";
 import CheckoutContainer from "../components/checkout/CheckoutContainer";
 import { mobile } from "../responsive";
@@ -55,11 +55,29 @@ const TopButton = styled.button`
   }
 `;
 
-const TopTexts = styled.div``;
+const TopTexts = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const TopText = styled.span`
-  text-decoration: underline;
   cursor: pointer;
-  margin: 0 10px;
+  margin: 10px;
+
+  &:hover {
+    text-decoration: underline;
+    font-weight: 600;
+  }
+`;
+
+const TopList = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  &:hover {
+    text-decoration: underline;
+    font-weight: 600;
+  }
 `;
 
 const Bottom = styled.div`
@@ -266,8 +284,6 @@ const Cart = () => {
     products.length === 0 && setSendAmount(0);
   }, [total, products]);
 
-  console.log(items);
-
   return (
     <Container>
       <NavBarFixed />
@@ -288,7 +304,12 @@ const Cart = () => {
           </TopButton>
           <TopTexts>
             <TopText>Cesta de la compra({products.length})</TopText>
-            <TopText>Lista de deseos(0)</TopText>
+            <Link to="/whishlist">
+              <TopList>
+                Lista de deseos
+                <Bookmarks />
+              </TopList>
+            </Link>
           </TopTexts>
         </Top>
         <Bottom>

@@ -1,5 +1,5 @@
 import {
-  FavoriteBorderOutlined,
+  BookmarkBorderOutlined,
   SearchOutlined,
   ShoppingBasketOutlined,
 } from "@material-ui/icons";
@@ -98,7 +98,7 @@ const Product = ({ item }) => {
           </Link>
         </Icon>
         <Icon>
-          <FavoriteBorderOutlined />
+          <BookmarkBorderOutlined />
         </Icon>
       </Info>
     </Container>

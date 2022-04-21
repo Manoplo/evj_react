@@ -5,6 +5,8 @@ import { addItem } from "../app/slices/cartSlice";
 import { useDispatch } from "react-redux";
 import {
   Add,
+  BookmarkBorderOutlined,
+  Bookmarks,
   LocalLaundryServiceOutlined,
   LocalOfferOutlined,
   Remove,
@@ -21,6 +23,7 @@ import NavBarFixed from "../components/NavBarFixed";
 import Recommendations from "../components/Recommendations";
 import axios from "axios";
 import { mobile } from "../responsive";
+import authHeader from "../services/auth-header";
 
 const Container = styled.div``;
 
@@ -133,14 +136,33 @@ const Producto = () => {
   const [size, setSize] = useState("");
   const [product, setProduct] = useState({});
   const [recommendations, setRecommendations] = useState([]);
+  const [listed, setListed] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const { productId, categorySlug } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // EFFECTS
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [productId]);
+
+  useEffect(() => {
+    if (!user) return;
+    const checkListed = async () => {
+      const response = await axios.get(
+        `http://elvestidordejulietta.test/api/v1/whishlist/check/${user.user.id}/${productId}`
+      );
+
+      if (response.data.success) {
+        setListed(true);
+      } else {
+        setListed(false);
+      }
+    };
+    checkListed();
+  }, [user]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -165,7 +187,7 @@ const Producto = () => {
         const result = await axios.get(
           `http://elvestidordejulietta.test/api/v1/products/recommendations`
         );
-        console.log(result.data);
+
         setRecommendations(result.data);
       } catch (error) {
         console.log(error);
@@ -175,9 +197,9 @@ const Producto = () => {
     fetchRecommendations();
   }, [productId, categorySlug]);
 
+  // FUNCTIONS
   const handleSelectChange = (e) => {
     setSize(e.target.value);
-    console.log(size);
   };
 
   const increaseAmount = () => {
@@ -210,6 +232,72 @@ const Producto = () => {
     });
   };
 
+  const handleWhishlistedItem = async (id) => {
+    if (!user) {
+      toast.error(
+        "NECESITAS ESTAR REGISTRADO PARA GUARDAR PRODUCTOS EN TU LISTA DE DESEOS",
+        {
+          style: {
+            border: "1px solid lightpink",
+            padding: "16px",
+            color: "black",
+            fontFamily: "Urbanist",
+          },
+          iconTheme: {
+            primary: "lightpink",
+            secondary: "#FFFAEE",
+          },
+        }
+      );
+      return;
+    }
+
+    setListed(!listed);
+
+    if (listed) {
+      toast.success("PRODUCTO ELIMINADO DE TU LISTA DE DESEOS", {
+        style: {
+          border: "1px solid lightpink",
+          padding: "16px",
+          color: "black",
+          fontFamily: "Urbanist",
+        },
+        iconTheme: {
+          primary: "lightpink",
+          secondary: "#FFFAEE",
+        },
+      });
+    } else {
+      toast.success("PRODUCTO AÑADIDO A TU LISTA DE DESEOS", {
+        style: {
+          border: "1px solid lightpink",
+          padding: "16px",
+          color: "black",
+          fontFamily: "Urbanist",
+        },
+        iconTheme: {
+          primary: "lightpink",
+          secondary: "#FFFAEE",
+        },
+      });
+    }
+
+    try {
+      const response = await axios.post(
+        "http://elvestidordejulietta.test/api/v1/whishlist",
+        {
+          product_id: id,
+          user_id: user.user.id,
+        },
+        {
+          headers: authHeader(),
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <NavBarFixed />
@@ -223,7 +311,16 @@ const Producto = () => {
           />
         </ImgContainer>
         <InfoContainer>
-          <Title>{product?.name}</Title>
+          <Title>
+            {product?.name}{" "}
+            {!listed ? (
+              <BookmarkBorderOutlined
+                onClick={() => handleWhishlistedItem(product.id)}
+              />
+            ) : (
+              <Bookmarks onClick={() => handleWhishlistedItem(product.id)} />
+            )}
+          </Title>
           <Desc>{product?.description}</Desc>
           <Price>{total}€</Price>
           <FilterContainer>
