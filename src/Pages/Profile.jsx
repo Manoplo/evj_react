@@ -340,49 +340,119 @@ const CancelButton = styled.button`
 
 const UserOrders = (props) => {
   const { orders } = props;
+  const [openModal, setOpenModal] = useState(false);
+  const [id, setId] = useState(null);
+
+  const handleCancelled = (id) => {
+    window.scrollTo(0, 0);
+    setOpenModal(true);
+    setId(id);
+  };
 
   return (
     <>
+      {openModal && <Modal onClick={() => setOpenModal(false)} orderId={id} />}
       <UserOrdersContainer>
-        {orders.map((order) => (
-          <OrderContainer>
-            <OrderParagraph> Referencia del pédido : {order.id}</OrderParagraph>
-            <OrderTitle>
-              {" "}
-              Fecha de realización del pedido:{" "}
-              <OrderSpan>
-                {new Date(order.created_at).toLocaleDateString()}
-              </OrderSpan>
-            </OrderTitle>
-            <OrderTitle>
-              {" "}
-              Estado del pedido:{" "}
-              <OrderStatus status={order.status}>
-                {order.status}
-              </OrderStatus>{" "}
-            </OrderTitle>
+        {orders.length > 0 &&
+          orders.map((order) => (
+            <OrderContainer>
+              <OrderParagraph>
+                {" "}
+                Referencia del pédido : {order.id}
+              </OrderParagraph>
+              <OrderTitle>
+                {" "}
+                Fecha de realización del pedido:{" "}
+                <OrderSpan>
+                  {new Date(order.created_at).toLocaleDateString()}
+                </OrderSpan>
+              </OrderTitle>
+              <OrderTitle>
+                {" "}
+                Estado del pedido:{" "}
+                <OrderStatus status={order.status}>
+                  {order.status}
+                </OrderStatus>{" "}
+              </OrderTitle>
 
-            <OrderTitle> Productos del pedido: </OrderTitle>
-            <OrderProductsContainer>
-              {order.products.map((product) => (
-                <>
-                  <h3>{product.name}</h3>
-                  <OrderParagraph>{product.price}€</OrderParagraph>
-                  <OrderParagraph>
-                    Cantidad : {product.pivot.quantity}
-                  </OrderParagraph>
-                </>
-              ))}
-            </OrderProductsContainer>
-            <OrderSpan>Total:</OrderSpan>
-            <OrderTotal>
-              {order.total.toFixed(2)}€{" "}
-              <OrderSpan>(impuestos incluidos)</OrderSpan>{" "}
-            </OrderTotal>
-            <CancelButton>Cancelar pedido</CancelButton>
-          </OrderContainer>
-        ))}
+              <OrderTitle> Productos del pedido: </OrderTitle>
+              <OrderProductsContainer>
+                {order.products.map((product) => (
+                  <>
+                    <h3>{product.name}</h3>
+                    <OrderParagraph>{product.price}€</OrderParagraph>
+                    <OrderParagraph>
+                      Cantidad : {product.pivot.quantity}
+                    </OrderParagraph>
+                  </>
+                ))}
+              </OrderProductsContainer>
+              <OrderSpan>Total:</OrderSpan>
+              <OrderTotal>
+                {order.total.toFixed(2)}€{" "}
+                <OrderSpan>(impuestos incluidos)</OrderSpan>{" "}
+              </OrderTotal>
+              <CancelButton onClick={() => handleCancelled(order.id)}>
+                Cancelar pedido
+              </CancelButton>
+            </OrderContainer>
+          ))}
+        {orders.length === 0 && (
+          <>
+            <OrderParagraph> No tienes ningún pedido.</OrderParagraph>
+          </>
+        )}
       </UserOrdersContainer>
+    </>
+  );
+};
+
+const ModalContainer = styled.div`
+  width: 30vw;
+  height: 35vh;
+  background-color: white;
+  border-radius: 3px;
+  border: 1px solid lightgray;
+  top: 10%;
+  left: 35%;
+  position: absolute;
+  padding: 20px;
+  z-index: 100;
+  box-shadow: 1px 20px 15px -3px rgba(0, 0, 0, 0.1);
+  /*  background-color: rgba(0, 0, 0, 0.5); */
+  ${mobile({
+    width: "100%",
+    height: "50%",
+    top: "10%",
+    left: 0,
+    position: "fixed",
+  })}
+`;
+
+const Modal = ({ onClick, orderId }) => {
+  const handleCancelation = (id) => {
+    console.log(id);
+  };
+  return (
+    <>
+      <ModalContainer>
+        <h1>ANTES DE CANCELAR EL PEDIDO:</h1>
+        <p>
+          Los pedidos no se cancelarán inmediatamente. Al pulsar el botón
+          "Cancelar pedido", nos llegará una notificación con la referencia del
+          pedido y los productos que lo componen. En caso de que el pedido se
+          encuentre ya enviado, tendrás que proceder a un trámite de devolución.
+          Si el pedido aún no ha sido enviado, procederemos a cancelarlo y a
+          reembolsar el importe total. Para cualquier duda, envíanos un email a{" "}
+          <b>elvestidordejulietta.shop@gmail.com</b> y te responderemos con
+          todos los detalles del proceso lo antes posible. Gracias por confiar
+          en nosotros.
+        </p>
+        <button onClick={onClick}>Cerrar</button>
+        <button onClick={() => handleCancelation(orderId)}>
+          Cancelar pedido
+        </button>
+      </ModalContainer>
     </>
   );
 };

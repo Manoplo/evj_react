@@ -1,7 +1,11 @@
 import styled from "styled-components";
-import { useState } from "react";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
+import {
+  Bookmarks,
+  PermIdentityOutlined,
+  ShoppingBasketOutlined,
+} from "@material-ui/icons";
 
 const Sidebar = styled.div`
   position: absolute;
@@ -25,7 +29,7 @@ const SidebarContainer = styled.div`
   height: 100vh;
   background-color: white;
   /* border: 1px solid lightgray; */
-  ${mobile({ width: "100vw" })}
+  ${mobile({ width: "100vw", overflowY: "auto" })}
 `;
 
 const Wrapper = styled.div`
@@ -36,15 +40,9 @@ const Wrapper = styled.div`
 const CloseButton = styled.div`
   font-weight: 800;
   font-size: 1.2rem;
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%; */
+
   cursor: pointer;
-  /* background-color: #acacac; */
+
   color: #939393;
   margin-bottom: 30px;
 `;
@@ -66,7 +64,46 @@ const Search = styled.div`
   font-weight: 600;
 `;
 
+const BottomRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  ${mobile({ flexDirection: "column", alignItems: "flex-start", gap: "30px" })}
+`;
+
+const BottomItem = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  color: #939393;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: #282828;
+  }
+`;
+
+const InfoColumn = styled.div`
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+const InfoItem = styled.span`
+  font-size: 14px;
+  font-weight: 300;
+  color: #afafaf;
+  font-family: "Urbanist", sans-serif;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: #282828;
+  }
+`;
+
 const SideBar = ({ open, onClick }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <Sidebar open={open}>
       <SidebarContainer>
@@ -90,6 +127,54 @@ const SideBar = ({ open, onClick }) => {
           <Link to={"/categorias/accesorios"} onClick={onClick}>
             <CategoryLink>ACCESORIOS</CategoryLink>
           </Link>
+          <BottomRow>
+            <BottomItem>
+              {user ? (
+                <>
+                  <PermIdentityOutlined />
+                  <Link to={"/profile"} onClick={onClick}>
+                    MI PERFIL
+                  </Link>
+                </>
+              ) : (
+                <Link to={"/login"} onClick={onClick}>
+                  INICIAR SESIÓN
+                </Link>
+              )}
+            </BottomItem>
+            <BottomItem>
+              <ShoppingBasketOutlined />
+              <Link to={"/cart"} onClick={onClick}>
+                CESTA DE LA COMPRA
+              </Link>
+            </BottomItem>
+            <BottomItem>
+              {user && (
+                <>
+                  <Bookmarks />
+                  <Link to={"/whishlist"} onClick={onClick}>
+                    LISTA DE DESEOS
+                  </Link>
+                </>
+              )}
+            </BottomItem>
+          </BottomRow>
+
+          <InfoColumn>
+            <Link to={"/"} onClick={onClick}>
+              <InfoItem>Términos y condiciones</InfoItem>
+            </Link>
+            <Link to={"/"} onClick={onClick}>
+              <InfoItem>Política de privacidad</InfoItem>
+            </Link>
+
+            <Link to={"/"} onClick={onClick}>
+              <InfoItem>Política de cookies</InfoItem>
+            </Link>
+            <Link to={"/"} onClick={onClick}>
+              <InfoItem>Sobre el Vestidor de Julietta</InfoItem>
+            </Link>
+          </InfoColumn>
         </Wrapper>
       </SidebarContainer>
     </Sidebar>
