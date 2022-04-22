@@ -409,7 +409,7 @@ const UserOrders = (props) => {
 
 const ModalContainer = styled.div`
   width: 30vw;
-  height: 35vh;
+  height: 40vh;
   background-color: white;
   border-radius: 3px;
   border: 1px solid lightgray;
@@ -430,27 +430,30 @@ const ModalContainer = styled.div`
 `;
 
 const Modal = ({ onClick, orderId }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
   const handleCancelation = (id) => {
     console.log(id);
   };
   return (
     <>
       <ModalContainer>
-        <h1>ANTES DE CANCELAR EL PEDIDO:</h1>
+        <h1>Estimado {user.user.name}:</h1>
+        <h2>ANTES DE CANCELAR EL PEDIDO:</h2>
+
         <p>
           Los pedidos no se cancelarán inmediatamente. Al pulsar el botón
-          "Cancelar pedido", nos llegará una notificación con la referencia del
-          pedido y los productos que lo componen. En caso de que el pedido se
-          encuentre ya enviado, tendrás que proceder a un trámite de devolución.
-          Si el pedido aún no ha sido enviado, procederemos a cancelarlo y a
-          reembolsar el importe total. Para cualquier duda, envíanos un email a{" "}
-          <b>elvestidordejulietta.shop@gmail.com</b> y te responderemos con
-          todos los detalles del proceso lo antes posible. Gracias por confiar
-          en nosotros.
+          "Cancelar definitivamente", nos llegará una notificación con la
+          referencia del pedido y los productos que lo componen. En caso de que
+          el pedido se encuentre ya enviado, tendrás que proceder a un trámite
+          de devolución. Si el pedido aún no ha sido enviado, procederemos a
+          cancelarlo y a reembolsar el importe total. Para cualquier duda,
+          envíanos un email a <b>elvestidordejulietta.shop@gmail.com</b> y te
+          responderemos con todos los detalles del proceso lo antes posible.
         </p>
+        <p>Gracias por confiar en nosotros.</p>
         <button onClick={onClick}>Cerrar</button>
         <button onClick={() => handleCancelation(orderId)}>
-          Cancelar pedido
+          Cancelar definitivamente
         </button>
       </ModalContainer>
     </>

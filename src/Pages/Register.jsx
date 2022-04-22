@@ -8,13 +8,7 @@ import { ArrowBackIosOutlined } from "@material-ui/icons";
 const Container = styled.div`
   height: 100vh;
   width: 99vw;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("https://images.pexels.com/photos/934063/pexels-photo-934063.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-      center;
-
+  background: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,7 +34,13 @@ const Form = styled.form`
 
 const Input = styled.input`
   padding: 10px;
-  border: 1px solid lightpink;
+  border: none;
+  border-bottom: 1px solid lightgray;
+
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid lightpink;
+  }
 `;
 
 const Agreement = styled.p``;

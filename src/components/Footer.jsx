@@ -13,7 +13,7 @@ import { mobile } from "../responsive";
 const Container = styled.div`
   display: flex;
   margin: 0 auto;
-  background-color: #ededed;
+  background-color: #fbfbfb;
   padding: 50px 0;
   ${mobile({
     padding: "0px",

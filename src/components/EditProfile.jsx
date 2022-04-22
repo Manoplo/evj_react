@@ -39,7 +39,13 @@ const FormContainer = styled.div`
 
 const Input = styled.input`
   padding: 10px;
-  border: 1px solid lightpink;
+  border: none;
+  border-bottom: 1px solid lightgray;
+
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid lightpink;
+  }
 `;
 
 const ButtonsContainer = styled.div`
