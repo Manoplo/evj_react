@@ -17,6 +17,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import authHeader from "../services/auth-header";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const Wrapper = styled.div`
   display: flex;
@@ -336,11 +337,18 @@ const CancelButton = styled.button`
   font-size: 15px;
   padding: 5px;
   cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: lightpink;
+    color: white;
+  }
 `;
 
 const UserOrders = (props) => {
   const { orders } = props;
   const [openModal, setOpenModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [id, setId] = useState(null);
 
   const handleCancelled = (id) => {
@@ -349,10 +357,47 @@ const UserOrders = (props) => {
     setId(id);
   };
 
+  const handleCancellation = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        `http://elvestidordejulietta.test/api/v1/orders/cancel/${id}`,
+        {
+          headers: authHeader(),
+        }
+      );
+
+      console.log(response);
+      setOpenModal(false);
+      toast.success("PETICIÓN ENVIADA CORRECTAMENTE", {
+        style: {
+          border: "1px solid lightpink",
+          padding: "16px",
+          color: "black",
+          fontFamily: "Urbanist",
+        },
+        iconTheme: {
+          primary: "lightpink",
+          secondary: "#FFFAEE",
+        },
+      });
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      {openModal && <Modal onClick={() => setOpenModal(false)} orderId={id} />}
+      {openModal && (
+        <Modal
+          onClick={() => setOpenModal(false)}
+          onCancelationClick={handleCancellation}
+          loading={loading}
+        />
+      )}
       <UserOrdersContainer>
+        <Toaster />
         {orders.length > 0 &&
           orders.map((order) => (
             <OrderContainer>
@@ -416,45 +461,71 @@ const ModalContainer = styled.div`
   top: 10%;
   left: 35%;
   position: absolute;
-  padding: 20px;
+  padding: 30px;
   z-index: 100;
   box-shadow: 1px 20px 15px -3px rgba(0, 0, 0, 0.1);
   /*  background-color: rgba(0, 0, 0, 0.5); */
   ${mobile({
     width: "100%",
     height: "50%",
-    top: "10%",
+    top: 0,
     left: 0,
     position: "fixed",
+    padding: "10px",
   })}
 `;
 
-const Modal = ({ onClick, orderId }) => {
+const ModalButton = styled.button`
+  background-color: transparent;
+  border: 1px solid lightpink;
+  color: black;
+  font-size: 15px;
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: black;
+    color: white;
+    border: none;
+  }
+`;
+
+const ParaphContainer = styled.div`
+  width: 100%;
+
+  ${mobile({
+    width: "95%",
+  })}
+`;
+
+const Modal = ({ onClick, onCancelationClick, loading }) => {
   const user = JSON.parse(localStorage.getItem("user"));
-  const handleCancelation = (id) => {
-    console.log(id);
-  };
+
   return (
     <>
       <ModalContainer>
         <h1>Estimado {user.user.name}:</h1>
         <h2>ANTES DE CANCELAR EL PEDIDO:</h2>
-
-        <p>
-          Los pedidos no se cancelarán inmediatamente. Al pulsar el botón
-          "Cancelar definitivamente", nos llegará una notificación con la
-          referencia del pedido y los productos que lo componen. En caso de que
-          el pedido se encuentre ya enviado, tendrás que proceder a un trámite
-          de devolución. Si el pedido aún no ha sido enviado, procederemos a
-          cancelarlo y a reembolsar el importe total. Para cualquier duda,
-          envíanos un email a <b>elvestidordejulietta.shop@gmail.com</b> y te
-          responderemos con todos los detalles del proceso lo antes posible.
-        </p>
-        <p>Gracias por confiar en nosotros.</p>
-        <button onClick={onClick}>Cerrar</button>
-        <button onClick={() => handleCancelation(orderId)}>
-          Cancelar definitivamente
-        </button>
+        <ParaphContainer>
+          <p>
+            Los pedidos no se cancelarán inmediatamente. Al pulsar el botón
+            "Cancelar definitivamente", nos llegará una notificación con la
+            referencia del pedido y los productos que lo componen. En caso de
+            que el pedido se encuentre ya enviado, tendrás que proceder a un
+            trámite de devolución. Si el pedido aún no ha sido enviado,
+            procederemos a cancelarlo y a reembolsar el importe total. Para
+            cualquier duda, envíanos un email a{" "}
+            <b>elvestidordejulietta.shop@gmail.com</b> y te responderemos con
+            todos los detalles del proceso lo antes posible.
+          </p>
+          <p>Gracias por confiar en nosotros.</p>
+        </ParaphContainer>
+        <ModalButton onClick={onClick}>Cerrar</ModalButton>
+        <ModalButton onClick={onCancelationClick}>
+          {loading ? "ENVIANDO..." : "Cancelar definitivamente"}
+        </ModalButton>
       </ModalContainer>
     </>
   );
