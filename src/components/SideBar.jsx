@@ -161,10 +161,10 @@ const SideBar = ({ open, onClick }) => {
           </BottomRow>
 
           <InfoColumn>
-            <Link to={"/"} onClick={onClick}>
+            <Link to={"/terminos-y-condiciones"} onClick={onClick}>
               <InfoItem>Términos y condiciones</InfoItem>
             </Link>
-            <Link to={"/"} onClick={onClick}>
+            <Link to={"/politicas-privacidad"} onClick={onClick}>
               <InfoItem>Política de privacidad</InfoItem>
             </Link>
 

@@ -11,6 +11,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from "./Pages/Profile";
 import Guard from "./components/guards/Guard";
 import Whishlist from "./Pages/Whishlist";
+import NotFound from "./components/NotFound";
+import PrivacyPolitics from "./Pages/PrivacyPolitics";
+import TermsAndConditions from "./Pages/TermsAndConditions";
 
 function App() {
   return (
@@ -33,6 +36,9 @@ function App() {
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="whishlist" element={<Whishlist />} />
+        <Route path="politicas-privacidad" element={<PrivacyPolitics />} />
+        <Route path="terminos-y-condiciones" element={<TermsAndConditions />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
