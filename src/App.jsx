@@ -14,6 +14,7 @@ import Whishlist from "./Pages/Whishlist";
 import NotFound from "./components/NotFound";
 import PrivacyPolitics from "./Pages/PrivacyPolitics";
 import TermsAndConditions from "./Pages/TermsAndConditions";
+import Search from "./Pages/Search";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route element={<Guard pathname="/" />}>
           <Route path="profile" element={<Profile />} />
         </Route>
+        <Route path="search" element={<Search />} />
         <Route path="whishlist" element={<Whishlist />} />
         <Route path="politicas-privacidad" element={<PrivacyPolitics />} />
         <Route path="terminos-y-condiciones" element={<TermsAndConditions />} />

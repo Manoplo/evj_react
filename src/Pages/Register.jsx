@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register, clearErrors } from "../app/slices/authSlice";
 import { ArrowBackIosOutlined } from "@material-ui/icons";
 
@@ -76,6 +76,13 @@ const Error = styled.p`
   font-size: 12px;
   font-style: italic;
   margin-top: -5px;
+`;
+
+const InnerLinks = styled.span`
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const Register = () => {
@@ -165,8 +172,12 @@ const Register = () => {
 
           <Agreement>
             Al crear una cuenta, aceptas nuestros{" "}
-            <a href="#">Términos y condiciones</a> y la{" "}
-            <a href="#">Política de privacidad</a>
+            <Link to={"/terminos-y-condiciones"}>
+              <InnerLinks>Términos y condiciones</InnerLinks> y la{" "}
+            </Link>
+            <Link to={"/politicas-privacidad"}>
+              <InnerLinks>Política de privacidad</InnerLinks>
+            </Link>
           </Agreement>
           <ButtonsContainer>
             <Button>CREAR CUENTA</Button>

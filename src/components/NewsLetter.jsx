@@ -1,4 +1,7 @@
 import { Send } from "@material-ui/icons";
+import axios from "axios";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 
@@ -52,21 +55,63 @@ const Button = styled.button`
   background-color: #ff6d83;
   color: white;
   border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #fa425e;
+  }
+`;
+
+const Message = styled.p`
+  color: tomato;
+  font-size: 16px;
 `;
 
 const NewsLetter = () => {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async () => {
+    try {
+      setMessage("Enviando...");
+      const response = await axios.post(
+        "http://elvestidordejulietta.test/api/v1/newsletter",
+        {
+          email: email,
+        }
+      );
+      console.log(response);
+      if (response.status === 201) {
+        setMessage("¡Gracias por suscribirte!");
+      } else {
+        setMessage("El email ya esta registrado o no es un email válido.");
+      }
+
+      setEmail("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
+      <Toaster />
       <Title>NewsLetter</Title>
       <Description>
         ¡Únete a nuestra newsletter para obtener ofertas exclusivas!
       </Description>
       <InputContainer>
-        <Input placeholder="Introduce tu email" />
-        <Button>
+        <Input
+          placeholder="Introduce tu email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Button onClick={() => handleSubmit()}>
           <Send />
         </Button>
       </InputContainer>
+      {message && <Message>{message}</Message>}
     </Container>
   );
 };

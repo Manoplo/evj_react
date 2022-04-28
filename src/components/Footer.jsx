@@ -125,11 +125,11 @@ const Footer = () => {
           <Title>Enlaces de interés</Title>
           <List>
             <ListItem>Home</ListItem>
-            <ListItem>Mujer</ListItem>
-            <ListItem>Hombre</ListItem>
+            <ListItem>Categorías</ListItem>
+            <ListItem>Carrito</ListItem>
             <ListItem>Accesorios</ListItem>
             <ListItem>Mi Cuenta</ListItem>
-            <ListItem>Carrito</ListItem>
+            <ListItem>Políticas de privacidad</ListItem>
             <ListItem>Lista de deseos</ListItem>
             <ListItem>Términos</ListItem>
           </List>
