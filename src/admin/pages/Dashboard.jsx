@@ -5,6 +5,8 @@ import styled from "styled-components";
 import Widget from "../components/Widget";
 import Featured from "../components/Featured";
 import Chart from "../components/Chart";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const MainContainer = styled.div`
   display: flex;
@@ -28,16 +30,35 @@ const Charts = styled.div`
 `;
 
 const Dashboard = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchWidgets = async () => {
+      try {
+        const response = await axios(
+          "http://elvestidordejulietta.test/api/v1/admin/stats/widgets"
+        );
+
+        console.log(response);
+        setData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchWidgets();
+  }, []);
+
   return (
     <MainContainer>
       <Sidebar />
       <DashBoardContainer>
         <Navbar />
         <Widgets>
-          <Widget type="users" />
-          <Widget type="uusers" />
-          <Widget type="orders" />
-          <Widget type="money" />
+          <Widget type="users" data={data} />
+          <Widget type="uusers" data={data} />
+          <Widget type="orders" data={data} />
+          <Widget type="money" data={data} />
         </Widgets>
         <Charts>
           <Featured />

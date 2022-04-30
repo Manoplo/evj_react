@@ -49,50 +49,53 @@ const Percentage = styled.div`
   color: ${(props) => (props.type === "positive" ? "green" : "red")};
 `;
 
-const Widget = ({ type }) => {
-  let data;
+const Widget = ({ type, data }) => {
+  let datatype;
 
   // temporal
 
-  const amount = 100;
   const per = 20;
 
   switch (type) {
     case "users":
-      data = {
+      datatype = {
         title: "USUARIOS",
         isMoney: false,
         link: "Ver todos los usuarios",
         icon: <PersonAdd className="icon" />,
+        number: data.users,
       };
 
       break;
     case "uusers":
-      data = {
+      datatype = {
         title: "USUARIOS NO REGISTRADOS",
         isMoney: false,
         link: "Ver todos los usuarios",
         icon: <PersonOutline className="icon" />,
+        number: data.uusers,
       };
 
       break;
 
     case "orders":
-      data = {
+      datatype = {
         title: "PEDIDOS",
         isMoney: false,
         link: "Ver todos los pedidos",
         icon: <ShoppingCartOutlined className="icon" />,
+        number: data.orders,
       };
 
       break;
 
     case "money":
-      data = {
+      datatype = {
         title: "GANANCIAS",
         isMoney: true,
         link: "Ver todas las ganancias",
         icon: <MonetizationOnOutlined className="icon" />,
+        number: data.totalRevenue,
       };
 
       break;
@@ -104,19 +107,19 @@ const Widget = ({ type }) => {
   return (
     <WidgetContainer>
       <Left>
-        <Title>{data.title}</Title>
+        <Title>{datatype.title}</Title>
         <Counter>
-          {amount}
-          {data.isMoney && "€"}
+          {datatype.number}
+          {datatype.isMoney && "€"}
         </Counter>
-        <GoUsers>{data.link}</GoUsers>
+        <GoUsers>{datatype.link}</GoUsers>
       </Left>
       <Right>
         <Percentage type="positive">
           <KeyboardArrowUp />
           {per}%
         </Percentage>
-        {data.icon}
+        {datatype.icon}
       </Right>
     </WidgetContainer>
   );
