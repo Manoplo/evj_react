@@ -15,6 +15,11 @@ import NotFound from "./components/NotFound";
 import PrivacyPolitics from "./Pages/PrivacyPolitics";
 import TermsAndConditions from "./Pages/TermsAndConditions";
 import Search from "./Pages/Search";
+import Dashboard from "./admin/pages/Dashboard";
+import List from "./admin/components/List";
+import Single from "./admin/components/Single";
+import New from "./admin/components/New";
+import Edit from "./admin/components/Edit";
 
 function App() {
   return (
@@ -40,6 +45,21 @@ function App() {
         <Route path="whishlist" element={<Whishlist />} />
         <Route path="politicas-privacidad" element={<PrivacyPolitics />} />
         <Route path="terminos-y-condiciones" element={<TermsAndConditions />} />
+        <Route path="admin/dashboard">
+          <Route index element={<Dashboard />} />
+          <Route path="products">
+            <Route index element={<List />} />
+            <Route path=":productId" element={<Single />} />
+            <Route path="new" element={<New />} />
+            <Route path="edit" element={<Edit />} />
+          </Route>
+          <Route path="orders">
+            <Route index element={<List />} />
+            <Route path=":orderId" element={<Single />} />
+            <Route path="new" element={<New />} />
+            <Route path="edit" element={<Edit />} />
+          </Route>
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
