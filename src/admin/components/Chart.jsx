@@ -8,6 +8,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const ChartContainer = styled.div`
   flex: 4;
@@ -59,7 +61,7 @@ const dataFake = [
   },
 ];
 
-const data = [
+/* const data = [
   {
     name: "Enero",
     total: 4000,
@@ -108,7 +110,7 @@ const data = [
     name: "Diciembre",
     total: 3490,
   },
-];
+]; */
 
 const TopLegend = styled.div`
   display: flex;
@@ -119,35 +121,58 @@ const TopLegend = styled.div`
 `;
 
 const Chart = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://elvestidordejulietta.test/api/v1/admin/stats/yearly/${new Date().getFullYear()}`
+        );
+
+        setData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <ChartContainer>
       <TopLegend>
-        Ventas mensuales para el año corriente ({new Date().getFullYear()})
+        {data
+          ? "Ventas mensuales para el año corriente - " +
+            new Date().getFullYear()
+          : "Cargando..."}
       </TopLegend>
-      <ResponsiveContainer width="100%" height={400}>
-        <AreaChart
-          width={500}
-          height={400}
-          data={data}
-          margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Area
-            type="monotone"
-            dataKey="total"
-            stroke="#d884d1"
-            fill="#d88492"
-          />
-        </AreaChart>
-      </ResponsiveContainer>
+
+      {data && (
+        <ResponsiveContainer width="100%" height={400}>
+          <AreaChart
+            width={500}
+            height={400}
+            data={data}
+            margin={{
+              top: 10,
+              right: 30,
+              left: 0,
+              bottom: 0,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Area
+              type="monotone"
+              dataKey="total"
+              stroke="#d884d1"
+              fill="#d88492"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      )}
     </ChartContainer>
   );
 };

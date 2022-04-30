@@ -31,6 +31,9 @@ const Charts = styled.div`
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
+  const [earnings, setEarnings] = useState({});
+  const [chartData, setChartData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchWidgets = async () => {
