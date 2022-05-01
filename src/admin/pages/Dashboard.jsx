@@ -7,6 +7,7 @@ import Featured from "../components/Featured";
 import Chart from "../components/Chart";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Table from "../components/Table";
 
 const MainContainer = styled.div`
   display: flex;
@@ -31,9 +32,6 @@ const Charts = styled.div`
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
-  const [earnings, setEarnings] = useState({});
-  const [chartData, setChartData] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchWidgets = async () => {
@@ -67,6 +65,7 @@ const Dashboard = () => {
           <Featured />
           <Chart />
         </Charts>
+        <Table />
       </DashBoardContainer>
     </MainContainer>
   );

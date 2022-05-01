@@ -129,7 +129,7 @@ const Chart = () => {
         const response = await axios.get(
           `http://elvestidordejulietta.test/api/v1/admin/stats/yearly/${new Date().getFullYear()}`
         );
-
+        console.log(response);
         setData(response.data);
       } catch (error) {
         console.log(error);
