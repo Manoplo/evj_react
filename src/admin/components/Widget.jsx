@@ -5,6 +5,7 @@ import {
   MonetizationOnOutlined,
   PersonAdd,
 } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import "./css/styles.css";
 
@@ -42,6 +43,10 @@ const GoUsers = styled.span`
   width: max-content;
   font-size: 14px;
   border-bottom: 1px solid gray;
+
+  &:hover {
+    color: lightcoral;
+  }
 `;
 const Percentage = styled.div`
   display: flex;
@@ -62,6 +67,7 @@ const Widget = ({ type, data }) => {
         title: "USUARIOS",
         isMoney: false,
         link: "Ver todos los usuarios",
+        anchor: "users",
         icon: <PersonAdd className="icon" />,
         number: data.users,
       };
@@ -72,6 +78,7 @@ const Widget = ({ type, data }) => {
         title: "USUARIOS NO REGISTRADOS",
         isMoney: false,
         link: "Ver todos los usuarios",
+        anchor: "uusers",
         icon: <PersonOutline className="icon" />,
         number: data.uusers,
       };
@@ -83,6 +90,7 @@ const Widget = ({ type, data }) => {
         title: "PEDIDOS",
         isMoney: false,
         link: "Ver todos los pedidos",
+        anchor: "orders",
         icon: <ShoppingCartOutlined className="icon" />,
         number: data.orders,
       };
@@ -93,7 +101,7 @@ const Widget = ({ type, data }) => {
       datatype = {
         title: "GANANCIAS",
         isMoney: true,
-        link: "Ver todas las ganancias",
+
         icon: <MonetizationOnOutlined className="icon" />,
         number: data.totalRevenue,
       };
@@ -112,7 +120,10 @@ const Widget = ({ type, data }) => {
           {datatype.number}
           {datatype.isMoney && "€"}
         </Counter>
-        <GoUsers>{datatype.link}</GoUsers>
+        <Link to={`/admin/dashboard/${datatype.anchor}`}>
+          {" "}
+          <GoUsers>{datatype.link}</GoUsers>
+        </Link>
       </Left>
       <Right>
         <Percentage type="positive">

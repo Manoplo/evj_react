@@ -30,6 +30,58 @@ const Charts = styled.div`
   margin-top: 40px;
 `;
 
+const columns = [
+  {
+    name: "id",
+    label: "ID",
+  },
+  {
+    name: "total",
+    label: "Total",
+  },
+  {
+    name: "status",
+    label: "Status",
+  },
+  {
+    name: "uuser_id",
+    label: "UNR ID",
+  },
+  {
+    name: "user_id",
+    label: "Usuario ID",
+  },
+  {
+    name: "created_at",
+    label: "Created At",
+  },
+  {
+    name: "updated_at",
+    label: "Updated At",
+  },
+  {
+    name: "Acciones",
+    label: "ACCIONES",
+    options: {
+      filter: false,
+      sort: false,
+      empty: true,
+      customBodyRender: (value, tableMeta, updateValue) => {
+        return (
+          <button
+            className="btn btn-danger"
+            onClick={() =>
+              navigate(`/admin/dashboard/orders/${tableMeta.rowData[0]}`)
+            }
+          >
+            Ver detalles
+          </button>
+        );
+      },
+    },
+  },
+];
+
 const Dashboard = () => {
   const [data, setData] = useState([]);
 

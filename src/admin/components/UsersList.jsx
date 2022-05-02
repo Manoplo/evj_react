@@ -1,12 +1,36 @@
+import styled from "styled-components";
 import MUIDataTable from "mui-datatables";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import { CreditCardOutlined, Group } from "@material-ui/icons";
+import "./css/styles.css";
 
 const options = {
   filterType: "checkbox",
 };
+
+const MainContainer = styled.div`
+  display: flex;
+`;
+
+const DashBoardContainer = styled.div`
+  flex: 6;
+`;
+
+const Title = styled.h1`
+  font-family: "Urbanist", sans-serif;
+  font-size: 2rem;
+  color: #727272;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 15px;
+`;
 
 const Button = styled.button`
   background: lightpink;
@@ -23,7 +47,7 @@ const Button = styled.button`
   }
 `;
 
-const Table = () => {
+const UsersList = () => {
   const [data, setData] = useState([]);
 
   const navigate = useNavigate();
@@ -34,24 +58,26 @@ const Table = () => {
       label: "ID",
     },
     {
-      name: "total",
-      label: "TOTAL",
+      name: "name",
+      label: "NOMBRE",
     },
     {
-      name: "status",
-      label: "ESTADO",
+      name: "lastname",
+      label: "APELLIDO",
     },
     {
-      name: "uuser_id",
-      label: "UNR ID",
+      name: "email",
+      label: "EMAIL",
     },
+
     {
-      name: "user_id",
-      label: "Usuario ID",
+      name: "active",
+      label: "ACTIVO",
     },
+
     {
       name: "created_at",
-      label: "REALIZADO",
+      label: "ALTA",
     },
     {
       name: "updated_at",
@@ -69,7 +95,7 @@ const Table = () => {
             <Button
               className="btn btn-danger"
               onClick={() =>
-                navigate(`/admin/dashboard/orders/${tableMeta.rowData[0]}`)
+                navigate(`/admin/dashboard/users/${tableMeta.rowData[0]}`)
               }
             >
               Ver detalles
@@ -84,7 +110,7 @@ const Table = () => {
     const fetchData = async () => {
       try {
         const response = await axios(
-          "http://elvestidordejulietta.test/api/v1/admin/orders/latest"
+          "http://elvestidordejulietta.test/api/v1/admin/users"
         );
         console.log(response);
         setData(response.data);
@@ -96,13 +122,22 @@ const Table = () => {
   }, []);
 
   return (
-    <MUIDataTable
-      title={"ÚLTIMOS PEDIDOS"}
-      data={data}
-      columns={columns}
-      options={options}
-    />
+    <>
+      <MainContainer>
+        <Sidebar />
+        <DashBoardContainer>
+          <Navbar />
+          <TitleContainer>
+            <Title>
+              {" "}
+              <Group className="icon-main" /> USUARIOS
+            </Title>
+          </TitleContainer>
+          <MUIDataTable data={data} columns={columns} options={options} />
+        </DashBoardContainer>
+      </MainContainer>
+    </>
   );
 };
 
-export default Table;
+export default UsersList;

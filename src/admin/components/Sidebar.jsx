@@ -5,6 +5,7 @@ import {
   ExitToApp,
   Group,
   Loyalty,
+  PersonOutline,
   Settings,
   ShopOutlined,
   SlideshowOutlined,
@@ -12,6 +13,7 @@ import {
   Subscriptions,
 } from "@material-ui/icons";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   flex: 1;
@@ -65,6 +67,10 @@ const ListItem = styled.li`
     background-color: #ffc4cd;
     color: white;
   }
+
+  & a {
+    color: black;
+  }
 `;
 
 const Section = styled.p`
@@ -105,12 +111,17 @@ const Sidebar = () => {
         <List>
           <Section>PRINCIPAL</Section>
           <ListItem>
-            <Dashboard /> Dashboard
+            <Dashboard />
+            <Link to="/admin/dashboard">Dashboard</Link>
           </ListItem>
           <Section>LISTADOS</Section>
           <ListItem>
             <Group />
-            Usuarios
+            <Link to="/admin/dashboard/users">Usuarios</Link>
+          </ListItem>
+          <ListItem>
+            <PersonOutline />
+            Usuarios no registrados
           </ListItem>
           <ListItem>
             <StorefrontOutlined />
@@ -118,7 +129,7 @@ const Sidebar = () => {
           </ListItem>
           <ListItem>
             <CreditCardOutlined />
-            Pedidos
+            <Link to="/admin/dashboard/orders">Pedidos</Link>
           </ListItem>
           <ListItem>
             <Loyalty />
