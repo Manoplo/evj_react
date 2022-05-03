@@ -20,6 +20,10 @@ import {
 } from "@material-ui/icons";
 import toast, { Toaster } from "react-hot-toast";
 
+const options = {
+  filterType: "multiselect",
+};
+
 const MainContainer = styled.div`
   display: flex;
 `;
@@ -164,6 +168,69 @@ const SingleUser = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
 
+  const columns = [
+    {
+      name: "id",
+      label: "ID",
+    },
+    {
+      name: "name",
+      label: "NOMBRE",
+    },
+
+    {
+      name: "image",
+      label: "IMAGEN",
+      options: {
+        filter: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <img src={value} alt="product" style={{ width: "30px" }} />;
+        },
+      },
+    },
+    {
+      name: "price",
+      label: "PRECIO",
+    },
+    {
+      name: "in_store",
+      label: "EN TIENDA",
+    },
+    {
+      name: "category_id",
+      label: "CATEGORÍA",
+    },
+    {
+      name: "created_at",
+      label: "CREADO",
+    },
+    {
+      name: "updated_at",
+      label: "MODIFICADO",
+    },
+    {
+      name: "Acciones",
+      label: "ACCIONES",
+      options: {
+        filter: false,
+        sort: false,
+        empty: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <Button
+              className="btn btn-danger"
+              onClick={() =>
+                navigate(`/admin/dashboard/products/${tableMeta.rowData[0]}`)
+              }
+            >
+              Ver detalles
+            </Button>
+          );
+        },
+      },
+    },
+  ];
+
   // Gets the total amount of money spent in orders
 
   const getTotalSpent = () => {
@@ -195,6 +262,17 @@ const SingleUser = () => {
     } else {
       return 0;
     }
+  };
+
+  const getProducts = () => {
+    let products = [];
+    data?.user?.orders.forEach((order) => {
+      order.products.forEach((product) => {
+        products.push(product);
+      });
+    });
+    console.log(products);
+    return products;
   };
 
   // Changes user status function
@@ -303,7 +381,7 @@ const SingleUser = () => {
                   El usuario aún no ha facilitado sus datos de entrega.
                 </Title>
               )}
-
+              {/* {getProducts()} */}
               <Field>Estado de la cuenta:</Field>
               <AccountTitle active={data?.user?.active}>
                 {data?.user?.active === 1 ? "Activa" : "Inactiva"}
@@ -365,6 +443,12 @@ const SingleUser = () => {
               </ChartCardContainer>
             </ChartDisplay>
           </TopContainer>
+          <MUIDataTable
+            title={"Productos comprados"}
+            data={getProducts()}
+            columns={columns}
+            options={options}
+          />
         </DashBoardContainer>
       </MainContainer>
     </>

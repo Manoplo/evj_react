@@ -22,7 +22,7 @@ const DashBoardContainer = styled.div`
 
 const Title = styled.h1`
   font-family: "Urbanist", sans-serif;
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #727272;
 `;
 
