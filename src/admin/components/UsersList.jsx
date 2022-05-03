@@ -9,7 +9,7 @@ import { CreditCardOutlined, Group } from "@material-ui/icons";
 import "./css/styles.css";
 
 const options = {
-  filterType: "checkbox",
+  filterType: "multiselect",
 };
 
 const MainContainer = styled.div`
