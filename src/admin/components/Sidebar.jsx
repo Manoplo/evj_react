@@ -132,7 +132,7 @@ const Sidebar = () => {
           </ListItem>
           <ListItem>
             <PersonOutline />
-            Usuarios no registrados
+            <Link to="/admin/dashboard/uusers">Usuarios no registrados</Link>
           </ListItem>
           <ListItem>
             <StorefrontOutlined />

@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import { CreditCardOutlined } from "@material-ui/icons";
 import "./css/styles.css";
+import adminHeader from "../../services/admin-header";
 
 const options = {
   filterType: "multiselect",
@@ -108,9 +109,12 @@ const OrderList = () => {
     const fetchData = async () => {
       try {
         const response = await axios(
-          "http://elvestidordejulietta.test/api/v1/admin/orders/"
+          "http://elvestidordejulietta.test/api/v1/admin/orders/",
+          {
+            headers: adminHeader(),
+          }
         );
-        console.log(response);
+
         setData(response.data);
       } catch (error) {
         console.log(error);

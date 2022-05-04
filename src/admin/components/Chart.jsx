@@ -10,6 +10,7 @@ import {
 } from "recharts";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import adminHeader from "../../services/admin-header";
 
 const ChartContainer = styled.div`
   flex: 4;
@@ -127,7 +128,10 @@ const Chart = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://elvestidordejulietta.test/api/v1/admin/stats/yearly/${new Date().getFullYear()}`
+          `http://elvestidordejulietta.test/api/v1/admin/stats/yearly/${new Date().getFullYear()}`,
+          {
+            headers: adminHeader(),
+          }
         );
         console.log(response);
         setData(response.data);

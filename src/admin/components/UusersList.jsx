@@ -48,7 +48,7 @@ const Button = styled.button`
   }
 `;
 
-const UsersList = () => {
+const UusersList = () => {
   const [data, setData] = useState([]);
 
   const navigate = useNavigate();
@@ -70,19 +70,13 @@ const UsersList = () => {
       name: "email",
       label: "EMAIL",
     },
-
     {
-      name: "active",
-      label: "ACTIVO",
+      name: "town",
+      label: "CIUDAD",
     },
-
     {
       name: "created_at",
       label: "ALTA",
-    },
-    {
-      name: "updated_at",
-      label: "MODIFICADO",
     },
     {
       name: "Acciones",
@@ -96,7 +90,7 @@ const UsersList = () => {
             <Button
               className="btn btn-danger"
               onClick={() =>
-                navigate(`/admin/dashboard/users/${tableMeta.rowData[0]}`)
+                navigate(`/admin/dashboard/uusers/${tableMeta.rowData[0]}`)
               }
             >
               Ver detalles
@@ -111,7 +105,7 @@ const UsersList = () => {
     const fetchData = async () => {
       try {
         const response = await axios(
-          "http://elvestidordejulietta.test/api/v1/admin/users",
+          "http://elvestidordejulietta.test/api/v1/admin/unregistered",
           {
             headers: adminHeader(),
           }
@@ -134,7 +128,7 @@ const UsersList = () => {
           <TitleContainer>
             <Title>
               {" "}
-              <Group className="icon-main" /> USUARIOS
+              <Group className="icon-main" /> USUARIOS NO REGISTRADOS
             </Title>
           </TitleContainer>
           <MUIDataTable data={data} columns={columns} options={options} />
@@ -144,4 +138,4 @@ const UsersList = () => {
   );
 };
 
-export default UsersList;
+export default UusersList;

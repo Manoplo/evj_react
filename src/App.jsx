@@ -27,6 +27,8 @@ import OrderList from "./admin/components/OrderList";
 import UsersList from "./admin/components/UsersList";
 import SingleUser from "./admin/components/SingleUser";
 import AdminLogin from "./admin/pages/AdminLogin";
+import UusersList from "./admin/components/UusersList";
+import SingleUuser from "./admin/components/SingleUuser";
 
 function App() {
   return (
@@ -69,6 +71,10 @@ function App() {
             <Route path="users">
               <Route index element={<UsersList />} />
               <Route path=":userId" element={<SingleUser />} />
+            </Route>
+            <Route path="uusers">
+              <Route index element={<UusersList />} />
+              <Route path=":uuserId" element={<SingleUuser />} />
             </Route>
           </Route>
         </Route>

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import adminHeader from "../../services/admin-header";
 
 const options = {
   filterType: "checkbox",
@@ -84,7 +85,10 @@ const Table = () => {
     const fetchData = async () => {
       try {
         const response = await axios(
-          "http://elvestidordejulietta.test/api/v1/admin/orders/latest"
+          "http://elvestidordejulietta.test/api/v1/admin/orders/latest",
+          {
+            headers: adminHeader(),
+          }
         );
         console.log(response);
         setData(response.data);

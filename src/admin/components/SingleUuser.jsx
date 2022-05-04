@@ -162,12 +162,11 @@ const Button = styled.button`
   }
 `;
 
-const SingleUser = () => {
+const SingleUuser = () => {
   const [data, setData] = useState(null);
-  const [activeValue, setActiveValue] = useState(1);
 
   const navigate = useNavigate();
-  const { userId } = useParams();
+  const { uuserId } = useParams();
 
   const columns = [
     {
@@ -242,7 +241,7 @@ const SingleUser = () => {
   const getTotalSpent = () => {
     if (data !== null) {
       let total = 0;
-      data?.user?.orders.forEach((order) => {
+      data?.orders.forEach((order) => {
         total += order.total;
       });
       return total;
@@ -254,11 +253,11 @@ const SingleUser = () => {
   const getAverageSpent = () => {
     if (data !== null) {
       let total = 0;
-      data?.user?.orders.forEach((order) => {
+      data?.orders.forEach((order) => {
         total += order.total;
       });
 
-      let average = total / data?.user?.orders.length;
+      let average = total / data?.orders.length;
 
       if (Object.is(NaN, average)) {
         return 0;
@@ -272,7 +271,7 @@ const SingleUser = () => {
 
   const getProducts = () => {
     let products = [];
-    data?.user?.orders.forEach((order) => {
+    data?.orders.forEach((order) => {
       order.products.forEach((product) => {
         products.push(product);
       });
@@ -281,47 +280,13 @@ const SingleUser = () => {
     return products;
   };
 
-  // Changes user status function
-  const handleAccountChange = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post(
-        "http://elvestidordejulietta.test/api/v1/admin/users/activate",
-        {
-          id: userId,
-          active: activeValue,
-        }
-      );
-      toast.success(
-        "Usuario actualizado",
-
-        {
-          duration: 3000,
-          style: {
-            border: "1px solid lightpink",
-            padding: "16px",
-            color: "black",
-            fontFamily: "Urbanist",
-          },
-          iconTheme: {
-            primary: "lightpink",
-            secondary: "#FFFAEE",
-          },
-        }
-      );
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   /* Fetching data from the API. */
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios(
-          "http://elvestidordejulietta.test/api/v1/admin/users/" + userId,
+          "http://elvestidordejulietta.test/api/v1/admin/unregistered/" +
+            uuserId,
           {
             headers: adminHeader(),
           }
@@ -333,7 +298,7 @@ const SingleUser = () => {
       }
     };
     fetchData();
-  }, [userId]);
+  }, [uuserId]);
 
   return (
     <>
@@ -348,7 +313,10 @@ const SingleUser = () => {
                 <GroupAddOutlined /> NOMBRE:
               </Field>
               {data !== null ? (
-                <Title> {data?.user?.name + " " + data?.user?.lastname}</Title>
+                <Title>
+                  {" "}
+                  {data?.uuser?.name + " " + data?.uuser?.lastname}
+                </Title>
               ) : (
                 <Title> No existe ningún usuario con esa id. </Title>
               )}
@@ -356,58 +324,34 @@ const SingleUser = () => {
                 {" "}
                 <Email /> EMAIL:
               </Field>
-              <Title> {data?.user?.email}</Title>
+              <Title> {data?.uuser?.email}</Title>
               <Field>
                 {" "}
                 <PhoneAndroid /> TELÉFONO:
               </Field>
               <Title>
                 {" "}
-                {data?.details?.phone
-                  ? data.details.phone
+                {data?.uuser?.phone
+                  ? data.uuser.phone
                   : "El usuario no ha facilitado su teléfono aún."}
               </Title>
               <Field>
                 <LocalShippingOutlined /> DATOS DE ENTREGA:
               </Field>
-              {data?.details !== null ? (
-                <>
-                  <Field>
-                    <Title>
-                      {data?.details?.address} - {data?.details?.town}
-                    </Title>
-                  </Field>
 
-                  <Field>
-                    <Title>
-                      {data?.details?.cp} - {data?.details?.province}
-                    </Title>
-                  </Field>
-                </>
-              ) : (
+              <Field>
                 <Title>
-                  {" "}
-                  El usuario aún no ha facilitado sus datos de entrega.
+                  {data?.uuser?.address} - {data?.uuser?.town}
                 </Title>
-              )}
+              </Field>
+
+              <Field>
+                <Title>
+                  {data?.uuser?.cp} - {data?.uuser?.province}
+                </Title>
+              </Field>
+
               {/* {getProducts()} */}
-              <Field>Estado de la cuenta:</Field>
-              <AccountTitle active={data?.user?.active}>
-                {data?.user?.active === 1 ? "Activa" : "Inactiva"}
-              </AccountTitle>
-              <Information>
-                Cambia el estado de la cuenta de activa a inactiva. ¡Cuidado!
-                Una cuenta inactiva no puede acceder a su perfil en la web.
-              </Information>
-              <Form onSubmit={handleAccountChange}>
-                <Select onChange={(e) => setActiveValue(e.target.value)}>
-                  <Option value={1}>Activa</Option>
-                  <Option value={0}>Inactiva</Option>
-                </Select>
-                <Button type="submit" disabled={data === null}>
-                  Cambiar estado
-                </Button>
-              </Form>
             </UserDisplay>
             <ChartDisplay>
               <Title>
@@ -422,9 +366,7 @@ const SingleUser = () => {
                     </ChartCardTitle>
                   </ChartCardHeader>
                   <ChartCardBody>
-                    <ChartCardAmount>
-                      {data?.user?.orders?.length}
-                    </ChartCardAmount>
+                    <ChartCardAmount>{data?.orders?.length}</ChartCardAmount>
                   </ChartCardBody>
                 </ChartCard>
                 <ChartCard>
@@ -464,4 +406,4 @@ const SingleUser = () => {
   );
 };
 
-export default SingleUser;
+export default SingleUuser;
