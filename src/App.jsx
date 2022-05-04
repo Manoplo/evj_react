@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Profile from "./Pages/Profile";
 import Guard from "./components/guards/Guard";
+import AdminGuard from "./components/guards/AdminGuard";
 import Whishlist from "./Pages/Whishlist";
 import NotFound from "./components/NotFound";
 import PrivacyPolitics from "./Pages/PrivacyPolitics";
@@ -25,6 +26,7 @@ import SingleProduct from "./admin/components/SingleProduct";
 import OrderList from "./admin/components/OrderList";
 import UsersList from "./admin/components/UsersList";
 import SingleUser from "./admin/components/SingleUser";
+import AdminLogin from "./admin/pages/AdminLogin";
 
 function App() {
   return (
@@ -50,21 +52,24 @@ function App() {
         <Route path="whishlist" element={<Whishlist />} />
         <Route path="politicas-privacidad" element={<PrivacyPolitics />} />
         <Route path="terminos-y-condiciones" element={<TermsAndConditions />} />
-        <Route path="admin/dashboard">
-          <Route index element={<Dashboard />} />
-          <Route path="products">
-            <Route index element={<ProductList />} />
-            <Route path=":productId" element={<SingleProduct />} />
-            <Route path="new" element={<New />} />
-            <Route path="edit" element={<Edit />} />
-          </Route>
-          <Route path="orders">
-            <Route index element={<OrderList />} />
-            <Route path=":orderId" element={<SingleOrder />} />
-          </Route>
-          <Route path="users">
-            <Route index element={<UsersList />} />
-            <Route path=":userId" element={<SingleUser />} />
+        <Route path="admin/login" element={<AdminLogin />} />
+        <Route element={<AdminGuard pathname="/admin/login" />}>
+          <Route path="admin/dashboard">
+            <Route index element={<Dashboard />} />
+            <Route path="products">
+              <Route index element={<ProductList />} />
+              <Route path=":productId" element={<SingleProduct />} />
+              <Route path="new" element={<New />} />
+              <Route path="edit" element={<Edit />} />
+            </Route>
+            <Route path="orders">
+              <Route index element={<OrderList />} />
+              <Route path=":orderId" element={<SingleOrder />} />
+            </Route>
+            <Route path="users">
+              <Route index element={<UsersList />} />
+              <Route path=":userId" element={<SingleUser />} />
+            </Route>
           </Route>
         </Route>
         <Route path="*" element={<NotFound />} />

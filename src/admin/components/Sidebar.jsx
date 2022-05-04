@@ -14,6 +14,9 @@ import {
 } from "@material-ui/icons";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { logout } from "../../app/slices/adminSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const Container = styled.div`
   flex: 1;
@@ -101,6 +104,14 @@ const ColorOptionTwo = styled.div`
 `;
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.admin);
+
+  const handleLogout = () => {
+    if (!isLoggedIn) return;
+    dispatch(logout());
+  };
+
   return (
     <Container>
       <Top>
@@ -148,7 +159,7 @@ const Sidebar = () => {
             <Settings />
             Opciones
           </ListItem>
-          <ListItem>
+          <ListItem onClick={handleLogout}>
             <ExitToApp />
             Salir
           </ListItem>

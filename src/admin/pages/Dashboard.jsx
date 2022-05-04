@@ -8,6 +8,9 @@ import Chart from "../components/Chart";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "../components/Table";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import adminHeader from "../../services/admin-header";
 
 const MainContainer = styled.div`
   display: flex;
@@ -84,12 +87,24 @@ const columns = [
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoggedIn } = useSelector((state) => state.admin);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/admin/login");
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const fetchWidgets = async () => {
       try {
         const response = await axios(
-          "http://elvestidordejulietta.test/api/v1/admin/stats/widgets"
+          "http://elvestidordejulietta.test/api/v1/admin/stats/widgets",
+          {
+            headers: adminHeader(),
+          }
         );
 
         console.log(response);

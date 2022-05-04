@@ -30,12 +30,18 @@ const login = (email, password) => {
 // Logout function 
 const logout = () => {
     localStorage.removeItem('user');
+    
 }   
+
+const adminLogout =  () => {
+    sessionStorage.removeItem('admin');
+}
 
 const authService = {
     register,
     login,
-    logout
+    logout,
+    adminLogout
 }
 
 export default authService;

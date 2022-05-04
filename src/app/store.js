@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from './slices/cartSlice';
 import authReducer from './slices/authSlice';
 import checkoutReducer from './slices/checkoutSlice';
+import adminReducer from './slices/adminSlice';
 
 
 /**
@@ -11,6 +12,7 @@ export default configureStore({
     reducer : {
         cart : cartReducer,
         auth : authReducer,
-        checkout : checkoutReducer
+        checkout : checkoutReducer,
+        admin : adminReducer
     }
 })
