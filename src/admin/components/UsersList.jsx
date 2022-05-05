@@ -74,6 +74,16 @@ const UsersList = () => {
     {
       name: "active",
       label: "ACTIVO",
+      options: {
+        filter: true,
+        customBodyRender: (value) => {
+          if (value === 1) {
+            return "Si";
+          } else {
+            return "No";
+          }
+        },
+      },
     },
 
     {

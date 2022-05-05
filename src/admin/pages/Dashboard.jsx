@@ -107,7 +107,6 @@ const Dashboard = () => {
           }
         );
 
-        console.log(response);
         setData(response.data);
       } catch (error) {
         console.log(error);

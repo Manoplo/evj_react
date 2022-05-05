@@ -43,12 +43,6 @@ const Featured = () => {
   const [value, setValue] = useState("");
   const [data, setData] = useState([]);
 
-  const handleInputChange = (event) => {
-    setValue(event.target.value);
-    console.log(value);
-    fetchData(value);
-  };
-
   const fetchData = async (value) => {
     try {
       const response = await axios.post(
@@ -71,10 +65,10 @@ const Featured = () => {
       const dateString = `${year}-${month}-${day}`;
       setValue(dateString);
       fetchData(dateString);
+    } else {
+      fetchData(value);
     }
-
-    /* fetchData(date); */
-  }, []);
+  }, [value]);
 
   return (
     <FeaturedContainer>
@@ -92,7 +86,7 @@ const Featured = () => {
         <Legend>
           <b>{data.total}</b>/ 150€
         </Legend>
-        <Input type="date" onChange={handleInputChange} />
+        <Input type="date" onChange={(e) => setValue(e.target.value)} />
       </Bottom>
     </FeaturedContainer>
   );

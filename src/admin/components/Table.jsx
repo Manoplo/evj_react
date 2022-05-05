@@ -41,6 +41,68 @@ const Table = () => {
     {
       name: "status",
       label: "ESTADO",
+      options: {
+        filter: true,
+        customBodyRender: (value) => {
+          if (value === "procesado") {
+            return (
+              <div
+                style={{
+                  color: "white",
+                  backgroundColor: "orange",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{value}</span>
+              </div>
+            );
+          } else if (value === "enviado") {
+            return (
+              <div
+                style={{
+                  color: "white",
+                  backgroundColor: "lightblue",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{value}</span>
+              </div>
+            );
+          } else if (value === "finalizado") {
+            return (
+              <div
+                style={{
+                  color: "white",
+                  backgroundColor: "lightgreen",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{value}</span>
+              </div>
+            );
+          } else if (value === "cancelado") {
+            return (
+              <div
+                style={{
+                  color: "white",
+                  backgroundColor: "tomato",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{value}</span>
+              </div>
+            );
+          }
+        },
+      },
     },
     {
       name: "uuser_id",
