@@ -22,6 +22,7 @@ const Message = styled.h2`
     fontSize: "1.5rem",
   })}
 `;
+const Advice = styled.p``;
 
 const style = {
   height: "500px",
@@ -77,6 +78,10 @@ const Success = () => {
           ¡Compra realizada con éxito! Hemos enviado un mensaje a tu correo
           electrónico con los datos de la compra.{" "}
         </Message>
+        <Advice>
+          Espera mientras procesamos los datos antes de cerrar esta pestaña. Te
+          redigiremos enseguida.
+        </Advice>
       </Wrapper>
     </>
   );

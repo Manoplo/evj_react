@@ -76,7 +76,6 @@ const ChartDisplay = styled.div`
   padding: 20px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   height: fit-content;
-  margin-top: 100px;
 `;
 
 const ChartCardContainer = styled.div`

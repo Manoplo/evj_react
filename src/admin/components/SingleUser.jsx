@@ -76,7 +76,6 @@ const ChartDisplay = styled.div`
   padding: 20px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   height: fit-content;
-  margin-top: 100px;
 `;
 
 const ChartCardContainer = styled.div`
@@ -88,7 +87,7 @@ const ChartCard = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  /*  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1); */
   padding: 20px;
 `;
 
@@ -164,6 +163,7 @@ const Button = styled.button`
 
 const SingleUser = () => {
   const [data, setData] = useState(null);
+  const [orders, setOrders] = useState(null);
   const [activeValue, setActiveValue] = useState(1);
 
   const navigate = useNavigate();
@@ -227,6 +227,114 @@ const SingleUser = () => {
               className="btn btn-danger"
               onClick={() =>
                 navigate(`/admin/dashboard/products/${tableMeta.rowData[0]}`)
+              }
+            >
+              Ver detalles
+            </Button>
+          );
+        },
+      },
+    },
+  ];
+
+  // Columnas del pedido
+
+  const orderColumns = [
+    {
+      name: "id",
+      label: "ID",
+    },
+    {
+      name: "total",
+      label: "TOTAL",
+    },
+    {
+      name: "status",
+      label: "ESTADO",
+      options: {
+        filter: true,
+        customBodyRender: (value) => {
+          if (value === "procesado") {
+            return (
+              <div
+                style={{
+                  color: "white",
+                  backgroundColor: "orange",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{value}</span>
+              </div>
+            );
+          } else if (value === "enviado") {
+            return (
+              <div
+                style={{
+                  color: "white",
+                  backgroundColor: "lightblue",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{value}</span>
+              </div>
+            );
+          } else if (value === "finalizado") {
+            return (
+              <div
+                style={{
+                  color: "white",
+                  backgroundColor: "lightgreen",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{value}</span>
+              </div>
+            );
+          } else if (value === "cancelado") {
+            return (
+              <div
+                style={{
+                  color: "white",
+                  backgroundColor: "tomato",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{value}</span>
+              </div>
+            );
+          }
+        },
+      },
+    },
+    {
+      name: "created_at",
+      label: "REALIZADO",
+    },
+    {
+      name: "updated_at",
+      label: "MODIFICADO",
+    },
+    {
+      name: "Acciones",
+      label: "ACCIONES",
+      options: {
+        filter: false,
+        sort: false,
+        empty: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <Button
+              className="btn btn-danger"
+              onClick={() =>
+                navigate(`/admin/dashboard/orders/${tableMeta.rowData[0]}`)
               }
             >
               Ver detalles
@@ -332,7 +440,24 @@ const SingleUser = () => {
         console.log(error);
       }
     };
+
+    const fetchOrders = async () => {
+      try {
+        const response = await axios(
+          "http://elvestidordejulietta.test/api/v1/admin/orders/new/" + userId,
+          {
+            headers: adminHeader(),
+          }
+        );
+        console.log(response);
+        setOrders(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchData();
+    fetchOrders();
   }, [userId]);
 
   return (
@@ -445,11 +570,17 @@ const SingleUser = () => {
                   </ChartCardHeader>
                   <ChartCardBody>
                     <ChartCardAmount>
-                      {getAverageSpent().toFixed(2) + "€"}
+                      {getAverageSpent().toFixed(1) + "€"}
                     </ChartCardAmount>
                   </ChartCardBody>
                 </ChartCard>
               </ChartCardContainer>
+              <MUIDataTable
+                title={"Ultimos pedidos"}
+                data={orders ? orders : []}
+                columns={orderColumns}
+                options={options}
+              />
             </ChartDisplay>
           </TopContainer>
           <MUIDataTable
