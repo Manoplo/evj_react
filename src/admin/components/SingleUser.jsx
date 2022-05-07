@@ -576,7 +576,7 @@ const SingleUser = () => {
                 </ChartCard>
               </ChartCardContainer>
               <MUIDataTable
-                title={"Ultimos pedidos"}
+                title={"ÚLTIMOS PEDIDOS"}
                 data={orders ? orders : []}
                 columns={orderColumns}
                 options={options}
@@ -584,7 +584,7 @@ const SingleUser = () => {
             </ChartDisplay>
           </TopContainer>
           <MUIDataTable
-            title={"Productos comprados"}
+            title={"PRODUCTOS COMPRADOS"}
             data={getProducts()}
             columns={columns}
             options={options}

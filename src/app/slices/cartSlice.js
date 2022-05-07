@@ -23,7 +23,7 @@ export const cartSlice = createSlice({
                     name,
                     price,
                     image,
-                    size: size,
+                    size: size === "" ? "S" : size,
                     quantity : quantity
                 });
             }

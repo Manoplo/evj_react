@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+import ProductCard from "./ProductCard";
 import adminHeader from "../../services/admin-header";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -15,12 +16,26 @@ const DashBoardContainer = styled.div`
   flex: 6;
 `;
 
+const TopContainer = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
 const OrderInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: fit-content;
+  flex: 1;
   margin: 20px 0 0 20px;
 
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+`;
+
+const ProductsContainer = styled.div`
+  display: flex;
+  flex: 2;
+  gap: 20px;
+  margin: 20px 0 0 20px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   padding: 30px;
 `;
@@ -54,6 +69,11 @@ const StateContainer = styled.div`
   width: fit-content;
   border-radius: 10px;
   color: white;
+`;
+
+const PriceInfo = styled.h1`
+  margin-top: -10px;
+  margin-bottom: -10px;
 `;
 
 const Form = styled.form``;
@@ -121,46 +141,58 @@ const SingleOrder = () => {
       <Sidebar />
       <DashBoardContainer>
         <Navbar />
-        <OrderInfoContainer>
-          <OrderTitle>Referencia del pedido:</OrderTitle>
-          <OrderInfo>{data?.order?.id}</OrderInfo>
-          <OrderTitle>Nombre destinatario:</OrderTitle>
-          <OrderInfo>{data?.user?.name + " " + data?.user?.lastname}</OrderInfo>
-          <OrderTitle>Dirección de envío:</OrderTitle>
-          <OrderInfo>
-            {data?.user?.details ? (
-              <>
-                {data?.user?.details?.address} - {data?.user?.details?.cp} -{" "}
-                {data?.user?.details?.town} - ({data?.user?.details?.province})
-              </>
-            ) : (
-              <>
-                {data?.user?.address} - {data?.user?.cp} - {data?.user?.town} -
-                {data?.user?.province}
-              </>
-            )}
-          </OrderInfo>
-          <OrderTitle>Fecha de creación:</OrderTitle>
-          <OrderInfo>{data?.order?.created_at}</OrderInfo>
-          <OrderTitle>Estado del pedido:</OrderTitle>
-          <StateContainer state={data?.order?.status}>
-            {data?.order?.status}
-          </StateContainer>
-          <OrderTitle>Cambiar estado a:</OrderTitle>
-          <Form onSubmit={handleStatusSubmit}>
-            <Select
-              onChange={(e) => setStatus(e.target.value)}
-              name="status"
-              id="status"
-            >
-              <Option value="procesado">Procesado</Option>
-              <Option value="enviado">Enviado</Option>
-              <Option value="finalizado">Finalizado</Option>
-              <Option value="cancelado">Cancelado</Option>
-            </Select>
-            <Button type="submit">Cambiar estado</Button>
-          </Form>
-        </OrderInfoContainer>
+        <TopContainer>
+          <OrderInfoContainer>
+            <OrderTitle>Referencia del pedido:</OrderTitle>
+            <OrderInfo>{data?.order?.id}</OrderInfo>
+            <OrderTitle>Nombre destinatario:</OrderTitle>
+            <OrderInfo>
+              {data?.user?.name + " " + data?.user?.lastname}
+            </OrderInfo>
+            <OrderTitle>Dirección de envío:</OrderTitle>
+            <OrderInfo>
+              {data?.user?.details ? (
+                <>
+                  {data?.user?.details?.address} - {data?.user?.details?.cp} -{" "}
+                  {data?.user?.details?.town} - ({data?.user?.details?.province}
+                  )
+                </>
+              ) : (
+                <>
+                  {data?.user?.address} - {data?.user?.cp} - {data?.user?.town}{" "}
+                  -{data?.user?.province}
+                </>
+              )}
+            </OrderInfo>
+            <OrderTitle>Fecha de creación:</OrderTitle>
+            <OrderInfo>{data?.order?.created_at}</OrderInfo>
+            <OrderTitle>Total:</OrderTitle>
+            <PriceInfo>{data?.order?.total}€</PriceInfo>
+            <OrderTitle>Estado del pedido:</OrderTitle>
+            <StateContainer state={data?.order?.status}>
+              {data?.order?.status}
+            </StateContainer>
+            <OrderTitle>Cambiar estado a:</OrderTitle>
+            <Form onSubmit={handleStatusSubmit}>
+              <Select
+                onChange={(e) => setStatus(e.target.value)}
+                name="status"
+                id="status"
+              >
+                <Option value="procesado">Procesado</Option>
+                <Option value="enviado">Enviado</Option>
+                <Option value="finalizado">Finalizado</Option>
+                <Option value="cancelado">Cancelado</Option>
+              </Select>
+              <Button type="submit">Cambiar estado</Button>
+            </Form>
+          </OrderInfoContainer>
+          <ProductsContainer>
+            {data?.order?.products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </ProductsContainer>
+        </TopContainer>
       </DashBoardContainer>
     </MainContainer>
   );

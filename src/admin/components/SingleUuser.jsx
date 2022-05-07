@@ -87,7 +87,6 @@ const ChartCard = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   padding: 20px;
 `;
 
@@ -163,6 +162,7 @@ const Button = styled.button`
 
 const SingleUuser = () => {
   const [data, setData] = useState(null);
+  const [orders, setOrders] = useState(null);
 
   const navigate = useNavigate();
   const { uuserId } = useParams();
@@ -235,6 +235,112 @@ const SingleUuser = () => {
     },
   ];
 
+  const orderColumns = [
+    {
+      name: "id",
+      label: "ID",
+    },
+    {
+      name: "total",
+      label: "TOTAL",
+    },
+    {
+      name: "status",
+      label: "ESTADO",
+      options: {
+        filter: true,
+        customBodyRender: (value) => {
+          if (value === "procesado") {
+            return (
+              <div
+                style={{
+                  color: "white",
+                  backgroundColor: "orange",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{value}</span>
+              </div>
+            );
+          } else if (value === "enviado") {
+            return (
+              <div
+                style={{
+                  color: "white",
+                  backgroundColor: "lightblue",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{value}</span>
+              </div>
+            );
+          } else if (value === "finalizado") {
+            return (
+              <div
+                style={{
+                  color: "white",
+                  backgroundColor: "lightgreen",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{value}</span>
+              </div>
+            );
+          } else if (value === "cancelado") {
+            return (
+              <div
+                style={{
+                  color: "white",
+                  backgroundColor: "tomato",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  width: "fit-content",
+                }}
+              >
+                <span>{value}</span>
+              </div>
+            );
+          }
+        },
+      },
+    },
+    {
+      name: "created_at",
+      label: "REALIZADO",
+    },
+    {
+      name: "updated_at",
+      label: "MODIFICADO",
+    },
+    {
+      name: "Acciones",
+      label: "ACCIONES",
+      options: {
+        filter: false,
+        sort: false,
+        empty: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <Button
+              className="btn btn-danger"
+              onClick={() =>
+                navigate(`/admin/dashboard/orders/${tableMeta.rowData[0]}`)
+              }
+            >
+              Ver detalles
+            </Button>
+          );
+        },
+      },
+    },
+  ];
+
   // Gets the total amount of money spent in orders
 
   const getTotalSpent = () => {
@@ -296,7 +402,23 @@ const SingleUuser = () => {
         console.log(error);
       }
     };
+    const fetchOrders = async () => {
+      try {
+        const response = await axios(
+          "http://elvestidordejulietta.test/api/v1/admin/orders/last/" +
+            uuserId,
+          {
+            headers: adminHeader(),
+          }
+        );
+        console.log(response);
+        setOrders(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchData();
+    fetchOrders();
   }, [uuserId]);
 
   return (
@@ -391,10 +513,16 @@ const SingleUuser = () => {
                   </ChartCardBody>
                 </ChartCard>
               </ChartCardContainer>
+              <MUIDataTable
+                title={"ÚLTIMOS PEDIDOS"}
+                data={orders ? orders : []}
+                columns={orderColumns}
+                options={options}
+              />
             </ChartDisplay>
           </TopContainer>
           <MUIDataTable
-            title={"Productos comprados"}
+            title={"PRODUCTOS COMPRADOS"}
             data={getProducts()}
             columns={columns}
             options={options}
