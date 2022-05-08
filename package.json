@@ -20,6 +20,7 @@
     "@stripe/react-stripe-js": "^1.7.1",
     "@stripe/stripe-js": "^1.27.0",
     "axios": "^0.26.1",
+    "firebase": "^9.8.0",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "lottie-react": "^2.2.1",

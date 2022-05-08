@@ -62,57 +62,6 @@ const dataFake = [
   },
 ];
 
-/* const data = [
-  {
-    name: "Enero",
-    total: 4000,
-  },
-  {
-    name: "Febrero",
-    total: 3000,
-  },
-  {
-    name: "Marzo",
-    total: 2000,
-  },
-  {
-    name: "Abril",
-    total: 2780,
-  },
-  {
-    name: "Mayo",
-    total: 1890,
-  },
-  {
-    name: "Junio",
-    total: 2390,
-  },
-  {
-    name: "Julio",
-    total: 3490,
-  },
-  {
-    name: "Agosto",
-    total: 2780,
-  },
-  {
-    name: "Septiembre",
-    total: 1890,
-  },
-  {
-    name: "Octubre",
-    total: 2390,
-  },
-  {
-    name: "Noviembre",
-    total: 3490,
-  },
-  {
-    name: "Diciembre",
-    total: 3490,
-  },
-]; */
-
 const TopLegend = styled.div`
   display: flex;
   justify-content: center;

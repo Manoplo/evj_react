@@ -29,6 +29,7 @@ import SingleUser from "./admin/components/SingleUser";
 import AdminLogin from "./admin/pages/AdminLogin";
 import UusersList from "./admin/components/UusersList";
 import SingleUuser from "./admin/components/SingleUuser";
+import CategoryAdmin from "./admin/components/CategoryAdmin";
 
 function App() {
   return (
@@ -60,9 +61,13 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="products">
               <Route index element={<ProductList />} />
-              <Route path=":productId" element={<SingleProduct />} />
+              {/* <Route path=":productId" element={<SingleProduct />} /> */}
               <Route path="new" element={<New />} />
-              <Route path="edit" element={<Edit />} />
+              <Route path="edit/:productId" element={<Edit />} />
+              <Route
+                path="category/:categorySlug"
+                element={<CategoryAdmin />}
+              />
             </Route>
             <Route path="orders">
               <Route index element={<OrderList />} />

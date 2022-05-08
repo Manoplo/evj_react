@@ -136,7 +136,7 @@ const Sidebar = () => {
           </ListItem>
           <ListItem>
             <StorefrontOutlined />
-            Productos
+            <Link to="/admin/dashboard/products">Productos</Link>
           </ListItem>
           <ListItem>
             <CreditCardOutlined />

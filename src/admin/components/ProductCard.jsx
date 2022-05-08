@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineEdit } from "react-icons/ai";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 20%;
+  padding: 1rem;
+
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 `;
 const CardImageContainer = styled.div`
   width: 100%;
@@ -27,7 +31,7 @@ const CardInfoContainer = styled.div``;
 
 const CardButtonContainer = styled.div`
   display: flex;
-  align-items: flex-end;
+  /* align-items: flex-start; */
 `;
 const CardQuantity = styled.p`
   margin-bottom: -10px;
@@ -41,9 +45,11 @@ const CardButton = styled.button`
   padding: 10px;
   border-radius: 5px;
   transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   cursor: pointer;
-  margin-left: 10px;
-
+  margin-top: 20px;
   &:hover {
     background: lightcoral;
     color: white;
@@ -61,9 +67,12 @@ const ProductCard = ({ product }) => {
         </CardImageContainer>
         <CardTitle>{product.name}</CardTitle>
         <CardDescription>{product.description}</CardDescription>
-        <CardPrice>
-          <b>Precio :</b> {product.price}€
-        </CardPrice>
+        {product?.pivot && (
+          <CardPrice>
+            <b>Precio :</b> {product.price}€
+          </CardPrice>
+        )}
+
         {product?.pivot && (
           <>
             <CardQuantity>
@@ -79,9 +88,12 @@ const ProductCard = ({ product }) => {
       </CardInfoContainer>
       <CardButtonContainer>
         <CardButton
-          onClick={() => navigate("/admin/dashboard/products/" + product.id)}
+          onClick={() =>
+            navigate("/admin/dashboard/products/edit/" + product.id)
+          }
         >
-          Ir al producto
+          <AiOutlineEdit />
+          EDITAR PRODUCTO
         </CardButton>
       </CardButtonContainer>
     </Container>
