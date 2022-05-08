@@ -13,9 +13,7 @@ import {
   EqualizerOutlined,
   GroupAddOutlined,
   LocalShippingOutlined,
-  PermCameraMic,
   PhoneAndroid,
-  QueryBuilderSharp,
   ShoppingCartOutlined,
 } from "@material-ui/icons";
 import toast, { Toaster } from "react-hot-toast";

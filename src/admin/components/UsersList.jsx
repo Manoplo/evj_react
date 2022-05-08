@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
-import { CreditCardOutlined, Group } from "@material-ui/icons";
+import { Group } from "@material-ui/icons";
 import "./css/styles.css";
 import adminHeader from "../../services/admin-header";
 

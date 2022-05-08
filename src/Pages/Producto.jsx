@@ -322,7 +322,7 @@ const Producto = () => {
             )}
           </Title>
           <Desc>{product?.description}</Desc>
-          <Price>{total}€</Price>
+          <Price>{total.toFixed(2)}€</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Talla</FilterTitle>

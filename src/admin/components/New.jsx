@@ -7,9 +7,11 @@ import { storage } from "../../services/firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { AddBoxOutlined } from "@material-ui/icons";
+import { Add, AddBoxOutlined } from "@material-ui/icons";
 import upload2 from "../../lotties/upload2.json";
 import adminHeader from "../../services/admin-header";
+import { ClipLoader } from "react-spinners";
+import toast, { Toaster } from "react-hot-toast";
 
 const MainContainer = styled.div`
   display: flex;
@@ -34,6 +36,7 @@ const Title = styled.h1`
 `;
 
 const CreateProductContainer = styled.div`
+  position: relative;
   display: flex;
   width: 90%;
   height: 700px;
@@ -53,10 +56,53 @@ const ImageContainer = styled.div`
 `;
 const FormContainer = styled.div`
   flex: 2;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
 `;
+
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+`;
+
 const DropContainer = styled.div`
   width: 80%;
   height: 200px;
+`;
+
+const InputPrice = styled.input`
+  width: 10%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid lightgray;
+
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid lightpink;
+  }
+`;
+const InputName = styled.input`
+  width: 30%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid lightgray;
+
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid lightpink;
+  }
+`;
+
+const Select = styled.select`
+  width: 30%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid lightgray;
 `;
 
 const UploadText = styled.span``;
@@ -67,11 +113,74 @@ const PreviewImg = styled.img`
   object-fit: cover;
 `;
 
+const Input = styled.input`
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid lightgray;
+
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid lightpink;
+  }
+`;
+
+const Button = styled.button`
+  background: lightpink;
+  color: black;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  height: 50px;
+  width: 20%;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  &:hover {
+    background: lightcoral;
+    color: white;
+  }
+`;
+
+const InfoContainer = styled.div`
+  display: flex;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  width: 100%;
+  padding: 20px;
+  margin-top: 30px;
+`;
+
+const InfoText = styled.span`
+  font-size: 12px;
+  color: gray;
+`;
+
+const LoadingContainer = styled.div`
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+`;
+
 const New = () => {
   const [file, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState(null);
   const [product, setProduct] = useState({
     name: "",
     description: "",
@@ -83,6 +192,7 @@ const New = () => {
 
   // Ref to the file input element
   const inputRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     inputRef.current.click();
@@ -90,8 +200,23 @@ const New = () => {
   // Submit the form plus the file to firebase storage
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!file) {
+      toast.error("Selecciona una imagen antes de continuar");
+      return;
+    }
+
+    if (
+      !product.name ||
+      !product.description ||
+      !product.price ||
+      !product.category_id
+    ) {
+      toast.error("Por favor, rellena todos los campos");
+      return;
+    }
+
     setLoading(true);
-    if (!file) return;
 
     const storageRef = ref(storage, `files/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -114,44 +239,63 @@ const New = () => {
           setImageUrl(url);
           console.log(url);
         })
-        .then(() => {
-          axios
-            .post(
-              "http://elvestidordejulietta.test/api/v1/products",
-              {
-                ...product,
-                image: imageUrl,
-              },
-              {
-                headers: adminHeader(),
-              }
-            )
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+        .catch((error) => {
+          console.log(error);
         });
     });
   };
 
-  const handleSubmitCheck = (e) => {
-    e.preventDefault();
-    console.log(product);
-  };
+  useEffect(() => {
+    if (!imageUrl) {
+      return;
+    }
+
+    const postProduct = async () => {
+      try {
+        const response = await axios.post(
+          "http://elvestidordejulietta.test/api/v1/admin/products",
+          {
+            ...product,
+            image: imageUrl,
+          },
+          {
+            headers: adminHeader(),
+          }
+        );
+        console.log(response);
+        setLoading(false);
+        toast.success("Producto creado correctamente");
+        setTimeout(() => {
+          navigate("/admin/dashboard/products");
+        }, 2000);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        toast.error("Error al crear el producto");
+      }
+    };
+
+    postProduct();
+  }, [imageUrl]);
 
   return (
     <MainContainer>
       <Sidebar />
       <DashBoardContainer>
         <Navbar />
+        <Toaster />
         <TitleContainer>
           <Title>
             <AddBoxOutlined />
             CREAR UN NUEVO PRODUCTO
           </Title>
         </TitleContainer>
+
+        {loading && (
+          <LoadingContainer>
+            <ClipLoader color="white" /> Subiendo producto...
+          </LoadingContainer>
+        )}
         <CreateProductContainer>
           <ImageContainer onClick={handleFileChange}>
             {file ? (
@@ -160,13 +304,13 @@ const New = () => {
               <DropContainer>
                 <Lottie animationData={upload2} loop={true} />
                 <UploadText>
-                  Haz click aquí para cargar una imagen. ¡Recuerda! Para que
-                  encaje correctamente con el diseño de la web, la imagen debe
-                  tener un formato no apaisado.
+                  Haz click aquí para cargar una imagen. <b>¡Recuerda!</b> Para
+                  que encaje correctamente con el diseño de la web, la imagen
+                  debe tener un formato no apaisado.
                 </UploadText>
               </DropContainer>
             )}
-            <input
+            <Input
               onChange={(e) => {
                 setFile(e.target.files[0]);
               }}
@@ -176,8 +320,8 @@ const New = () => {
             />
           </ImageContainer>
           <FormContainer>
-            <form onSubmit={handleSubmit}>
-              <input
+            <Form onSubmit={handleSubmit}>
+              <InputName
                 type="text"
                 placeholder="Nombre del artículo"
                 name="name"
@@ -185,7 +329,7 @@ const New = () => {
                   setProduct({ ...product, name: e.target.value })
                 }
               />
-              <input
+              <Input
                 type="text"
                 placeholder="Descripción del artículo"
                 name="description"
@@ -193,30 +337,33 @@ const New = () => {
                   setProduct({ ...product, description: e.target.value })
                 }
               />
-              <input
+              <InputPrice
                 type="number"
                 step="any"
-                placeholder="Precio del artículo"
+                min={0}
+                placeholder="Precio"
                 name="price"
                 onChange={(e) =>
                   setProduct({ ...product, price: e.target.value })
                 }
               />
 
-              <select
+              <Select
                 onChange={(e) =>
                   setProduct({ ...product, category_id: e.target.value })
                 }
               >
-                <option value="">Selecciona una categoría</option>
+                <option selected={true} disabled="disabled">
+                  Selecciona una categoría
+                </option>
                 <option value="1">Vestidos</option>
                 <option value="2">Camisetas</option>
                 <option value="3">Pantalones</option>
                 <option value="4">Faldas</option>
                 <option value="5">Calzado</option>
                 <option value="6">Accesorios</option>
-              </select>
-              <input
+              </Select>
+              <Input
                 type="text"
                 placeholder="Información del artículo"
                 name="info"
@@ -225,8 +372,19 @@ const New = () => {
                 }
               />
 
-              <button type="submit">CREAR ARTÍCULO</button>
-            </form>
+              <Button type="submit">
+                CREAR ARTÍCULO
+                <Add />
+              </Button>
+            </Form>
+            <InfoContainer>
+              <InfoText>
+                Recuerda: Todos los campos son <b> obligatorios </b>excepto el
+                campo sobre información del artículo. El producto <u>debe</u>{" "}
+                contener un formato válido en estos campos además de la imagen
+                para completar la subida.
+              </InfoText>
+            </InfoContainer>
           </FormContainer>
         </CreateProductContainer>
       </DashBoardContainer>

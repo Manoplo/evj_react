@@ -339,7 +339,7 @@ const Cart = () => {
                       <ProductAmountContainer>
                         <ProductAmount>{item.quantity}</ProductAmount>
                       </ProductAmountContainer>
-                      <ProductPrice>{item.price}€</ProductPrice>
+                      <ProductPrice>{item.price.toFixed(2)}€</ProductPrice>
                     </PriceDetail>
                   </Product>
                   <Hr />

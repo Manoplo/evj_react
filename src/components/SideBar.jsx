@@ -124,6 +124,9 @@ const SideBar = ({ open, onClick }) => {
           <Link to={"/categorias/faldas"} onClick={onClick}>
             <CategoryLink>FALDAS</CategoryLink>
           </Link>
+          <Link to={"/categorias/calzado"} onClick={onClick}>
+            <CategoryLink>CALZADO</CategoryLink>
+          </Link>
           <Link to={"/categorias/accesorios"} onClick={onClick}>
             <CategoryLink>ACCESORIOS</CategoryLink>
           </Link>
