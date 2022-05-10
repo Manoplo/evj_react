@@ -2,18 +2,11 @@ import axios from "axios";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
-import Lottie from "lottie-react";
 import { storage } from "../../services/firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  Add,
-  AddBoxOutlined,
-  EditAttributesOutlined,
-  EditOutlined,
-} from "@material-ui/icons";
-import upload2 from "../../lotties/upload2.json";
+import { EditOutlined } from "@material-ui/icons";
 import adminHeader from "../../services/admin-header";
 import { ClipLoader } from "react-spinners";
 import toast, { Toaster } from "react-hot-toast";
@@ -352,6 +345,7 @@ const Edit = () => {
                 setFile(e.target.files[0]);
               }}
               type="file"
+              accept="image/*"
               style={{ display: "none" }}
               ref={inputRef}
             />

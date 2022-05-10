@@ -149,7 +149,7 @@ const Sidebar = () => {
           <Section>UTILES</Section>
           <ListItem>
             <SlideshowOutlined />
-            Diapositivas
+            <Link to="/admin/dashboard/sliders">Diapositivas</Link>
           </ListItem>
           <ListItem>
             <AssessmentOutlined />

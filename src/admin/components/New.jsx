@@ -315,6 +315,7 @@ const New = () => {
                 setFile(e.target.files[0]);
               }}
               type="file"
+              accept="image/*"
               style={{ display: "none" }}
               ref={inputRef}
             />

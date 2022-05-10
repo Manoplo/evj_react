@@ -1,5 +1,5 @@
 import ReactFullpage from "@fullpage/react-fullpage";
-import Categories from "./Categories";
+
 import CatOneHome from "./CatOneHome";
 import Footer from "./Footer";
 import NewsLetter from "./NewsLetter";
@@ -9,7 +9,8 @@ import { mobile } from "../responsive";
 import { useState, useEffect } from "react";
 import CatTwoHome from "./CatTwoHome";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 const SliderWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -54,6 +55,7 @@ const New = styled.span`
 
 const FullPageSlider = () => {
   const [products, setProducts] = useState([]);
+  const [sliders, setSliders] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -67,6 +69,19 @@ const FullPageSlider = () => {
         console.log(error);
       }
     };
+
+    const fetchSliders = async () => {
+      try {
+        const response = await axios(
+          "http://elvestidordejulietta.test/api/v1/admin/sliders"
+        );
+        console.log(response.data);
+        setSliders(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchSliders();
     fetchProducts();
   }, []);
 
@@ -83,32 +98,87 @@ const FullPageSlider = () => {
             <div className="section">
               <div className="slide">
                 <SliderWrapper>
-                  <Tooltip>Camisetas</Tooltip>
-                  <Image src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80" />
-                  <Tooltip>Camisetas</Tooltip>
+                  <Tooltip>{sliders[0]?.title}</Tooltip>
+                  <Link to={`/categorias/${sliders[0]?.category}`}>
+                    <Image src={sliders[0]?.first_image} />
+                  </Link>
+                  <Tooltip>{sliders[0]?.title}</Tooltip>
                 </SliderWrapper>
               </div>
               <div className="slide">
                 <SliderWrapper>
-                  <Tooltip>Camisetas</Tooltip>
-                  <Image src="https://images.pexels.com/photos/7446537/pexels-photo-7446537.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-                  <Tooltip>Camisetas</Tooltip>
+                  <Tooltip>{sliders[0]?.title}</Tooltip>
+                  <Link to={`/categorias/${sliders[0]?.category}`}>
+                    <Image src={sliders[0]?.second_image} />
+                  </Link>
+                  <Tooltip>{sliders[0]?.title}</Tooltip>
+                </SliderWrapper>
+              </div>
+              <div className="slide">
+                <SliderWrapper>
+                  <Tooltip>{sliders[0]?.title}</Tooltip>
+                  <Link to={`/categorias/${sliders[0]?.category}`}>
+                    <Image src={sliders[0]?.third_image} />
+                  </Link>
+                  <Tooltip>{sliders[0]?.title}</Tooltip>
                 </SliderWrapper>
               </div>
             </div>
             <div className="section">
               <div className="slide">
                 <SliderWrapper>
-                  <Tooltip>Vestidos</Tooltip>
-                  <Image src="https://images.pexels.com/photos/1144834/pexels-photo-1144834.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" />
-                  <Tooltip>Vestidos</Tooltip>{" "}
+                  <Tooltip>{sliders[1]?.title}</Tooltip>
+                  <Link to={`/categorias/${sliders[1]?.category}`}>
+                    <Image src={sliders[1]?.first_image} />
+                  </Link>
+                  <Tooltip>{sliders[1]?.title}</Tooltip>{" "}
                 </SliderWrapper>
               </div>
               <div className="slide">
                 <SliderWrapper>
-                  <Tooltip>Vestidos</Tooltip>{" "}
-                  <Image src="https://images.pexels.com/photos/1549200/pexels-photo-1549200.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" />
-                  <Tooltip>Vestidos</Tooltip>{" "}
+                  <Tooltip>{sliders[1]?.title}</Tooltip>{" "}
+                  <Link to={`/categorias/${sliders[1]?.category}`}>
+                    <Image src={sliders[1]?.second_image} />
+                  </Link>
+                  <Tooltip>{sliders[1]?.title}</Tooltip>{" "}
+                </SliderWrapper>
+              </div>
+              <div className="slide">
+                <SliderWrapper>
+                  <Tooltip>{sliders[1]?.title}</Tooltip>{" "}
+                  <Link to={`/categorias/${sliders[1]?.category}`}>
+                    <Image src={sliders[1]?.third_image} />
+                  </Link>
+                  <Tooltip>{sliders[1]?.title}</Tooltip>{" "}
+                </SliderWrapper>
+              </div>
+            </div>
+            <div className="section">
+              <div className="slide">
+                <SliderWrapper>
+                  <Tooltip>{sliders[2]?.title}</Tooltip>
+                  <Link to={`/categorias/${sliders[2]?.category}`}>
+                    <Image src={sliders[2]?.first_image} />
+                  </Link>
+                  <Tooltip>{sliders[2]?.title}</Tooltip>{" "}
+                </SliderWrapper>
+              </div>
+              <div className="slide">
+                <SliderWrapper>
+                  <Tooltip>{sliders[2]?.title}</Tooltip>{" "}
+                  <Link to={`/categorias/${sliders[2]?.category}`}>
+                    <Image src={sliders[2]?.second_image} />
+                  </Link>
+                  <Tooltip>{sliders[2]?.title}</Tooltip>{" "}
+                </SliderWrapper>
+              </div>
+              <div className="slide">
+                <SliderWrapper>
+                  <Tooltip>{sliders[2]?.title}</Tooltip>{" "}
+                  <Link to={`/categorias/${sliders[2]?.category}`}>
+                    <Image src={sliders[2]?.third_image} />
+                  </Link>
+                  <Tooltip>{sliders[2]?.title}</Tooltip>{" "}
                 </SliderWrapper>
               </div>
             </div>
@@ -117,7 +187,6 @@ const FullPageSlider = () => {
               <CatTwoHome />
             </div>
             <div className="section">
-              {/* <Products /> TODO - ENDPOINT TO BRING PRODUCTS ORDER BY CREATED AT */}
               <NewlyContainer>
                 <New>Novedades</New>
               </NewlyContainer>
