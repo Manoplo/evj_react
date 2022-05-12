@@ -10,14 +10,25 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding-right: 60px;
+  align-items: center;
+  gap: 40px;
+  padding-right: 100px;
 `;
-const Icon = styled.div``;
+const Icon = styled.div`
+  cursor: pointer;
+`;
+
+const AdminTitle = styled.span``;
 
 const Navbar = () => {
+  const admin = JSON.parse(sessionStorage.getItem("admin"));
+
   return (
     <Container>
       <Wrapper>
+        <AdminTitle>
+          Actualmente conectado como <b>{admin.admin.email}</b>
+        </AdminTitle>
         <Icon>
           <NotificationsOutlined />{" "}
         </Icon>

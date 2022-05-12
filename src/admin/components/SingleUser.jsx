@@ -224,7 +224,9 @@ const SingleUser = () => {
             <Button
               className="btn btn-danger"
               onClick={() =>
-                navigate(`/admin/dashboard/products/${tableMeta.rowData[0]}`)
+                navigate(
+                  `/admin/dashboard/products/edit/${tableMeta.rowData[0]}`
+                )
               }
             >
               Ver detalles

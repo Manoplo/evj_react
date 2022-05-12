@@ -144,7 +144,7 @@ const Sidebar = () => {
           </ListItem>
           <ListItem>
             <Loyalty />
-            Suscritos
+            <Link to="/admin/dashboard/subscriptions">Suscritos</Link>
           </ListItem>
           <Section>UTILES</Section>
           <ListItem>
@@ -153,11 +153,11 @@ const Sidebar = () => {
           </ListItem>
           <ListItem>
             <AssessmentOutlined />
-            Estadísticas
+            <Link to="/admin/dashboard/stats">Estadísticas</Link>
           </ListItem>
           <ListItem>
             <Settings />
-            Opciones
+            <Link to="/admin/dashboard/options">Opciones</Link>
           </ListItem>
           <ListItem onClick={handleLogout}>
             <ExitToApp />

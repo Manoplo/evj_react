@@ -5,8 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import adminHeader from "../../services/admin-header";
-import authHeader from "../../services/auth-header";
-import { spacing } from "@mui/system";
+
 import { CheckCircle, CloudUpload, SaveOutlined } from "@material-ui/icons";
 import { ClipLoader } from "react-spinners";
 
@@ -20,6 +19,20 @@ const FirstRowContainer = styled.div`
   height: 50vh;
   margin: 25px auto;
   gap: 10px;
+`;
+
+const Title = styled.h1`
+  font-family: "Urbanist", sans-serif;
+  font-size: 2rem;
+  color: #727272;
+  margin-left: 40px;
+`;
+
+const Span = styled.span`
+  font-family: "Urbanist", sans-serif;
+  font-size: 12px;
+  color: #727272;
+  margin-left: 40px;
 `;
 
 const SliderContainer = styled.div`
@@ -84,21 +97,11 @@ const Button = styled.button`
   }
 `;
 
-const mock = [
-  {
-    id: 1,
-    title: "Vestidos",
-    first_image:
-      "https://images.unsplash.com/photo-1632262049811-86d23941618b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2156&q=80",
-    second_image:
-      "https://images.unsplash.com/photo-1617277636244-096222054deb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80",
-    third_image:
-      "https://images.unsplash.com/photo-1622200718646-ab5a7e523c49?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
-    category: "vestidos",
-  },
-];
+const Hr = styled.hr`
+  border: 1px solid lighgray;
+`;
 
-const SliderRow = ({ id }) => {
+const SliderRow = ({ id, title }) => {
   const [loading, setLoading] = useState(false);
   const [slider, setSlider] = useState(null);
   const [fetchedRow, setFetchedRow] = useState(null);
@@ -295,6 +298,13 @@ const SliderRow = ({ id }) => {
     <>
       <Toaster />
 
+      <Title>{title}</Title>
+      <Span>
+        Instrucciones: Para cambiar las imágenes, primero pincha sobre una de
+        ellas y luego presiona el botón de "Cargar imagen" de las imagenes que
+        desees cambiar. Cuando las imágenes estén guardadas, dale un nombre a la
+        fila, elige un link y presiona el botón "GUARDAR TODO".
+      </Span>
       <FirstRowContainer>
         <SliderContainer onClick={handleFirst}>
           <Image
@@ -427,6 +437,7 @@ const SliderRow = ({ id }) => {
           </Button>
         </Form>
       </FormContainer>
+      <Hr />
     </>
   );
 };

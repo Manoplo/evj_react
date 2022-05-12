@@ -80,9 +80,9 @@ const Sliders = () => {
       <Sidebar />
       <DashBoardContainer>
         <Navbar />
-        <SliderRow id={1} />
-        <SliderRow id={2} />
-        <SliderRow id={3} />
+        <SliderRow id={1} title={"PRIMERA FILA"} />
+        <SliderRow id={2} title={"SEGUNDA FILA"} />
+        <SliderRow id={3} title={"TERCERA FILA"} />
         {/* <FirstRowContainer>
           <SliderContainer onClick={handleFirst}>
             <Image

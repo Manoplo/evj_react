@@ -222,7 +222,9 @@ const SingleUuser = () => {
             <Button
               className="btn btn-danger"
               onClick={() =>
-                navigate(`/admin/dashboard/products/${tableMeta.rowData[0]}`)
+                navigate(
+                  `/admin/dashboard/products/edit/${tableMeta.rowData[0]}`
+                )
               }
             >
               Ver detalles
@@ -495,7 +497,9 @@ const SingleUuser = () => {
                     </ChartCardTitle>
                   </ChartCardHeader>
                   <ChartCardBody>
-                    <ChartCardAmount>{getTotalSpent() + "€"}</ChartCardAmount>
+                    <ChartCardAmount>
+                      {getTotalSpent().toFixed(2) + "€"}
+                    </ChartCardAmount>
                   </ChartCardBody>
                 </ChartCard>
                 <ChartCard>
