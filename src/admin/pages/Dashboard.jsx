@@ -106,6 +106,7 @@ const Dashboard = () => {
             headers: adminHeader(),
           }
         );
+        console.log(response);
 
         setData(response.data);
       } catch (error) {

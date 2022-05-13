@@ -4,6 +4,8 @@ import {
   ShoppingCartOutlined,
   MonetizationOnOutlined,
   PersonAdd,
+  KeyboardArrowDown,
+  KeyboardArrowRight,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -51,15 +53,14 @@ const GoUsers = styled.span`
 const Percentage = styled.div`
   display: flex;
   align-items: center;
-  color: ${(props) => (props.type === "positive" ? "green" : "red")};
+  color: ${(props) =>
+    props.type > 0 ? "green" : props.type < 0 ? "red" : "gray"};
 `;
 
 const Widget = ({ type, data }) => {
   let datatype;
 
   // temporal
-
-  const per = 20;
 
   switch (type) {
     case "users":
@@ -70,6 +71,7 @@ const Widget = ({ type, data }) => {
         anchor: "users",
         icon: <PersonAdd className="icon" />,
         number: data.users,
+        per: data.usersPercent,
       };
 
       break;
@@ -81,6 +83,7 @@ const Widget = ({ type, data }) => {
         anchor: "uusers",
         icon: <PersonOutline className="icon" />,
         number: data.uusers,
+        per: data.uusersPercent,
       };
 
       break;
@@ -93,6 +96,7 @@ const Widget = ({ type, data }) => {
         anchor: "orders",
         icon: <ShoppingCartOutlined className="icon" />,
         number: data.orders,
+        per: data.orderPercent,
       };
 
       break;
@@ -104,6 +108,7 @@ const Widget = ({ type, data }) => {
 
         icon: <MonetizationOnOutlined className="icon" />,
         number: data.totalRevenue,
+        per: data.revenuesPercent,
       };
 
       break;
@@ -126,9 +131,15 @@ const Widget = ({ type, data }) => {
         </Link>
       </Left>
       <Right>
-        <Percentage type="positive">
-          <KeyboardArrowUp />
-          {per}%
+        <Percentage type={datatype.per}>
+          {datatype.per > 0 ? (
+            <KeyboardArrowUp />
+          ) : datatype.per < 0 ? (
+            <KeyboardArrowDown />
+          ) : (
+            <KeyboardArrowRight />
+          )}
+          {datatype.per}%
         </Percentage>
         {datatype.icon}
       </Right>
