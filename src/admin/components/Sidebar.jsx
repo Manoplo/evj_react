@@ -16,13 +16,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { logout } from "../../app/slices/adminSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Container = styled.div`
   flex: 1;
   border-right: 0.5px solid lightgray;
   min-height: 100vh;
-  background-color: white;
+  background-color: ${(props) => (props.darkMode ? "#2f2f2f" : "white")};
 `;
 
 const Top = styled.div`
@@ -42,7 +42,7 @@ const Bottom = styled.div`
 `;
 const Logo = styled.h1`
   font-size: 50px;
-  color: #2b2b2b;
+  color: ${(props) => (props.darkMode ? "white" : "black")};
   font-weight: 600;
 `;
 
@@ -67,12 +67,12 @@ const ListItem = styled.li`
   margin-bottom: 10px;
 
   &:hover {
-    background-color: #ffc4cd;
+    background-color: ${(props) => (props.darkMode ? "#2f2f2f" : "lightpink")};
     color: white;
   }
 
   & a {
-    color: black;
+    color: ${(props) => (props.darkMode ? "white" : "black")};
   }
 `;
 
@@ -106,6 +106,26 @@ const ColorOptionTwo = styled.div`
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.admin);
+  const [darkMode, setDarkMode] = useState(false);
+
+  const changeToWhite = () => {
+    localStorage.removeItem("darkMode");
+    setDarkMode(false);
+  };
+
+  const changeToDark = () => {
+    localStorage.setItem("darkMode", true);
+    setDarkMode(true);
+  };
+
+  useEffect(() => {
+    const darkMode = localStorage.getItem("darkMode");
+    if (darkMode) {
+      setDarkMode(true);
+    } else {
+      setDarkMode(false);
+    }
+  }, []);
 
   const handleLogout = () => {
     if (!isLoggedIn) return;
@@ -113,53 +133,53 @@ const Sidebar = () => {
   };
 
   return (
-    <Container>
+    <Container darkMode={darkMode}>
       <Top>
-        <Logo>ELV</Logo>
+        <Logo darkMode={darkMode}>ELV</Logo>
       </Top>
       <Hr />
       <Center>
         <List>
           <Section>PRINCIPAL</Section>
-          <ListItem>
+          <ListItem darkMode={darkMode}>
             <Dashboard />
             <Link to="/admin/dashboard">Dashboard</Link>
           </ListItem>
           <Section>LISTADOS</Section>
-          <ListItem>
+          <ListItem darkMode={darkMode}>
             <Group />
             <Link to="/admin/dashboard/users">Usuarios</Link>
           </ListItem>
-          <ListItem>
+          <ListItem darkMode={darkMode}>
             <PersonOutline />
             <Link to="/admin/dashboard/uusers">Usuarios no registrados</Link>
           </ListItem>
-          <ListItem>
+          <ListItem darkMode={darkMode}>
             <StorefrontOutlined />
             <Link to="/admin/dashboard/products">Productos</Link>
           </ListItem>
-          <ListItem>
+          <ListItem darkMode={darkMode}>
             <CreditCardOutlined />
             <Link to="/admin/dashboard/orders">Pedidos</Link>
           </ListItem>
-          <ListItem>
+          <ListItem darkMode={darkMode}>
             <Loyalty />
             <Link to="/admin/dashboard/subscriptions">Suscritos</Link>
           </ListItem>
           <Section>UTILES</Section>
-          <ListItem>
+          <ListItem darkMode={darkMode}>
             <SlideshowOutlined />
             <Link to="/admin/dashboard/sliders">Diapositivas</Link>
           </ListItem>
-          <ListItem>
+          <ListItem darkMode={darkMode}>
             <AssessmentOutlined />
             <Link to="/admin/dashboard/stats">Estadísticas</Link>
           </ListItem>
-          <ListItem>
+          <ListItem darkMode={darkMode}>
             <Settings />
             <Link to="/admin/dashboard/options">Opciones</Link>
           </ListItem>
-          <ListItem onClick={handleLogout}>
+          <ListItem onClick={handleLogout} darkMode={darkMode}>
             <ExitToApp />
             Salir
           </ListItem>
@@ -167,8 +187,8 @@ const Sidebar = () => {
         <Section>OPCIONES DE COLOR</Section>
       </Center>
       <Bottom>
-        <ColorOptionOne></ColorOptionOne>
-        <ColorOptionTwo></ColorOptionTwo>
+        <ColorOptionOne onClick={changeToWhite}></ColorOptionOne>
+        <ColorOptionTwo onClick={changeToDark}></ColorOptionTwo>
       </Bottom>
     </Container>
   );
