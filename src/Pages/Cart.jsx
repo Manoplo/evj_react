@@ -69,6 +69,11 @@ const TopText = styled.span`
   }
 `;
 
+const Span = styled.span`
+  font-weight: 300;
+  color: gray;
+`;
+
 const TopList = styled.div`
   display: flex;
   align-items: center;
@@ -375,6 +380,22 @@ const Cart = () => {
                   : "COMPRAR AHORA"}
               </Button>
             </SummaryItem>
+            <Span>
+              Todos los productos llevan incluídos el IVA. Al comprar cualquier
+              producto, aceptas implícitamente los{" "}
+              <Link to={"/terminos-y-condiciones"}>
+                <b>Términos y condiciones</b>
+              </Link>{" "}
+              y las{" "}
+              <Link to={"/politicas-privacidad"}>
+                <b>Políticas de privacidad</b>
+              </Link>{" "}
+              . Las compras tardan usualmente entre 24 horas y 2 semanas en ser
+              entregadas, dependiendo de la disponibilidad geográfica. Si eres
+              un usuario registrado, puedes ver el estado de tu pedido en tu
+              cuenta. De lo contrario se enviará un email en caso de que ocurra
+              algún problema con el pedido. Gracias por su compra.
+            </Span>
           </Summary>
         </Bottom>
       </Wrapper>
