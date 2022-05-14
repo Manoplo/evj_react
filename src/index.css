@@ -183,3 +183,7 @@ input[type="checkbox"]:checked::before {
   border-radius: 18px;
   border: 1px solid #cfcece;
 }
+
+.share-icon {
+  padding: 10px;
+}

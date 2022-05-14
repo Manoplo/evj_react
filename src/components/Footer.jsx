@@ -9,6 +9,7 @@ import {
 
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import Payment from "../assets/payment.png";
 
 const Container = styled.div`
   display: flex;
@@ -45,8 +46,15 @@ const Logo = styled.h1`
   })}
 `;
 const Desc = styled.p`
-  text-align: left;
+  text-align: center;
+  margin-top: -20px;
 `;
+
+const PaymentImg = styled.img`
+  margin-top: -10px;
+  margin-bottom: 10px;
+`;
+
 const SocialContainer = styled.div`
   display: flex;
 `;
@@ -103,12 +111,8 @@ const Footer = () => {
       <Wrapper>
         <Left>
           <Logo>EL VESTIDOR DE JULIETTA</Logo>
-          <Desc>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis
-            totam laboriosam voluptas debitis provident ipsam asperiores libero
-            voluptatem velit facilis, recusandae, est aspernatur iure nostrum
-            enim ducimus. Iusto, quo laboriosam.
-          </Desc>
+          <Desc>Métodos de pago:</Desc>
+          <PaymentImg src={Payment} width="50%" alt="payment" />
           <SocialContainer>
             <SocialIcon color="E4405F">
               <Instagram />

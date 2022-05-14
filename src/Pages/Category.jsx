@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { PropagateLoader } from "react-spinners";
 import Footer from "../components/Footer";
@@ -14,6 +14,7 @@ const Container = styled.div``;
 const TitleContainer = styled.div`
   display: flex;
   justify-content: flex-start;
+  flex-direction: column;
   width: 90%;
   margin: 0 auto;
 `;
@@ -79,6 +80,17 @@ const ButtonContainer = styled.div`
   margin: 0 auto;
 `;
 
+const BreadCrumbs = styled.div`
+  display: flex;
+  margin: 20px 0 -50px 15px;
+  font-size: 14px;
+`;
+const Crumb = styled.p`
+  &:hover {
+    font-weight: 700;
+  }
+`;
+
 const Category = () => {
   const { categorySlug } = useParams();
 
@@ -106,8 +118,6 @@ const Category = () => {
 
   useEffect(() => {
     console.log(criteria, "Criteria changed");
-
-    console.log(products);
   }, [criteria]);
 
   const handleCriteriaChange = (e) => {
@@ -135,11 +145,25 @@ const Category = () => {
   return (
     <Container>
       <NavBarFixed />
+
       <TitleContainer>
         <Title>{categorySlug}</Title>
       </TitleContainer>
 
       <FilterContainer>
+        <BreadCrumbs>
+          <Link to="/">
+            <Crumb>Home</Crumb>
+          </Link>
+          <p>/</p>
+          <Link to="/categorias">
+            <Crumb>categorías</Crumb>
+          </Link>
+          <p>/</p>
+          <Link to={"/categorias/" + categorySlug}>
+            <Crumb>{categorySlug}</Crumb>
+          </Link>
+        </BreadCrumbs>
         <Filter>
           <FilterText>Ordenar productos:</FilterText>
           <Select onChange={handleCriteriaChange}>

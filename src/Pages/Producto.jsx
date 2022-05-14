@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { addItem } from "../app/slices/cartSlice";
 import { useDispatch } from "react-redux";
 import {
@@ -21,9 +21,11 @@ import Footer from "../components/Footer";
 import NewsLetter from "../components/NewsLetter";
 import NavBarFixed from "../components/NavBarFixed";
 import Recommendations from "../components/Recommendations";
+import SocialMediaButtons from "../components/SocialMediaButtons";
 import axios from "axios";
 import { mobile } from "../responsive";
 import authHeader from "../services/auth-header";
+import baseUrl from "../services/baseUrl";
 
 const Container = styled.div``;
 
@@ -130,6 +132,17 @@ const AccordionContainer = styled.div`
   })}
 `;
 
+const BreadCrumbs = styled.div`
+  display: flex;
+  margin: 20px 0 -50px 230px;
+  font-size: 14px;
+`;
+const Crumb = styled.p`
+  &:hover {
+    font-weight: 700;
+  }
+`;
+
 const Producto = () => {
   const [amount, setAmount] = useState(1);
   const [total, setTotal] = useState(0);
@@ -152,7 +165,7 @@ const Producto = () => {
     if (!user) return;
     const checkListed = async () => {
       const response = await axios.get(
-        `http://elvestidordejulietta.test/api/v1/whishlist/check/${user.user.id}/${productId}`
+        `${baseUrl}/whishlist/check/${user.user.id}/${productId}`
       );
 
       if (response.data.success) {
@@ -168,7 +181,7 @@ const Producto = () => {
     const fetchProduct = async () => {
       try {
         const result = await axios.get(
-          `http://elvestidordejulietta.test/api/v1/categories/${categorySlug}/${productId}`
+          `${baseUrl}/categories/${categorySlug}/${productId}`
         );
 
         setProduct(result.data);
@@ -184,9 +197,7 @@ const Producto = () => {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const result = await axios.get(
-          `http://elvestidordejulietta.test/api/v1/products/recommendations`
-        );
+        const result = await axios.get(`${baseUrl}/products/recommendations`);
 
         setRecommendations(result.data);
       } catch (error) {
@@ -301,7 +312,22 @@ const Producto = () => {
   return (
     <Container>
       <NavBarFixed />
+      <BreadCrumbs>
+        <Link to="/">
+          <Crumb>Home</Crumb>
+        </Link>
+        <p>/</p>
+        <Link to="/categorias">
+          <Crumb>categorías</Crumb>
+        </Link>
+        <p>/</p>
+        <Link to={"/categorias/" + categorySlug}>
+          <Crumb>{categorySlug}</Crumb>
+        </Link>
+        <p>/</p>
 
+        <p>{product?.name}</p>
+      </BreadCrumbs>
       <Wrapper>
         <ImgContainer>
           <InnerImageZoom
@@ -377,6 +403,7 @@ const Producto = () => {
               </Collapse>
             </Collapse.Group>
           </AccordionContainer>
+          <SocialMediaButtons productName={product?.name} />
         </InfoContainer>
       </Wrapper>
       <Recommendations recommendations={recommendations} />
