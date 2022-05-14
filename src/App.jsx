@@ -34,6 +34,8 @@ import Sliders from "./admin/components/Sliders";
 import Options from "./admin/components/Options";
 import Subscriptions from "./admin/components/Subscriptions";
 import Stats from "./admin/components/Stats";
+import ForgotPassword from "./Pages/ForgotPassword";
+import ResetPassword from "./Pages/ResetPassword";
 
 function App() {
   return (
@@ -50,6 +52,8 @@ function App() {
         />
         <Route path="registro" element={<Register />} />
         <Route path="login" element={<Login />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="reset-password" element={<ResetPassword />} />
         <Route path="cart" element={<Cart />} />
         <Route path="success" element={<Success />} />
         <Route element={<Guard pathname="/" />}>

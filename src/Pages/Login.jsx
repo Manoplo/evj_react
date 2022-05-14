@@ -110,6 +110,9 @@ const Error = styled.p`
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [resetMessage, setResetMessage] = useState("");
+
+  const resetPass = localStorage.getItem("restore");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -146,6 +149,15 @@ const Login = () => {
     }
   });
 
+  useEffect(() => {
+    if (resetPass) {
+      setResetMessage(
+        "La contraseña ha sido actualizada con éxito. Ya puedes acceder de nuevo."
+      );
+      localStorage.removeItem("restore");
+    }
+  }, []);
+
   /*  dispatch(login(email, password)); */
 
   return (
@@ -154,6 +166,7 @@ const Login = () => {
         {auth?.user?.message && (
           <WelcomeMessage> {auth?.user?.message}</WelcomeMessage>
         )}
+        {resetMessage && <WelcomeMessage>{resetMessage}</WelcomeMessage>}
         <Title>ACCEDER</Title>
         <Form onSubmit={handleLogin}>
           <Label>Email:</Label>
@@ -179,7 +192,9 @@ const Login = () => {
               <ArrowBackIosOutlined /> VOLVER
             </Button>
           </ButtonsContainer>
-          <LinkStyle>¿OLVIDASTE LA CONTRASEÑA?</LinkStyle>
+          <LinkStyle>
+            <Link to={"/forgot-password"}>¿OLVIDASTE LA CONTRASEÑA?</Link>
+          </LinkStyle>
           <LinkStyle>
             {" "}
             <Link to={"/registro"}>¿NO TIENES CUENTA?</Link>{" "}
