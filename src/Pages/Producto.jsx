@@ -136,6 +136,11 @@ const BreadCrumbs = styled.div`
   display: flex;
   margin: 20px 0 -50px 230px;
   font-size: 14px;
+
+  ${mobile({
+    margin: "20px 0 -50px 50px",
+    fontSize: "12px",
+  })}
 `;
 const Crumb = styled.p`
   &:hover {

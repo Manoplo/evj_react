@@ -6,7 +6,7 @@ import { PropagateLoader } from "react-spinners";
 import Footer from "../components/Footer";
 import NewsLetter from "../components/NewsLetter";
 import Products from "../components/Products";
-
+import { mobile } from "../responsive";
 import NavBarFixed from "../components/NavBarFixed";
 import { ArrowBackIosOutlined } from "@material-ui/icons";
 
@@ -24,6 +24,10 @@ const FilterContainer = styled.div`
   width: 92%;
   margin: 0 auto;
   justify-content: space-between;
+  ${mobile({
+    width: "100%",
+    justifyContent: "space-between",
+  })}
 `;
 const Filter = styled.div`
   margin: 20px;
@@ -33,11 +37,16 @@ const FilterText = styled.span`
   font-size: 20px;
   font-weight: 600;
   margin-right: 20px;
+  ${mobile({
+    fontSize: "14px",
+  })}
 `;
 
 const Select = styled.select`
   padding: 10px;
-  margin-right: 20px;
+  ${mobile({
+    padding: "5px",
+  })}
 `;
 const Option = styled.option``;
 

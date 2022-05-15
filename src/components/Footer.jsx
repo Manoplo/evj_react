@@ -10,6 +10,7 @@ import {
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import Payment from "../assets/payment.png";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -128,29 +129,46 @@ const Footer = () => {
         <Center>
           <Title>Enlaces de interés</Title>
           <List>
-            <ListItem>Home</ListItem>
-            <ListItem>Categorías</ListItem>
-            <ListItem>Carrito</ListItem>
-            <ListItem>Accesorios</ListItem>
-            <ListItem>Mi Cuenta</ListItem>
-            <ListItem>Políticas de privacidad</ListItem>
-            <ListItem>Lista de deseos</ListItem>
-            <ListItem>Términos</ListItem>
+            <ListItem>
+              <Link to="/">Inicio</Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/categorias">Categorías</Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/cart">Carrito</Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/politicas-privacidad">Políticas de privacidad</Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/profile">Mi cuenta</Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/registro">Crear cuenta</Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/whishlist">Lista de deseos</Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/terminos-y-condiciones">Términos y condiciones</Link>
+            </ListItem>
           </List>
         </Center>
         <Right>
-          <Title>Contact</Title>
+          <Title>Contacto</Title>
           <ContactItem>
             <MapOutlined />
-            Plaza Lala 15, Jerez de la Frontera.
+            Av. de Arcos, Bloque 2, Local 4, 11405 - Jerez de la Frontera
+            (Cádiz)
           </ContactItem>
           <ContactItem>
             <PhoneIphone />
-            Teléfonos 654 654 654/956 787 878
+            699 25 85 68
           </ContactItem>
           <ContactItem>
             <EmailOutlined />
-            elvestidordejulietta@gmail.com
+            elvestidordejulietta.shop@gmail.com
           </ContactItem>
         </Right>
       </Wrapper>

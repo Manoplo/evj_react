@@ -56,7 +56,7 @@ function App() {
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="cart" element={<Cart />} />
         <Route path="success" element={<Success />} />
-        <Route element={<Guard pathname="/" />}>
+        <Route element={<Guard pathname="/login" />}>
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="search" element={<Search />} />
