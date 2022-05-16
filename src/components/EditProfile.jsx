@@ -5,13 +5,32 @@ import { mobile } from "../responsive";
 import axios from "axios";
 import authHeader from "../services/auth-header";
 import toast, { Toaster } from "react-hot-toast";
-import { ArrowBackIosOutlined, Save } from "@material-ui/icons";
+import {
+  ArrowBackIosOutlined,
+  LockOpenOutlined,
+  Save,
+} from "@material-ui/icons";
 
 const FormWrapper = styled.div`
-  width: 70%;
+  width: 100%;
 
   ${mobile({
     width: "100%",
+  })}
+`;
+
+const ChangePassWrapper = styled.div`
+  width: 40%;
+  height: fit-content;
+  margin: 35px 0 35px 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+
+  ${mobile({
+    width: "90%",
+    padding: "20px",
   })}
 `;
 
@@ -20,6 +39,7 @@ const Label = styled.label``;
 const Form = styled.form`
   display: flex;
   flex-direction: row;
+  width: 100%;
   gap: 50px;
   ${mobile({
     flexDirection: "column",
@@ -75,6 +95,24 @@ const Button = styled.button`
   }
 `;
 
+const TitleSmall = styled.h2`
+  font-family: "Urbanist", sans-serif;
+  font-size: 1rem;
+  color: #727272;
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+`;
+
+const PassForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+  gap: 25px;
+  height: 30%;
+`;
+
 const Error = styled.div`
   color: tomato;
   font-size: 12px;
@@ -88,6 +126,8 @@ const EditProfile = (props) => {
   const [userInfo, setUserInfo] = useState({});
   const [userDetails, setUserDetails] = useState({});
   const [errors, setErrors] = useState({});
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
 
   const auth = useSelector((state) => state.auth);
@@ -126,6 +166,58 @@ const EditProfile = (props) => {
       }
     });
   }, [isMobile]);
+
+  const handlePasswordChange = async (event) => {
+    console.log(event);
+    event.preventDefault();
+    if (password !== confirmPassword) {
+      setErrors({
+        ...errors,
+        password: "Las contraseñas no coinciden",
+      });
+      return;
+    }
+    if (!password || !confirmPassword) {
+      setErrors({
+        ...errors,
+        password: "Las contraseñas no pueden estar vacías",
+      });
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://elvestidordejulietta.test/api/v1/password/change",
+        {
+          id: user?.user?.id,
+          password: password,
+        },
+        {
+          headers: authHeader(),
+        }
+      );
+      toast.success(
+        "Contraseña actualizada con éxito.",
+
+        {
+          duration: 6000,
+          style: {
+            border: "1px solid lightpink",
+            padding: "16px",
+            color: "black",
+            fontFamily: "Urbanist",
+          },
+          iconTheme: {
+            primary: "lightpink",
+            secondary: "#FFFAEE",
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Submit function
   const handleSubmit = async (e) => {
@@ -332,6 +424,27 @@ const EditProfile = (props) => {
             )}
           </FormContainer>
         </Form>
+        <ChangePassWrapper>
+          {" "}
+          <TitleSmall>
+            {" "}
+            <LockOpenOutlined /> Cambiar contraseña
+          </TitleSmall>
+          <PassForm onSubmit={handlePasswordChange}>
+            <Input
+              type="password"
+              placeholder="Nueva contraseña"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="Confirmar contraseña"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            {errors?.password && <Error>{errors?.password}</Error>}
+            <Button type="submit">Cambiar contraseña</Button>
+          </PassForm>
+        </ChangePassWrapper>
       </FormWrapper>
     </>
   );

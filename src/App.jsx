@@ -36,6 +36,8 @@ import Subscriptions from "./admin/components/Subscriptions";
 import Stats from "./admin/components/Stats";
 import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
+import CookiesPolicy from "./Pages/CookiesPolicy";
+import About from "./Pages/About";
 
 function App() {
   return (
@@ -63,6 +65,8 @@ function App() {
         <Route path="whishlist" element={<Whishlist />} />
         <Route path="politicas-privacidad" element={<PrivacyPolitics />} />
         <Route path="terminos-y-condiciones" element={<TermsAndConditions />} />
+        <Route path="cookies" element={<CookiesPolicy />} />
+        <Route path="acerca" element={<About />} />
         <Route path="admin/login" element={<AdminLogin />} />
         <Route element={<AdminGuard pathname="/admin/login" />}>
           <Route path="admin/dashboard">

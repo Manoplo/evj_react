@@ -5,6 +5,7 @@ import {
   MapOutlined,
   PhoneIphone,
   EmailOutlined,
+  Copyright,
 } from "@material-ui/icons";
 
 import styled from "styled-components";
@@ -20,6 +21,13 @@ const Container = styled.div`
   ${mobile({
     padding: "0px",
   })}
+`;
+
+const CopyContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  align-items: center;
 `;
 
 const Wrapper = styled.div`
@@ -108,71 +116,87 @@ const ContactItem = styled.div`
 
 const Footer = () => {
   return (
-    <Container>
-      <Wrapper>
-        <Left>
-          <Logo>EL VESTIDOR DE JULIETTA</Logo>
-          <Desc>Métodos de pago:</Desc>
-          <PaymentImg src={Payment} width="50%" alt="payment" />
-          <SocialContainer>
-            <SocialIcon color="E4405F">
-              <Instagram />
-            </SocialIcon>
-            <SocialIcon color="3B5999">
-              <Facebook />
-            </SocialIcon>
-            <SocialIcon color="55ACEE">
-              <Twitter />
-            </SocialIcon>
-          </SocialContainer>
-        </Left>
-        <Center>
-          <Title>Enlaces de interés</Title>
-          <List>
-            <ListItem>
-              <Link to="/">Inicio</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/categorias">Categorías</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/cart">Carrito</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/politicas-privacidad">Políticas de privacidad</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/profile">Mi cuenta</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/registro">Crear cuenta</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/whishlist">Lista de deseos</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/terminos-y-condiciones">Términos y condiciones</Link>
-            </ListItem>
-          </List>
-        </Center>
-        <Right>
-          <Title>Contacto</Title>
-          <ContactItem>
-            <MapOutlined />
-            Av. de Arcos, Bloque 2, Local 4, 11405 - Jerez de la Frontera
-            (Cádiz)
-          </ContactItem>
-          <ContactItem>
-            <PhoneIphone />
-            699 25 85 68
-          </ContactItem>
-          <ContactItem>
-            <EmailOutlined />
-            elvestidordejulietta.shop@gmail.com
-          </ContactItem>
-        </Right>
-      </Wrapper>
-    </Container>
+    <>
+      <Container>
+        <Wrapper>
+          <Left>
+            <Logo>EL VESTIDOR DE JULIETTA</Logo>
+            <Desc>Métodos de pago:</Desc>
+            <PaymentImg src={Payment} width="50%" alt="payment" />
+            <SocialContainer>
+              <SocialIcon color="E4405F">
+                <a
+                  href="https://www.instagram.com/julietta_ceo/?hl=es"
+                  target={"_blank"}
+                >
+                  {" "}
+                  <Instagram />
+                </a>
+              </SocialIcon>
+              <SocialIcon color="3B5999">
+                <a
+                  href="https://www.facebook.com/juliettariva"
+                  target={"_blank"}
+                >
+                  <Facebook />
+                </a>
+              </SocialIcon>
+              <SocialIcon color="55ACEE">
+                <Twitter />
+              </SocialIcon>
+            </SocialContainer>
+          </Left>
+          <Center>
+            <Title>Enlaces de interés</Title>
+            <List>
+              <ListItem>
+                <Link to="/">Inicio</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/categorias">Categorías</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/cart">Carrito</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/politicas-privacidad">Políticas de privacidad</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/profile">Mi cuenta</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/registro">Crear cuenta</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/whishlist">Lista de deseos</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/terminos-y-condiciones">Términos y condiciones</Link>
+              </ListItem>
+            </List>
+          </Center>
+          <Right>
+            <Title>Contacto</Title>
+            <ContactItem>
+              <MapOutlined />
+              Av. de Arcos, Bloque 2, Local 4, 11405 - Jerez de la Frontera
+              (Cádiz)
+            </ContactItem>
+            <ContactItem>
+              <PhoneIphone />
+              699 25 85 68
+            </ContactItem>
+            <ContactItem>
+              <EmailOutlined />
+              elvestidordejulietta.shop@gmail.com
+            </ContactItem>
+          </Right>
+        </Wrapper>
+      </Container>
+      <CopyContainer>
+        <Copyright /> El Vestidor de Julietta {new Date().getFullYear()}
+      </CopyContainer>
+    </>
   );
 };
 

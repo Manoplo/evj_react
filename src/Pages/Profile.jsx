@@ -310,6 +310,8 @@ const OrderStatus = styled.span`
     props.status === "procesado"
       ? "orange"
       : props.status === "enviado"
+      ? "lightblue"
+      : props.status === "finalizado"
       ? "green"
       : "red"};
 `;

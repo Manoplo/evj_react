@@ -58,6 +58,7 @@ const CookieBanner = styled.div`
   display: flex;
   position: fixed;
   bottom: 80px;
+  opacity: 0.5;
   background-color: white;
   left: ${(props) => (props.show ? "100px" : "-400px")};
   width: 300px;
@@ -66,6 +67,7 @@ const CookieBanner = styled.div`
   z-index: 999;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   transition: all 0.5s ease-in-out;
+  ${mobile({ left: "15px", width: "90vw" })}
 `;
 
 const CookieWrapper = styled.div`
@@ -179,7 +181,10 @@ const FullPageSlider = () => {
               Este sitio web utiliza cookies únicamente propias para mejorar su
               experiencia de navegación. Si continúa navegando, consideramos que
               acepta su uso. Puede leer más sobre la política de cookies en
-              nuestra Política de Cookies.
+              nuestra{" "}
+              <Link to="/cookies">
+                <b>política de cookies</b>
+              </Link>
             </CookieText>
           </CookieBottom>
           <CookieButton onClick={() => handleCookie()}>Aceptar</CookieButton>
