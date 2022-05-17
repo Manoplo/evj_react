@@ -46,7 +46,7 @@ const Featured = () => {
   const fetchData = async (value) => {
     try {
       const response = await axios.post(
-        `http://elvestidordejulietta.test/api/v1/admin/stats/daily`,
+        `http://167.99.221.113/api/v1/admin/stats/daily`,
         {
           date: value,
         }

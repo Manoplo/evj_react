@@ -146,7 +146,7 @@ const Subscriptions = () => {
     try {
       setLoading(true);
       await axios.post(
-        "http://elvestidordejulietta.test/api/v1/admin/newsletter/send",
+        "http://167.99.221.113/api/v1/admin/newsletter/send",
         data,
         {
           headers: adminHeader(),
@@ -163,7 +163,7 @@ const Subscriptions = () => {
     const fetchSubscriptions = async () => {
       try {
         const res = await axios.get(
-          "http://elvestidordejulietta.test/api/v1/admin/newsletter",
+          "http://167.99.221.113/api/v1/admin/newsletter",
           {
             headers: adminHeader(),
           }

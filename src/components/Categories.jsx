@@ -27,9 +27,7 @@ const Categories = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(
-        "http://elvestidordejulietta.test/api/v1/categories"
-      );
+      const result = await axios.get("http://167.99.221.113/api/v1/categories");
       setCategories(result.data);
     };
     fetchData();

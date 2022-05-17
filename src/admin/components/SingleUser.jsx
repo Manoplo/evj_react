@@ -395,7 +395,7 @@ const SingleUser = () => {
 
     try {
       const response = await axios.post(
-        "http://elvestidordejulietta.test/api/v1/admin/users/activate",
+        "http://167.99.221.113/api/v1/admin/users/activate",
         {
           id: userId,
           active: activeValue,
@@ -429,7 +429,7 @@ const SingleUser = () => {
     const fetchData = async () => {
       try {
         const response = await axios(
-          "http://elvestidordejulietta.test/api/v1/admin/users/" + userId,
+          "http://167.99.221.113/api/v1/admin/users/" + userId,
           {
             headers: adminHeader(),
           }
@@ -444,7 +444,7 @@ const SingleUser = () => {
     const fetchOrders = async () => {
       try {
         const response = await axios(
-          "http://elvestidordejulietta.test/api/v1/admin/orders/new/" + userId,
+          "http://167.99.221.113/api/v1/admin/orders/new/" + userId,
           {
             headers: adminHeader(),
           }

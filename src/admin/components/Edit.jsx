@@ -208,8 +208,7 @@ const Edit = () => {
       const postProduct = async () => {
         try {
           const response = await axios.post(
-            "http://elvestidordejulietta.test/api/v1/admin/products/update/" +
-              productId,
+            "http://167.99.221.113/api/v1/admin/products/update/" + productId,
             {
               ...product,
             },
@@ -267,7 +266,7 @@ const Edit = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          "http://elvestidordejulietta.test/api/v1/admin/products/" + productId,
+          "http://167.99.221.113/api/v1/admin/products/" + productId,
           {
             headers: adminHeader(),
           }
@@ -290,8 +289,7 @@ const Edit = () => {
     const postProduct = async () => {
       try {
         const response = await axios.post(
-          "http://elvestidordejulietta.test/api/v1/admin/products/update/" +
-            productId,
+          "http://167.99.221.113/api/v1/admin/products/update/" + productId,
           {
             ...product,
             image: imageUrl,

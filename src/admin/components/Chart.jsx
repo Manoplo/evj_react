@@ -32,7 +32,7 @@ const Chart = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://elvestidordejulietta.test/api/v1/admin/stats/yearly/${new Date().getFullYear()}`,
+          `http://167.99.221.113/api/v1/admin/stats/yearly/${new Date().getFullYear()}`,
           {
             headers: adminHeader(),
           }

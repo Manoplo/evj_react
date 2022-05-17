@@ -10,7 +10,7 @@ export const register = createAsyncThunk("auth/register", async({ name, lastname
 
     try {
 
-        const response = await axios.post("http://elvestidordejulietta.test/api/v1/user/register", {
+        const response = await axios.post("http://167.99.221.113/api/v1/user/register", {
             name,
             lastname,
             email,
@@ -30,7 +30,7 @@ export const register = createAsyncThunk("auth/register", async({ name, lastname
 export const login = createAsyncThunk("auth/login", async( { email, password }, {rejectWithValue} ) => {
    
     try {
-        const response = await axios.post("http://elvestidordejulietta.test/api/v1/user/login", {
+        const response = await axios.post("http://167.99.221.113/api/v1/user/login", {
             email,
             password
             });

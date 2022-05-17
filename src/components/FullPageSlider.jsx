@@ -58,7 +58,7 @@ const CookieBanner = styled.div`
   display: flex;
   position: fixed;
   bottom: 80px;
-  opacity: 0.5;
+
   background-color: white;
   left: ${(props) => (props.show ? "100px" : "-400px")};
   width: 300px;
@@ -126,7 +126,7 @@ const FullPageSlider = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios(
-          "http://elvestidordejulietta.test/api/v1/products/latest"
+          "http://167.99.221.113/api/v1/products/latest"
         );
         console.log(response.data);
         setProducts(response.data);
@@ -138,7 +138,7 @@ const FullPageSlider = () => {
     const fetchSliders = async () => {
       try {
         const response = await axios(
-          "http://elvestidordejulietta.test/api/v1/admin/sliders"
+          "http://167.99.221.113/api/v1/admin/sliders"
         );
         console.log(response.data);
         setSliders(response.data);

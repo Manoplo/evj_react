@@ -1,5 +1,5 @@
 import axios from   'axios';
-const API_URL = "http://elvestidordejulietta.test/api/v1/";
+const API_URL = "http://167.99.221.113/api/v1/";
 
 // Register Function
 const register = (name, lastname, email, password, confirmPassword) => {

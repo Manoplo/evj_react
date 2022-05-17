@@ -109,7 +109,7 @@ const SingleOrder = () => {
 
     try {
       const response = await axios.post(
-        `http://elvestidordejulietta.test/api/v1/admin/orders/status/${orderId}`,
+        `http://167.99.221.113/api/v1/admin/orders/status/${orderId}`,
         {
           status,
         },
@@ -127,7 +127,7 @@ const SingleOrder = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       const response = await axios(
-        "http://elvestidordejulietta.test/api/v1/admin/orders/" + orderId
+        "http://167.99.221.113/api/v1/admin/orders/" + orderId
       );
       console.log(response);
       setData(response.data);

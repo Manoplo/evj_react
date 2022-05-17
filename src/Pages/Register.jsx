@@ -128,14 +128,14 @@ const Register = () => {
             type="text"
             onChange={(e) => setUser({ ...user, name: e.target.value })}
           />
-          {errors.name ? <Error>El nombre es obligatorio.</Error> : null}
+          {errors?.name ? <Error>El nombre es obligatorio.</Error> : null}
           <Label>Introduce tus apellidos:</Label>
           <Input
             placeholder="apellidos"
             type="text"
             onChange={(e) => setUser({ ...user, lastname: e.target.value })}
           />
-          {errors.lastname ? (
+          {errors?.lastname ? (
             <Error>Al menos un apellido es obligatorio.</Error>
           ) : null}
           <Label>Introduce tu email de contacto:</Label>
@@ -144,7 +144,7 @@ const Register = () => {
             type="email"
             onChange={(e) => setUser({ ...user, email: e.target.value })}
           />
-          {errors.email ? (
+          {errors?.email ? (
             <Error>
               El email ya existe en nuestra base de datos o es inválido.
             </Error>
@@ -155,7 +155,7 @@ const Register = () => {
             type="password"
             onChange={(e) => setUser({ ...user, password: e.target.value })}
           />
-          {errors.password ? (
+          {errors?.password ? (
             <Error>La contraseña debe contener al menos 6 caracteres.</Error>
           ) : null}
           <Label>Confirma la contraseña:</Label>
@@ -166,7 +166,7 @@ const Register = () => {
               setUser({ ...user, confirmPassword: e.target.value })
             }
           />
-          {errors.confirmPassword ? (
+          {errors?.confirmPassword ? (
             <Error>Las contraseñas no coinciden.</Error>
           ) : null}
 

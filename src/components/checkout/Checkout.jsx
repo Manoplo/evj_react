@@ -19,7 +19,7 @@ const Checkout = () => {
     const getClientSecret = async () => {
       try {
         const response = await axios.post(
-          "http://elvestidordejulietta.test/api/v1/stripe/payment",
+          "http://167.99.221.113/api/v1/stripe/payment",
           {
             items: items,
           }

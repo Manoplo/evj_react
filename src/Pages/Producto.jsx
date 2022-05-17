@@ -300,7 +300,7 @@ const Producto = () => {
 
     try {
       const response = await axios.post(
-        "http://elvestidordejulietta.test/api/v1/whishlist",
+        "http://167.99.221.113/api/v1/whishlist",
         {
           product_id: id,
           user_id: user.user.id,

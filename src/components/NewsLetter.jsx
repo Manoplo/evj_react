@@ -76,7 +76,7 @@ const NewsLetter = () => {
     try {
       setMessage("Enviando...");
       const response = await axios.post(
-        "http://elvestidordejulietta.test/api/v1/newsletter",
+        "http://167.99.221.113/api/v1/newsletter",
         {
           email: email,
         }

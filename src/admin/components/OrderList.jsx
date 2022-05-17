@@ -171,7 +171,7 @@ const OrderList = () => {
     const fetchData = async () => {
       try {
         const response = await axios(
-          "http://elvestidordejulietta.test/api/v1/admin/orders/",
+          "http://167.99.221.113/api/v1/admin/orders/",
           {
             headers: adminHeader(),
           }

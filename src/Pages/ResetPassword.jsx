@@ -117,7 +117,7 @@ const ResetPassword = () => {
 
     try {
       const response = await axios.post(
-        "http://elvestidordejulietta.test/api/v1/password/reset",
+        "http://167.99.221.113/api/v1/password/reset",
         {
           code: code,
           password: password,

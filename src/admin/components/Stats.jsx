@@ -68,7 +68,7 @@ const Stats = () => {
     const fetchTopSold = async () => {
       try {
         const response = await axios.get(
-          "http://elvestidordejulietta.test/api/v1/admin/stats/top"
+          "http://167.99.221.113/api/v1/admin/stats/top"
         );
         console.log(response);
         setTopSold(response.data);
@@ -79,7 +79,7 @@ const Stats = () => {
     const fetchTopCategories = async () => {
       try {
         const response = await axios.get(
-          "http://elvestidordejulietta.test/api/v1/admin/stats/top-categories"
+          "http://167.99.221.113/api/v1/admin/stats/top-categories"
         );
         console.log(response);
         setTopCategories(response.data);
@@ -90,7 +90,7 @@ const Stats = () => {
     const fetchTopUsers = async () => {
       try {
         const response = await axios.get(
-          "http://elvestidordejulietta.test/api/v1/admin/stats/buyers"
+          "http://167.99.221.113/api/v1/admin/stats/buyers"
         );
         console.log(response);
         setTopUsers(response.data);
@@ -101,7 +101,7 @@ const Stats = () => {
     const fetchTopUusers = async () => {
       try {
         const response = await axios.get(
-          "http://elvestidordejulietta.test/api/v1/admin/stats/unregistered"
+          "http://167.99.221.113/api/v1/admin/stats/unregistered"
         );
         console.log(response);
         setTopUusers(response.data);

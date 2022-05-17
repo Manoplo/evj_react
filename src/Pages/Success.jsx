@@ -38,10 +38,7 @@ const Success = () => {
     // Si no existe el user auth en el localstorage, mandamos el objeto userInfo y se almacena en un endpoint para usuarios no registrados
     if (!user) {
       axios
-        .post(
-          "http://elvestidordejulietta.test/api/v1/orders/unregistered",
-          userInfo
-        )
+        .post("http://167.99.221.113/api/v1/orders/unregistered", userInfo)
         .then((res) => {
           console.log(res.data);
           localStorage.removeItem("userInfo");
@@ -55,7 +52,7 @@ const Success = () => {
         });
     } else {
       axios
-        .post("http://elvestidordejulietta.test/api/v1/orders", userInfo)
+        .post("http://167.99.221.113/api/v1/orders", userInfo)
         .then((res) => {
           console.log(res.data);
           localStorage.removeItem("userInfo");

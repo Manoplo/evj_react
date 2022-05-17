@@ -98,7 +98,7 @@ const Whishlist = () => {
         setIsLogged(true);
         try {
           const response = await axios(
-            `http://elvestidordejulietta.test/api/v1/whishlist/${user.user.id}`,
+            `http://167.99.221.113/api/v1/whishlist/${user.user.id}`,
             {
               headers: authHeader(),
             }
