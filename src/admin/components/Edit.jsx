@@ -416,8 +416,8 @@ const Edit = () => {
                 <option selected={product?.in_store} disabled="disabled">
                   Disponible en tienda
                 </option>
-                <option value="true">Si</option>
-                <option value="false">No</option>
+                <option value={1}>Si</option>
+                <option value={0}>No</option>
               </Select>
 
               <Button type="submit">
