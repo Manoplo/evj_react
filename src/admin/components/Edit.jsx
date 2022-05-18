@@ -122,6 +122,8 @@ const Input = styled.input`
   }
 `;
 
+const InStoreContainer = styled.div``;
+
 const Button = styled.button`
   background: lightpink;
   color: black;
@@ -198,7 +200,8 @@ const Edit = () => {
       !product.name ||
       !product.description ||
       !product.price ||
-      !product.category_id
+      !product.category_id ||
+      !product.in_store
     ) {
       toast.error("Por favor, rellena todos los campos");
       return;
@@ -407,14 +410,17 @@ const Edit = () => {
                   setProduct({ ...product, info: e.target.value })
                 }
               />
+              <InStoreContainer>
+                Disponible : {product?.in_store ? "Si" : "No"}
+              </InStoreContainer>
 
               <Select
                 onChange={(e) =>
                   setProduct({ ...product, in_store: e.target.value })
                 }
               >
-                <option selected={product?.in_store} disabled="disabled">
-                  Disponible en tienda
+                <option selected={true} disabled="disabled">
+                  Disponible
                 </option>
                 <option value={1}>Si</option>
                 <option value={0}>No</option>
