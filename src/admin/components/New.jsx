@@ -253,7 +253,7 @@ const New = () => {
     const postProduct = async () => {
       try {
         const response = await axios.post(
-          "http://167.99.221.113/api/v1/admin/products",
+          "https://www.elvestidordejuliettaapi.tk/api/v1/admin/products",
           {
             ...product,
             image: imageUrl,

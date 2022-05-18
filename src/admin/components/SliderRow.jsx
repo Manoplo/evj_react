@@ -262,7 +262,7 @@ const SliderRow = ({ id, title }) => {
       setLoading(true);
       axios
         .post(
-          "http://167.99.221.113/api/v1/admin/sliders",
+          "https://www.elvestidordejuliettaapi.tk/api/v1/admin/sliders",
           {
             ...slider,
           },
@@ -286,7 +286,7 @@ const SliderRow = ({ id, title }) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios(
-        "http://167.99.221.113/api/v1/admin/sliders/" + id
+        "https://www.elvestidordejuliettaapi.tk/api/v1/admin/sliders/" + id
       );
       console.log(response);
       setFetchedRow(response.data);

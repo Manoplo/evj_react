@@ -100,7 +100,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await axios.post(
-        "http://167.99.221.113/api/v1/password/email",
+        "https://www.elvestidordejuliettaapi.tk/api/v1/password/email",
         {
           email: email,
         }

@@ -114,7 +114,7 @@ const Category = () => {
     const fetchData = async () => {
       try {
         const result = await axios(
-          `http://167.99.221.113/api/v1/categories/${categorySlug}`
+          `https://www.elvestidordejuliettaapi.tk/api/v1/categories/${categorySlug}`
         );
         setProducts(result.data);
         setLoading(false);

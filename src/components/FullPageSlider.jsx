@@ -126,7 +126,7 @@ const FullPageSlider = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios(
-          "http://167.99.221.113/api/v1/products/latest"
+          "https://www.elvestidordejuliettaapi.tk/api/v1/products/latest"
         );
         console.log(response.data);
         setProducts(response.data);
@@ -138,7 +138,7 @@ const FullPageSlider = () => {
     const fetchSliders = async () => {
       try {
         const response = await axios(
-          "http://167.99.221.113/api/v1/admin/sliders"
+          "https://elvestidordejuliettaapi.tk/api/v1/admin/sliders"
         );
         console.log(response.data);
         setSliders(response.data);

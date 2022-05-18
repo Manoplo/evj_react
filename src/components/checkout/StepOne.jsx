@@ -133,7 +133,7 @@ const StepOne = (props) => {
     setIsChecked(!isChecked);
     if (isChecked) {
       const response = await axios(
-        `http://167.99.221.113/api/v1/details/all/${auth.user.user.id}`,
+        `https://www.elvestidordejuliettaapi.tk/api/v1/details/all/${auth.user.user.id}`,
         {
           headers: authHeader(),
         }

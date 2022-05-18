@@ -76,7 +76,7 @@ const CategoryAdmin = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          `http://167.99.221.113/api/v1/categories/${categorySlug}`
+          `https://www.elvestidordejuliettaapi.tk/api/v1/categories/${categorySlug}`
         );
         console.log(response);
         setProducts(response.data);

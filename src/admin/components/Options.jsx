@@ -117,7 +117,7 @@ const Options = () => {
 
     try {
       const response = await axios.post(
-        "http://167.99.221.113/api/v1/admin/password",
+        "https://www.elvestidordejuliettaapi.tk/api/v1/admin/password",
         {
           id: admin?.admin?.id,
           password: newPassword,
@@ -155,7 +155,7 @@ const Options = () => {
 
     try {
       const response = await axios.post(
-        "http://167.99.221.113/api/v1/admin/create",
+        "https://www.elvestidordejuliettaapi.tk/api/v1/admin/create",
         {
           email: adminEmail,
           password: adminPassword,

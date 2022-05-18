@@ -208,7 +208,8 @@ const Edit = () => {
       const postProduct = async () => {
         try {
           const response = await axios.post(
-            "http://167.99.221.113/api/v1/admin/products/update/" + productId,
+            "https://www.elvestidordejuliettaapi.tk/api/v1/admin/products/update/" +
+              productId,
             {
               ...product,
             },
@@ -266,7 +267,8 @@ const Edit = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          "http://167.99.221.113/api/v1/admin/products/" + productId,
+          "https://www.elvestidordejuliettaapi.tk/api/v1/admin/products/" +
+            productId,
           {
             headers: adminHeader(),
           }
@@ -289,7 +291,8 @@ const Edit = () => {
     const postProduct = async () => {
       try {
         const response = await axios.post(
-          "http://167.99.221.113/api/v1/admin/products/update/" + productId,
+          "https://www.elvestidordejuliettaapi.tk/api/v1/admin/products/update/" +
+            productId,
           {
             ...product,
             image: imageUrl,
@@ -404,6 +407,18 @@ const Edit = () => {
                   setProduct({ ...product, info: e.target.value })
                 }
               />
+
+              <Select
+                onChange={(e) =>
+                  setProduct({ ...product, in_store: e.target.value })
+                }
+              >
+                <option selected={product?.in_store} disabled="disabled">
+                  Disponible en tienda
+                </option>
+                <option value="true">Si</option>
+                <option value="false">No</option>
+              </Select>
 
               <Button type="submit">
                 EDITAR ARTÍCULO

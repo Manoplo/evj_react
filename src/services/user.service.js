@@ -1,6 +1,6 @@
 import axios from "axios";
 import authHeader from "./auth-header";
-const API_URL = "http://167.99.221.113/api/v1/";
+const API_URL = "https://www.elvestidordejuliettaapi.tk/api/v1/";
 
 // Retrieve user´s profile data
 

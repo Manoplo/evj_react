@@ -105,7 +105,7 @@ const UusersList = () => {
     const fetchData = async () => {
       try {
         const response = await axios(
-          "http://167.99.221.113/api/v1/admin/unregistered",
+          "https://www.elvestidordejuliettaapi.tk/api/v1/admin/unregistered",
           {
             headers: adminHeader(),
           }

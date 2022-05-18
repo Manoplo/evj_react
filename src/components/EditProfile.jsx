@@ -142,7 +142,7 @@ const EditProfile = (props) => {
     const fetchDetails = async () => {
       try {
         const response = await axios.get(
-          `http://167.99.221.113/api/v1/details/${user.user.id}`,
+          `https://www.elvestidordejuliettaapi.tk/api/v1/details/${user.user.id}`,
           {
             headers: authHeader(),
           }
@@ -187,7 +187,7 @@ const EditProfile = (props) => {
 
     try {
       const response = await axios.post(
-        "http://167.99.221.113/api/v1/password/change",
+        "https://www.elvestidordejuliettaapi.tk/api/v1/password/change",
         {
           id: user?.user?.id,
           password: password,
@@ -241,7 +241,7 @@ const EditProfile = (props) => {
           details: userDetails,
         };
         const response = await axios.post(
-          "http://167.99.221.113/api/v1/details/",
+          "https://www.elvestidordejuliettaapi.tk/api/v1/details/",
           data,
           {
             headers: authHeader(),

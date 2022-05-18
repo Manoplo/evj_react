@@ -101,7 +101,7 @@ const Dashboard = () => {
     const fetchWidgets = async () => {
       try {
         const response = await axios(
-          "http://167.99.221.113/api/v1/admin/stats/widgets",
+          "https://www.elvestidordejuliettaapi.tk/api/v1/admin/stats/widgets",
           {
             headers: adminHeader(),
           }

@@ -10,7 +10,7 @@ const admin = JSON.parse(sessionStorage.getItem("admin"));
 export const login = createAsyncThunk("admin/login", async( { email, password }, {rejectWithValue} ) => {
    
     try {
-        const response = await axios.post("http://167.99.221.113/api/v1/admin/login", {
+        const response = await axios.post("https://www.elvestidordejuliettaapi.tk/api/v1/admin/login", {
             email,
             password
             });

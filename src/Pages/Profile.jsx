@@ -73,7 +73,7 @@ const Profile = () => {
     const fetchDetails = async () => {
       try {
         const response = await axios.get(
-          `http://167.99.221.113/api/v1/details/${user.user.id}`,
+          `https://www.elvestidordejuliettaapi.tk/api/v1/details/${user.user.id}`,
           {
             headers: authHeader(),
           }
@@ -90,7 +90,7 @@ const Profile = () => {
     const fetchOrders = async () => {
       try {
         const response = await axios.get(
-          `http://167.99.221.113/api/v1/orders/${user.user.id}`,
+          `https://www.elvestidordejuliettaapi.tk/api/v1/orders/${user.user.id}`,
           {
             headers: authHeader(),
           }
@@ -363,7 +363,7 @@ const UserOrders = (props) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `http://167.99.221.113/api/v1/orders/cancel/${id}`,
+        `https://www.elvestidordejuliettaapi.tk/api/v1/orders/cancel/${id}`,
         {
           headers: authHeader(),
         }

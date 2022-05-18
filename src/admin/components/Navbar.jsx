@@ -108,7 +108,8 @@ const Navbar = () => {
     const fetchNotifications = async () => {
       try {
         const response = await axios(
-          "http://167.99.221.113/api/v1/admin/notifications/" + admin.admin.id
+          "https://www.elvestidordejuliettaapi.tk/api/v1/admin/notifications/" +
+            admin.admin.id
         );
         console.log(response);
         setNotifications(response.data);
@@ -129,7 +130,7 @@ const Navbar = () => {
   const markAsReadAndNavigate = async (notification) => {
     try {
       const response = await axios.post(
-        "http://167.99.221.113/api/v1/admin/notifications/mark",
+        "https://www.elvestidordejuliettaapi.tk/api/v1/admin/notifications/mark",
         {
           admin_id: admin.admin.id,
           id: notification.id,
@@ -166,7 +167,7 @@ const Navbar = () => {
               {filterUnreadNotifications().map((notification) => {
                 return (
                   <>
-                    <NotificationRow>
+                    <NotificationRow key={notification?.id}>
                       <NotificationSpan
                         onClick={() => markAsReadAndNavigate(notification)}
                       >

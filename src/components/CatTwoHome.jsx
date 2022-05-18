@@ -27,7 +27,9 @@ const CatTwoHome = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("http://167.99.221.113/api/v1/categories");
+      const result = await axios.get(
+        "https://www.elvestidordejuliettaapi.tk/api/v1/categories"
+      );
       setCategories(result.data);
     };
     fetchData();
