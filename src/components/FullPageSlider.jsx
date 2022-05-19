@@ -67,7 +67,12 @@ const CookieBanner = styled.div`
   z-index: 999;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   transition: all 0.5s ease-in-out;
-  ${mobile({ left: "15px", width: "90vw" })}
+  /*  ${mobile({ left: "15px", width: "90vw" })} */
+
+  @media (max-width: 768px) {
+    left: ${(props) => (props.show ? "15px" : "-400px")};
+    width: 90vw;
+  }
 `;
 
 const CookieWrapper = styled.div`
