@@ -336,7 +336,7 @@ const Producto = () => {
       <Wrapper>
         <ImgContainer>
           <InnerImageZoom
-            zoomScale={1.5}
+            zoomScale={1.1}
             src={product?.image}
             className="zoomed_image"
           />

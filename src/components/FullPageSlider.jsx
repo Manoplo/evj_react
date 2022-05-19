@@ -60,18 +60,16 @@ const CookieBanner = styled.div`
   bottom: 80px;
 
   background-color: white;
-  left: ${(props) => (props.show ? "100px" : "-400px")};
+  left: ${(props) => (props.show ? "100px" : "-1000px")};
   width: 300px;
   height: 340px;
   border: 3px solid black;
   z-index: 999;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   transition: all 0.5s ease-in-out;
-  /*  ${mobile({ left: "15px", width: "90vw" })} */
 
   @media (max-width: 768px) {
-    left: ${(props) => (props.show ? "15px" : "-400px")};
-    width: 90vw;
+    left: ${(props) => (props.show ? "30px" : "-4000px")};
   }
 `;
 
@@ -161,10 +159,10 @@ const FullPageSlider = () => {
         return;
       }
       setShowCookies(true);
-    }, 10000);
+    }, 5000);
   }, []);
 
-  const handleCookie = () => {
+  const handleCookie = (e) => {
     setShowCookies(false);
     localStorage.setItem("cookies", "accepted");
   };
@@ -195,6 +193,7 @@ const FullPageSlider = () => {
           <CookieButton onClick={() => handleCookie()}>Aceptar</CookieButton>
         </CookieWrapper>
       </CookieBanner>
+
       <ReactFullpage
         licenseKey="YOUR_KEY_HERE"
         scrollingSpeed={1200}

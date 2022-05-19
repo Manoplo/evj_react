@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 
@@ -59,15 +59,18 @@ const Button = styled.button`
 `;
 
 const CategoryItem = ({ item }) => {
+  const navigate = useNavigate();
   return (
     <Container>
       <Image src={item.image} />
       <Info>
         <Title>{item.name}</Title>
 
-        <Link to={`/categorias/${item.slug}`}>
-          <Button>VER AHORA</Button>
-        </Link>
+        {/* <Link to={`/categorias/${item.slug}`}> */}
+        <Button onClick={() => navigate(`/categorias/${item.slug}`)}>
+          VER AHORA
+        </Button>
+        {/* </Link> */}
       </Info>
     </Container>
   );
