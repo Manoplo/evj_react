@@ -354,17 +354,19 @@ const Producto = () => {
           </Title>
           <Desc>{product?.description}</Desc>
           <Price>{total.toFixed(2)}€</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>Talla</FilterTitle>
-              <FilterSize value={size} onChange={handleSelectChange}>
-                <FilterSizeOption value={"S"}>S</FilterSizeOption>
-                <FilterSizeOption value={"M"}>M</FilterSizeOption>
-                <FilterSizeOption value={"L"}>L</FilterSizeOption>
-                <FilterSizeOption value={"XL"}>XL</FilterSizeOption>
-              </FilterSize>
-            </Filter>
-          </FilterContainer>
+          {categorySlug !== "accesorios" && (
+            <FilterContainer>
+              <Filter>
+                <FilterTitle>Talla</FilterTitle>
+                <FilterSize value={size} onChange={handleSelectChange}>
+                  <FilterSizeOption value={"S"}>S</FilterSizeOption>
+                  <FilterSizeOption value={"M"}>M</FilterSizeOption>
+                  <FilterSizeOption value={"L"}>L</FilterSizeOption>
+                  <FilterSizeOption value={"XL"}>XL</FilterSizeOption>
+                </FilterSize>
+              </Filter>
+            </FilterContainer>
+          )}
 
           <AddContainer>
             <AmountContainer>
