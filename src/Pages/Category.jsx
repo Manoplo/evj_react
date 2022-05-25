@@ -138,7 +138,7 @@ const Category = () => {
       case "oldest":
         setProducts(products.sort((a, b) => a.id - b.id));
         break;
-      case "cheapest":
+      case "cheap":
         setProducts(products.sort((a, b) => a.price - b.price));
         break;
       case "expensive":
