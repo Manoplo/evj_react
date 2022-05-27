@@ -91,6 +91,23 @@ const StepOne = (props) => {
   const auth = useSelector((state) => state.auth);
   console.log(userInfo);
 
+  useEffect(() => {
+    if (userInfo) {
+      setUser({
+        name: userInfo?.user?.name,
+        surname: userInfo?.user?.surname,
+        email: userInfo?.user?.email,
+      });
+      setShipping({
+        address: userInfo?.shipping?.address,
+        province: userInfo?.shipping?.province,
+        town: userInfo?.shipping?.town,
+        cp: userInfo?.shipping?.cp,
+        phone: userInfo?.shipping?.phone,
+      });
+    }
+  }, []);
+
   const handleOrderInformation = () => {
     if (
       user.name &&
