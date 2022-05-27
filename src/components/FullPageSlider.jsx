@@ -208,7 +208,10 @@ const FullPageSlider = () => {
                   <SliderWrapper>
                     <Tooltip>{sliders[0]?.title}</Tooltip>
                     <Link to={`/categorias/${sliders[0]?.category}`}>
-                      <Image src={sliders[0]?.first_image} />
+                      <Image
+                        src={sliders[0]?.first_image}
+                        alt="slider imagen 0-1"
+                      />
                     </Link>
                     <Tooltip>{sliders[0]?.title}</Tooltip>
                   </SliderWrapper>
@@ -217,7 +220,10 @@ const FullPageSlider = () => {
                   <SliderWrapper>
                     <Tooltip>{sliders[0]?.title}</Tooltip>
                     <Link to={`/categorias/${sliders[0]?.category}`}>
-                      <Image src={sliders[0]?.second_image} />
+                      <Image
+                        src={sliders[0]?.second_image}
+                        alt="slider imagen 0-2"
+                      />
                     </Link>
                     <Tooltip>{sliders[0]?.title}</Tooltip>
                   </SliderWrapper>
@@ -226,7 +232,10 @@ const FullPageSlider = () => {
                   <SliderWrapper>
                     <Tooltip>{sliders[0]?.title}</Tooltip>
                     <Link to={`/categorias/${sliders[0]?.category}`}>
-                      <Image src={sliders[0]?.third_image} />
+                      <Image
+                        src={sliders[0]?.third_image}
+                        alt="slider imagen 0-3"
+                      />
                     </Link>
                     <Tooltip>{sliders[0]?.title}</Tooltip>
                   </SliderWrapper>
@@ -237,7 +246,10 @@ const FullPageSlider = () => {
                   <SliderWrapper>
                     <Tooltip>{sliders[1]?.title}</Tooltip>
                     <Link to={`/categorias/${sliders[1]?.category}`}>
-                      <Image src={sliders[1]?.first_image} />
+                      <Image
+                        src={sliders[1]?.first_image}
+                        alt="slider imagen 1-1"
+                      />
                     </Link>
                     <Tooltip>{sliders[1]?.title}</Tooltip>{" "}
                   </SliderWrapper>
@@ -246,7 +258,10 @@ const FullPageSlider = () => {
                   <SliderWrapper>
                     <Tooltip>{sliders[1]?.title}</Tooltip>{" "}
                     <Link to={`/categorias/${sliders[1]?.category}`}>
-                      <Image src={sliders[1]?.second_image} />
+                      <Image
+                        src={sliders[1]?.second_image}
+                        alt="slider imagen 1-2"
+                      />
                     </Link>
                     <Tooltip>{sliders[1]?.title}</Tooltip>{" "}
                   </SliderWrapper>
@@ -255,7 +270,10 @@ const FullPageSlider = () => {
                   <SliderWrapper>
                     <Tooltip>{sliders[1]?.title}</Tooltip>{" "}
                     <Link to={`/categorias/${sliders[1]?.category}`}>
-                      <Image src={sliders[1]?.third_image} />
+                      <Image
+                        src={sliders[1]?.third_image}
+                        alt="slider imagen 1-3"
+                      />
                     </Link>
                     <Tooltip>{sliders[1]?.title}</Tooltip>{" "}
                   </SliderWrapper>
@@ -266,7 +284,10 @@ const FullPageSlider = () => {
                   <SliderWrapper>
                     <Tooltip>{sliders[2]?.title}</Tooltip>
                     <Link to={`/categorias/${sliders[2]?.category}`}>
-                      <Image src={sliders[2]?.first_image} />
+                      <Image
+                        src={sliders[2]?.first_image}
+                        alt="slider imagen 2-1"
+                      />
                     </Link>
                     <Tooltip>{sliders[2]?.title}</Tooltip>{" "}
                   </SliderWrapper>
@@ -275,7 +296,10 @@ const FullPageSlider = () => {
                   <SliderWrapper>
                     <Tooltip>{sliders[2]?.title}</Tooltip>{" "}
                     <Link to={`/categorias/${sliders[2]?.category}`}>
-                      <Image src={sliders[2]?.second_image} />
+                      <Image
+                        src={sliders[2]?.second_image}
+                        alt="slider imagen 2-2"
+                      />
                     </Link>
                     <Tooltip>{sliders[2]?.title}</Tooltip>{" "}
                   </SliderWrapper>
@@ -284,7 +308,10 @@ const FullPageSlider = () => {
                   <SliderWrapper>
                     <Tooltip>{sliders[2]?.title}</Tooltip>{" "}
                     <Link to={`/categorias/${sliders[2]?.category}`}>
-                      <Image src={sliders[2]?.third_image} />
+                      <Image
+                        src={sliders[2]?.third_image}
+                        alt="slider imagen 2-3"
+                      />
                     </Link>
                     <Tooltip>{sliders[2]?.title}</Tooltip>{" "}
                   </SliderWrapper>

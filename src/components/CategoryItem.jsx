@@ -62,7 +62,7 @@ const CategoryItem = ({ item }) => {
   const navigate = useNavigate();
   return (
     <Container>
-      <Image src={item.image} />
+      <Image src={item.image} alt={item.name} />
       <Info>
         <Title>{item.name}</Title>
 

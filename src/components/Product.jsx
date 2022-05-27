@@ -83,7 +83,7 @@ const Product = ({ item }) => {
 
   return (
     <Container>
-      <Image src={item.image} />
+      <Image src={item.image} alt={item.name} />
       <Info>
         <Icon>
           <Link to="/cart">
